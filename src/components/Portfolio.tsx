@@ -8,9 +8,6 @@ import CategoryFilter from './portfolio/CategoryFilter';
 import ProjectsGrid from './portfolio/ProjectsGrid';
 import { ProjectProps } from './portfolio/cards/ProjectCard';
 import { placeholderImages } from '../utils/imageUtils';
-import ProjectStats from './portfolio/ProjectStats';
-import FeaturedProjects from './portfolio/FeaturedProjects';
-import { projectsData } from '../data/portfolioData';
 
 const categories = ['All', 'Web Design', 'Branding', 'Mobile Apps', 'UI/UX'];
 
@@ -77,14 +74,6 @@ export default function Portfolio() {
   const visibleProjects = filteredProjects.slice(0, displayCount);
   const hasMoreProjects = visibleProjects.length < filteredProjects.length;
 
-  // Get the unique categories to showcase
-  const subcategories = [...new Set(projects.map(project => project.category))];
-  
-  // Calculate project statistics for display
-  const totalProjects = projects.length;
-  const uniqueCategories = subcategories.length;
-  const featuredProjects = projects.filter(p => p.id <= 3).length;
-
   const loadMore = () => {
     setDisplayCount(prev => Math.min(prev + 2, filteredProjects.length));
   };
@@ -102,45 +91,6 @@ export default function Portfolio() {
           subtitle="Our Work"
           description="Explore our portfolio of successful projects that showcase our expertise
           and creative approach to digital challenges."
-        />
-        
-        {/* Featured Project Categories */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-          {subcategories.slice(0, 4).map((category, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.1 }}
-              className="relative overflow-hidden rounded-xl group cursor-pointer"
-              onClick={() => setActiveCategory(category)}
-            >
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10"></div>
-              <div className="w-full h-32 bg-drew-gray-dark overflow-hidden">
-                <motion.img 
-                  src={projects.find(p => p.category === category)?.image || '/placeholder.svg'} 
-                  alt={category}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-              </div>
-              <div className="absolute bottom-0 left-0 p-4 z-20">
-                <h3 className="text-white font-medium">{category}</h3>
-                <p className="text-xs text-gray-300">
-                  {projects.filter(p => p.category === category).length} projects
-                </p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-        
-        {/* Project Stats Section */}
-        <ProjectStats 
-          stats={[
-            { icon: <ArrowRight size={24} className="text-drew-purple" />, value: totalProjects, label: "Total Projects" },
-            { icon: <Star size={24} className="text-amber-500" />, value: uniqueCategories, label: "Categories" },
-            { icon: <Users size={24} className="text-blue-500" />, value: "98%", label: "Client Satisfaction" },
-            { icon: <Award size={24} className="text-rose-500" />, value: featuredProjects, label: "Featured Work" },
-          ]}
         />
         
         <CategoryFilter 
@@ -168,9 +118,6 @@ export default function Portfolio() {
             </motion.button>
           </div>
         )}
-        
-        {/* Featured Projects Section */}
-        <FeaturedProjects projects={projectsData.slice(0, 3)} />
         
         <div className="text-center mt-16">
           <Link to="/portfolio">
