@@ -7,6 +7,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ServiceHeader from '../components/services/ServiceHeader';
 import ServicesGrid from '../components/services/ServicesGrid';
+import Breadcrumb from '../components/Breadcrumb';
 import { ServiceProps } from '../components/services/ServiceCard';
 
 // Services data for the services page
@@ -50,12 +51,21 @@ const ServicesPage = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  // Breadcrumb items
+  const breadcrumbItems = [
+    { label: 'Home', path: '/' },
+    { label: 'Services', path: '/services', active: true },
+  ];
+
   return (
     <div className="min-h-screen bg-drew-black text-white">
       <Navbar />
       
       <main className="pt-32 pb-24">
         <div className="container mx-auto px-4 md:px-6">
+          {/* Breadcrumb navigation */}
+          <Breadcrumb items={breadcrumbItems} className="mb-8" />
+          
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
