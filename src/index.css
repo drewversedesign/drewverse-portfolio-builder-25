@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -108,7 +109,16 @@
     @apply backdrop-blur-2xl bg-black/40 border border-white/10;
   }
   
-  /* New futuristic classes */
+  /* Pinterest-style masonry grid */
+  .masonry-grid {
+    @apply columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-6 space-y-0;
+  }
+  
+  .masonry-item {
+    @apply break-inside-avoid inline-block w-full transform transition-transform hover:z-10;
+  }
+  
+  /* Existing futuristic classes */
   .cyber-border {
     @apply border border-drew-purple/50 relative before:content-[''] before:absolute before:inset-0 before:p-[1px] before:bg-gradient-to-r before:from-drew-purple before:to-amber-400 before:rounded-md before:mask-border; /* Changed from blue-400 to amber-400 */
   }

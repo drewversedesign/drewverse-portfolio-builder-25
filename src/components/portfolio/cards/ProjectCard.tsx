@@ -30,7 +30,12 @@ const ProjectCard = ({ project, isHovered, onMouseEnter, onMouseLeave }: Project
   const titleZ = useTransform(z, [0, 50], [0, 60]);
   const categoryZ = useTransform(z, [0, 50], [0, 45]);
   const descriptionZ = useTransform(z, [0, 50], [0, 25]);
-  const linkZ = useTransform(z, [0, 50], [0, 40]);
+  
+  // Random height for masonry effect - based on project ID
+  const getRandomHeight = () => {
+    const heights = ['400px', '350px', '450px', '380px', '420px'];
+    return heights[project.id % heights.length];
+  };
   
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!isHovered || isFlipped) return;
@@ -43,12 +48,12 @@ const ProjectCard = ({ project, isHovered, onMouseEnter, onMouseLeave }: Project
     const mouseX = e.clientX - cardCenterX;
     const mouseY = e.clientY - cardCenterY;
     
-    const rotX = (mouseY / (rect.height / 2)) * -5;
-    const rotY = (mouseX / (rect.width / 2)) * 5;
+    const rotX = (mouseY / (rect.height / 2)) * -3;
+    const rotY = (mouseX / (rect.width / 2)) * 3;
     
     rotateX.set(rotX);
     rotateY.set(rotY);
-    z.set(50);
+    z.set(30);
   };
   
   const handleMouseLeave = () => {
@@ -75,7 +80,8 @@ const ProjectCard = ({ project, isHovered, onMouseEnter, onMouseLeave }: Project
       }}
       onMouseMove={handleMouseMove}
       onClick={() => !isFlipped && setIsFlipped(true)}
-      className="relative h-[400px] cursor-pointer transform-style-3d"
+      className="relative cursor-pointer transform-style-3d"
+      style={{ height: getRandomHeight() }}
     >
       {/* Front card */}
       <motion.div 
@@ -104,7 +110,7 @@ const ProjectCard = ({ project, isHovered, onMouseEnter, onMouseLeave }: Project
 
       {/* Back of card */}
       <motion.div 
-        className="absolute w-full h-full rounded-xl backface-hidden bg-drew-black/90 p-8 flex flex-col justify-between border border-drew-purple/30"
+        className="absolute w-full h-full rounded-xl backface-hidden bg-drew-black/90 p-6 flex flex-col justify-between border border-drew-purple/30"
         animate={{ 
           rotateY: isFlipped ? 0 : -180,
         }}
@@ -123,7 +129,7 @@ const ProjectCard = ({ project, isHovered, onMouseEnter, onMouseLeave }: Project
       
       {/* Project number badge */}
       <motion.div 
-        className="absolute top-4 right-4 w-12 h-12 rounded-full bg-drew-purple flex items-center justify-center z-20"
+        className="absolute top-3 right-3 w-8 h-8 rounded-full bg-drew-purple flex items-center justify-center z-20"
         animate={{ 
           scale: isHovered ? [1, 1.1, 1] : 1,
           z: isHovered ? 30 : 0,
@@ -135,7 +141,7 @@ const ProjectCard = ({ project, isHovered, onMouseEnter, onMouseLeave }: Project
           repeatType: "reverse" 
         }}
       >
-        <span className="text-white font-medium">{project.id}</span>
+        <span className="text-white text-xs font-medium">{project.id}</span>
       </motion.div>
     </motion.div>
   );
