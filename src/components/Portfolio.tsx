@@ -6,7 +6,6 @@ import { ArrowRight, Plus, Zap, Star, Users, Award } from 'lucide-react';
 import PortfolioHeader from './portfolio/PortfolioHeader';
 import CategoryFilter from './portfolio/CategoryFilter';
 import ProjectsGrid from './portfolio/ProjectsGrid';
-import ProjectStats from './portfolio/ProjectStats';
 import ClientReviews from './portfolio/masonry/ClientReviews';
 import ProjectCallToAction from './portfolio/masonry/ProjectCallToAction';
 import { projectsData, portfolioCategories } from '../data/portfolioData';
@@ -24,11 +23,6 @@ export default function Portfolio() {
 
   const visibleProjects = filteredProjects.slice(0, displayCount);
   const hasMoreProjects = visibleProjects.length < filteredProjects.length;
-
-  // Calculate project statistics
-  const totalProjects = projectsData.length;
-  const uniqueCategories = [...new Set(projectsData.map(p => p.category))].length;
-  const featuredProjects = projectsData.filter(p => p.id <= 5).length;
 
   useEffect(() => {
     setIsLoading(true);
@@ -85,18 +79,6 @@ export default function Portfolio() {
           description="Explore our portfolio of successful projects that showcase our expertise
           and creative approach to digital challenges."
         />
-        
-        {/* Project Statistics */}
-        <div className="mb-10">
-          <ProjectStats 
-            stats={[
-              { icon: <Zap size={24} className="text-drew-purple" />, value: totalProjects, label: "Total Projects" },
-              { icon: <Star size={24} className="text-amber-500" />, value: uniqueCategories, label: "Categories" },
-              { icon: <Users size={24} className="text-blue-500" />, value: "98%", label: "Client Satisfaction" },
-              { icon: <Award size={24} className="text-rose-500" />, value: featuredProjects, label: "Featured Work" },
-            ]}
-          />
-        </div>
         
         <CategoryFilter 
           categories={portfolioCategories}
