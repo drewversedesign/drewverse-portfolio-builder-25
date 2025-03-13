@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
@@ -13,7 +12,6 @@ import ProjectOverview from '../components/portfolio/detail/ProjectOverview';
 import ProjectDetails from '../components/portfolio/detail/ProjectDetails';
 import ProjectNavigation from '../components/portfolio/detail/ProjectNavigation';
 import RelatedProjects from '../components/portfolio/detail/RelatedProjects';
-import ProjectNotFound from '../components/portfolio/detail/ProjectNotFound';
 import LoadingSpinner from '../components/portfolio/detail/LoadingSpinner';
 
 const PortfolioDetail = () => {
@@ -29,7 +27,10 @@ const PortfolioDetail = () => {
     
     // Find the project by ID or slug
     const findProject = () => {
-      if (!id) return null;
+      if (!id) {
+        navigate('/portfolio');
+        return null;
+      }
       
       // First try to find by exact slug match
       const projectBySlug = projectsData.find(p => {
@@ -43,9 +44,12 @@ const PortfolioDetail = () => {
       // If no match by slug, try numeric ID (fallback)
       if (!isNaN(parseInt(id))) {
         const numId = parseInt(id);
-        return projectsData.find(p => p.id === numId);
+        const projectById = projectsData.find(p => p.id === numId);
+        if (projectById) return projectById;
       }
       
+      // If no project found, redirect to the portfolio page
+      navigate('/portfolio');
       return null;
     };
     
@@ -61,19 +65,12 @@ const PortfolioDetail = () => {
       setRelatedProjects(related);
       
       console.log('Project found:', foundProject.title);
-    } else {
-      console.log('Project not found. Current id parameter:', id);
-      console.log('Available slugs:', projectsData.map(p => p.link.split('/').pop()));
-      
-      toast.error("Project not found", {
-        description: "The project you're looking for doesn't exist or has been removed.",
-      });
-    }
+    } 
     
     setTimeout(() => {
       setIsLoading(false);
     }, 500);
-  }, [id]);
+  }, [id, navigate]);
 
   const handlePrevProject = () => {
     if (!project) return;
@@ -125,7 +122,15 @@ const PortfolioDetail = () => {
               <RelatedProjects projects={relatedProjects} />
             </>
           ) : (
-            <ProjectNotFound />
+            // This will not be rendered because we redirect to /portfolio
+            // when no project is found, but keeping it as a fallback
+            <div className="py-16 text-center">
+              <div className="animate-pulse flex flex-col items-center justify-center">
+                <div className="w-24 h-24 mb-6 rounded-full bg-drew-purple/20"></div>
+                <div className="h-8 w-64 bg-drew-purple/20 rounded mb-4"></div>
+                <div className="h-4 w-48 bg-drew-purple/10 rounded"></div>
+              </div>
+            </div>
           )}
         </div>
       </main>
