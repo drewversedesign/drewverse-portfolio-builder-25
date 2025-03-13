@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -74,7 +73,15 @@
   }
 
   body {
-    @apply bg-drew-black text-foreground antialiased overflow-x-hidden;
+    @apply bg-drew-black text-foreground antialiased overflow-x-hidden font-sans;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-wider;
+  }
+
+  code, pre, .tech-value {
+    @apply font-mono;
   }
 
   .glass-card {

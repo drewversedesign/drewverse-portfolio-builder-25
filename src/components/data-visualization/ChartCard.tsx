@@ -41,11 +41,11 @@ const ChartCard = ({ title, value, increase, children, icon: Icon }: ChartCardPr
       
       <div className="flex justify-between items-start mb-4">
         <div>
-          <h3 className="text-gray-400 text-sm">{title}</h3>
+          <h3 className="text-gray-400 text-sm font-mono uppercase tracking-wider">{title}</h3>
           <div className="flex items-baseline mt-1">
-            <span className="text-2xl font-bold mr-2">{value}</span>
+            <span className="text-2xl font-display font-bold mr-2 tracking-wider">{value}</span>
             {increase && (
-              <span className="text-green-400 text-xs flex items-center">
+              <span className="text-green-400 text-xs flex items-center font-mono">
                 +{increase}% <ArrowUpRight size={14} className="ml-0.5" />
               </span>
             )}
