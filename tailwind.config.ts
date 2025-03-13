@@ -69,8 +69,8 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				drew: {
-					purple: '#8B5CF6',
-					'dark-purple': '#4C1D95',
+					purple: '#F97316', // Changed from #8B5CF6 to orange
+					'dark-purple': '#C2410C', // Changed from #4C1D95 to dark orange
 					black: '#0F0F0F',
 					'gray-dark': '#1A1A1A',
 					'gray-light': '#F5F5F5',

@@ -26,7 +26,7 @@ const ChartCard = ({ title, value, increase, children, icon: Icon }: ChartCardPr
         transformStyle: "preserve-3d",
         transform: isHovered ? "translateY(-5px)" : "translateY(0px)",
         boxShadow: isHovered 
-          ? "0 15px 30px rgba(139, 92, 246, 0.1), 0 5px 15px rgba(0, 0, 0, 0.12)" 
+          ? "0 15px 30px rgba(249, 115, 22, 0.1), 0 5px 15px rgba(0, 0, 0, 0.12)" 
           : "0 4px 6px rgba(0, 0, 0, 0.1)"
       }}
       onMouseEnter={() => setIsHovered(true)}

@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,7 +11,7 @@
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
-    --primary: 270 95% 65%;
+    --primary: 24 95% 53%; /* Changed from 270 95% 65% (purple) to orange */
     --primary-foreground: 0 0% 98%;
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
@@ -22,7 +23,7 @@
     --destructive-foreground: 0 0% 98%;
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
-    --ring: 270 95% 65%;
+    --ring: 24 95% 53%; /* Changed from 270 95% 65% (purple) to orange */
     --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
@@ -42,7 +43,7 @@
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
-    --primary: 270 95% 65%;
+    --primary: 24 95% 53%; /* Changed from 270 95% 65% (purple) to orange */
     --primary-foreground: 0 0% 98%;
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
@@ -54,7 +55,7 @@
     --destructive-foreground: 0 0% 98%;
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
-    --ring: 270 95% 65%;
+    --ring: 24 95% 53%; /* Changed from 270 95% 65% (purple) to orange */
 
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
@@ -89,7 +90,7 @@
   }
 
   .text-gradient {
-    @apply bg-gradient-to-r from-drew-purple to-blue-400 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-drew-purple to-amber-400 bg-clip-text text-transparent; /* Changed from blue-400 to amber-400 */
   }
 
   .story-link {
@@ -110,7 +111,7 @@
   
   /* New futuristic classes */
   .cyber-border {
-    @apply border border-drew-purple/50 relative before:content-[''] before:absolute before:inset-0 before:p-[1px] before:bg-gradient-to-r before:from-drew-purple before:to-blue-400 before:rounded-md before:mask-border;
+    @apply border border-drew-purple/50 relative before:content-[''] before:absolute before:inset-0 before:p-[1px] before:bg-gradient-to-r before:from-drew-purple before:to-amber-400 before:rounded-md before:mask-border; /* Changed from blue-400 to amber-400 */
   }
   
   .futuristic-panel {
@@ -118,15 +119,15 @@
   }
   
   .futuristic-panel::before {
-    @apply content-[''] absolute top-0 left-0 w-full h-full bg-gradient-to-r from-drew-purple/20 to-blue-400/10 opacity-50;
+    @apply content-[''] absolute top-0 left-0 w-full h-full bg-gradient-to-r from-drew-purple/20 to-amber-400/10 opacity-50; /* Changed from blue-400 to amber-400 */
     mask-image: linear-gradient(to bottom, transparent, black);
   }
   
   .tech-grid {
     @apply relative;
     background-image: 
-      linear-gradient(rgba(139, 92, 246, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(139, 92, 246, 0.05) 1px, transparent 1px);
+      linear-gradient(rgba(249, 115, 22, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(249, 115, 22, 0.05) 1px, transparent 1px); /* Changed from rgba(139, 92, 246, 0.05) to rgba(249, 115, 22, 0.05) */
     background-size: 30px 30px;
   }
   
@@ -137,23 +138,23 @@
   
   .cyber-text {
     @apply relative inline-block;
-    text-shadow: 0 0 5px theme('colors.drew.purple'), 0 0 10px rgba(139, 92, 246, 0.5);
+    text-shadow: 0 0 5px theme('colors.drew.purple'), 0 0 10px rgba(249, 115, 22, 0.5); /* Changed from rgba(139, 92, 246, 0.5) to rgba(249, 115, 22, 0.5) */
   }
   
   .futuristic-gradient {
-    @apply bg-gradient-to-br from-drew-purple/90 via-blue-500/80 to-purple-600/70;
+    @apply bg-gradient-to-br from-drew-purple/90 via-amber-500/80 to-red-600/70; /* Changed from blue-500/80 to amber-500/80 and from purple-600/70 to red-600/70 */
   }
   
   .holographic {
     @apply relative overflow-hidden;
     background: linear-gradient(
       135deg, 
-      rgba(139, 92, 246, 0.2) 0%, 
-      rgba(59, 130, 246, 0.2) 25%, 
-      rgba(139, 92, 246, 0.2) 50%, 
-      rgba(59, 130, 246, 0.2) 75%, 
-      rgba(139, 92, 246, 0.2) 100%
-    );
+      rgba(249, 115, 22, 0.2) 0%, 
+      rgba(251, 146, 60, 0.2) 25%, 
+      rgba(249, 115, 22, 0.2) 50%, 
+      rgba(251, 146, 60, 0.2) 75%, 
+      rgba(249, 115, 22, 0.2) 100%
+    ); /* Changed purple values to orange values */
   }
   
   .holographic::before {
@@ -183,7 +184,7 @@
   
   .techno-loader {
     @apply relative;
-    background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.2), transparent);
+    background: linear-gradient(90deg, transparent, rgba(249, 115, 22, 0.2), transparent); /* Changed from rgba(139, 92, 246, 0.2) to rgba(249, 115, 22, 0.2) */
     background-size: 200% 100%;
     animation: techno-loading 1.5s infinite;
   }
