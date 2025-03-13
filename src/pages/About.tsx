@@ -153,22 +153,22 @@ const About = () => {
               <h2 className="text-3xl font-bold mb-6 text-gradient">Why Work With Us?</h2>
               <div className="bg-drew-dark-gray/30 p-8 rounded-xl border border-drew-purple/20 shadow-glow space-y-4">
                 <div className="flex items-start">
-                  <span className="text-green-500 font-bold mr-3">✅</span>
+                  
                   <p className="text-gray-300"><strong>Personalized Approach</strong> – Every project is unique, tailored to your brand's specific needs.</p>
                 </div>
                 
                 <div className="flex items-start">
-                  <span className="text-green-500 font-bold mr-3">✅</span>
+                  
                   <p className="text-gray-300"><strong>A Team of Experts</strong> – We bring together top-tier talent in design, branding, and web development.</p>
                 </div>
                 
                 <div className="flex items-start">
-                  <span className="text-green-500 font-bold mr-3">✅</span>
+                  
                   <p className="text-gray-300"><strong>End-to-End Solutions</strong> – From strategy and design to execution and support, we've got you covered.</p>
                 </div>
                 
                 <div className="flex items-start">
-                  <span className="text-green-500 font-bold mr-3">✅</span>
+                  
                   <p className="text-gray-300"><strong>Proven Track Record</strong> – We've helped businesses establish a powerful digital presence.</p>
                 </div>
               </div>
