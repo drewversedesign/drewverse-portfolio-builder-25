@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
@@ -15,6 +16,7 @@ import FAQPage from './pages/FAQPage';
 import SitemapPage from './pages/SitemapPage';
 import NotFound from './pages/NotFound';
 import ServiceDetailPage from './pages/ServiceDetailPage';
+import AdminPage from './pages/AdminPage';
 
 const App = () => {
   const location = useLocation();
@@ -38,6 +40,7 @@ const App = () => {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/faq" element={<FAQPage />} />
         <Route path="/sitemap" element={<SitemapPage />} />
+        <Route path="/admin" element={<AdminPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </AnimatePresence>
