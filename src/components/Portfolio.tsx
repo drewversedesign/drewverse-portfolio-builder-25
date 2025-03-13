@@ -6,7 +6,7 @@ import { ArrowRight } from 'lucide-react';
 import PortfolioHeader from './portfolio/PortfolioHeader';
 import CategoryFilter from './portfolio/CategoryFilter';
 import ProjectsGrid from './portfolio/ProjectsGrid';
-import { ProjectProps } from './portfolio/ProjectCard';
+import { ProjectProps } from './portfolio/cards/ProjectCard';
 import { placeholderImages } from '../utils/imageUtils';
 
 const categories = ['All', 'Web Design', 'Branding', 'Mobile Apps', 'UI/UX'];
