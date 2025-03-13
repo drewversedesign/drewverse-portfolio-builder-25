@@ -20,7 +20,15 @@ const ChartCard = ({ title, value, increase, children, icon: Icon }: ChartCardPr
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="futuristic-panel rounded-xl p-5 h-full"
+      className="futuristic-panel rounded-xl p-5 h-full transform transition-all duration-300"
+      style={{
+        perspective: "1000px",
+        transformStyle: "preserve-3d",
+        transform: isHovered ? "translateY(-5px)" : "translateY(0px)",
+        boxShadow: isHovered 
+          ? "0 15px 30px rgba(139, 92, 246, 0.1), 0 5px 15px rgba(0, 0, 0, 0.12)" 
+          : "0 4px 6px rgba(0, 0, 0, 0.1)"
+      }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -43,9 +51,13 @@ const ChartCard = ({ title, value, increase, children, icon: Icon }: ChartCardPr
             )}
           </div>
         </div>
-        <div className="bg-drew-purple/20 p-2 rounded-lg">
+        <motion.div 
+          className="bg-drew-purple/20 p-2 rounded-lg"
+          animate={{ rotateY: isHovered ? 15 : 0 }}
+          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+        >
           <Icon size={18} className="text-drew-purple" />
-        </div>
+        </motion.div>
       </div>
       
       <div className="h-48">
