@@ -1,12 +1,16 @@
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import PortfolioHeader from './portfolio/PortfolioHeader';
+import CategoryFilter from './portfolio/CategoryFilter';
+import ProjectsGrid from './portfolio/ProjectsGrid';
+import { ProjectProps } from './portfolio/ProjectCard';
 
 const categories = ['All', 'Web Design', 'Branding', 'Mobile Apps', 'UI/UX'];
 
-const projects = [
+const projects: ProjectProps[] = [
   {
     id: 1,
     title: 'Gentl Fashion',
@@ -57,111 +61,24 @@ export default function Portfolio() {
       </div>
       
       <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <div className="text-center mb-16">
-          <motion.span 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="service-chip"
-          >
-            Our Work
-          </motion.span>
-          
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-3xl md:text-4xl font-bold mt-4"
-          >
-            Selected <span className="text-gradient">Projects</span>
-          </motion.h2>
-          
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="mt-4 text-gray-400 max-w-2xl mx-auto"
-          >
-            Explore our portfolio of successful projects that showcase our expertise
-            and creative approach to digital challenges.
-          </motion.p>
-        </div>
+        <PortfolioHeader 
+          title="Selected Projects"
+          subtitle="Our Work"
+          description="Explore our portfolio of successful projects that showcase our expertise
+          and creative approach to digital challenges."
+        />
         
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="flex flex-wrap justify-center gap-4 mb-12"
-        >
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setActiveCategory(category)}
-              className={`px-6 py-2 rounded-full transition-all duration-300 ${
-                activeCategory === category 
-                  ? 'bg-drew-purple text-white' 
-                  : 'bg-drew-gray-dark hover:bg-drew-purple/20 text-gray-300'
-              }`}
-            >
-              {category}
-            </button>
-          ))}
-        </motion.div>
+        <CategoryFilter 
+          categories={categories}
+          activeCategory={activeCategory}
+          setActiveCategory={setActiveCategory}
+        />
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <AnimatePresence mode="wait">
-            {filteredProjects.map((project) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5 }}
-                onMouseEnter={() => setHoveredProject(project.id)}
-                onMouseLeave={() => setHoveredProject(null)}
-                className="relative rounded-xl overflow-hidden group h-[400px]"
-              >
-                <img 
-                  src={project.image} 
-                  alt={project.title} 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-8 flex flex-col justify-end">
-                  <div className="transform transition-transform duration-300 group-hover:translate-y-0">
-                    <span className="service-chip mb-3">{project.category}</span>
-                    <h3 className="text-2xl font-bold text-white mb-2">{project.title}</h3>
-                    <p className="text-gray-300 mb-6 max-w-md">{project.description}</p>
-                    
-                    <Link to={project.link} className="inline-flex items-center text-drew-purple story-link">
-                      View Project <ArrowRight size={16} className="ml-2" />
-                    </Link>
-                  </div>
-                </div>
-                
-                {/* Hover animation elements */}
-                <motion.div 
-                  className="absolute top-4 right-4 w-12 h-12 rounded-full bg-drew-purple flex items-center justify-center"
-                  animate={{ 
-                    scale: hoveredProject === project.id ? [1, 1.1, 1] : 1 
-                  }}
-                  transition={{ 
-                    duration: 1, 
-                    repeat: hoveredProject === project.id ? Infinity : 0, 
-                    repeatType: "reverse" 
-                  }}
-                >
-                  <span className="text-white font-medium">{project.id}</span>
-                </motion.div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </div>
+        <ProjectsGrid 
+          projects={filteredProjects}
+          hoveredProject={hoveredProject}
+          setHoveredProject={setHoveredProject}
+        />
         
         <div className="text-center mt-16">
           <Link to="/portfolio">

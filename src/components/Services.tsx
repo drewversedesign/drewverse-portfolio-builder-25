@@ -2,8 +2,11 @@
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import ServiceHeader from './services/ServiceHeader';
+import ServicesGrid from './services/ServicesGrid';
+import { ServiceProps } from './services/ServiceCard';
 
-const services = [
+const services: ServiceProps[] = [
   {
     id: 1,
     number: '01',
@@ -38,21 +41,6 @@ const services = [
   },
 ];
 
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2
-    }
-  }
-};
-
-const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5 } }
-};
-
 export default function Services() {
   return (
     <section id="services" className="py-24 relative overflow-hidden">
@@ -63,85 +51,14 @@ export default function Services() {
       </div>
       
       <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <div className="text-center mb-16">
-          <motion.span 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="service-chip"
-          >
-            Our Expertise
-          </motion.span>
-          
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-3xl md:text-4xl font-bold mt-4"
-          >
-            Premium Services For <span className="text-gradient">Digital Excellence</span>
-          </motion.h2>
-          
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="mt-4 text-gray-400 max-w-2xl mx-auto"
-          >
-            We provide end-to-end solutions tailored to your unique needs, combining
-            cutting-edge technology with creative expertise.
-          </motion.p>
-        </div>
+        <ServiceHeader 
+          title="Premium Services For Digital Excellence"
+          subtitle="Our Expertise"
+          description="We provide end-to-end solutions tailored to your unique needs, combining
+          cutting-edge technology with creative expertise."
+        />
         
-        <motion.div 
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-8"
-        >
-          {services.map((service) => (
-            <motion.div 
-              key={service.id}
-              variants={item}
-              className="glass-card rounded-xl p-8 transition-all duration-300 hover:border-drew-purple/50 group"
-            >
-              <div className="flex flex-col h-full">
-                <div className="flex justify-between items-start mb-6">
-                  <span className="text-4xl font-bold text-drew-purple opacity-30">
-                    {service.number}
-                  </span>
-                  <div className="w-12 h-12 rounded-full bg-drew-purple/10 flex items-center justify-center group-hover:bg-drew-purple/20 transition-all duration-300">
-                    <ArrowRight size={18} className="text-drew-purple" />
-                  </div>
-                </div>
-                
-                <h3 className="text-2xl font-bold mb-3">{service.title}</h3>
-                <p className="text-gray-400 mb-6">{service.description}</p>
-                
-                <div className="mt-auto">
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {service.specialties.map((specialty, index) => (
-                      <span 
-                        key={index} 
-                        className="service-chip"
-                      >
-                        {specialty}
-                      </span>
-                    ))}
-                  </div>
-                  
-                  <Link to={service.link} className="story-link text-drew-purple">
-                    Learn more
-                  </Link>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+        <ServicesGrid services={services} />
         
         <div className="text-center mt-16">
           <Link to="/services">
