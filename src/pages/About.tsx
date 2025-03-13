@@ -99,7 +99,7 @@ const About = () => {
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="bg-drew-dark-gray/30 p-6 rounded-xl border border-drew-purple/20 shadow-glow">
                   <div className="flex items-start">
-                    <span className="text-3xl mr-4">🔥</span>
+                    
                     <div>
                       <h4 className="text-xl font-semibold mb-2">Creativity & Innovation</h4>
                       <p className="text-gray-300">We push creative boundaries and stay ahead of digital trends.</p>
