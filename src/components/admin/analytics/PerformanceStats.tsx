@@ -1,10 +1,11 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../ui/card';
 import { Progress } from '../../ui/progress';
 import { Zap, Globe, Clock, RefreshCw } from 'lucide-react';
 import { Button } from '../../ui/button';
 import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
 
 interface PerformanceMetric {
   name: string;
@@ -45,6 +46,23 @@ const PerformanceStats = () => {
       description: 'Content delivery uptime'
     }
   ]);
+
+  useEffect(() => {
+    // Set up real-time subscription for performance updates
+    const performanceChannel = supabase
+      .channel('performance-updates')
+      .on('broadcast', { event: 'performance_update' }, (payload) => {
+        console.log('Received real-time performance update:', payload);
+        
+        // If we receive a broadcast message, refresh the stats
+        refreshStats();
+      })
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(performanceChannel);
+    };
+  }, []);
 
   const getProgressColor = (status: string) => {
     switch (status) {
@@ -116,6 +134,17 @@ const PerformanceStats = () => {
       setLastUpdated(new Date());
       setLoading(false);
       toast.success('Performance metrics updated');
+
+      // Broadcast the update to other connected clients
+      supabase
+        .channel('performance-updates')
+        .send({
+          type: 'broadcast',
+          event: 'performance_update',
+          payload: { updated: new Date().toISOString() }
+        })
+        .then(() => console.log('Broadcast sent'))
+        .catch((err) => console.error('Error sending broadcast:', err));
     }, 1500);
   };
 
