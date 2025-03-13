@@ -78,7 +78,7 @@
   }
 
   .glass-card {
-    @apply backdrop-blur-md bg-drew-gray-dark/70 border border-white/10;
+    @apply backdrop-blur-md bg-drew-gray-dark/70 border border-white/10 hover:border-drew-purple/30 transition-all duration-300;
   }
 
   .text-gradient {
@@ -94,10 +94,95 @@
   }
 
   .service-chip {
-    @apply inline-block px-3 py-1 rounded-full text-xs font-medium bg-drew-purple/10 text-drew-purple;
+    @apply inline-block px-3 py-1 rounded-full text-xs font-medium bg-drew-purple/10 text-drew-purple border border-drew-purple/20 backdrop-blur-sm;
   }
 
   .neo-blur {
     @apply backdrop-blur-2xl bg-black/40 border border-white/10;
+  }
+  
+  /* New futuristic classes */
+  .cyber-border {
+    @apply border border-drew-purple/50 relative before:content-[''] before:absolute before:inset-0 before:p-[1px] before:bg-gradient-to-r before:from-drew-purple before:to-blue-400 before:rounded-md before:mask-border;
+  }
+  
+  .futuristic-panel {
+    @apply relative backdrop-blur-xl bg-black/30 border border-white/10 overflow-hidden;
+  }
+  
+  .futuristic-panel::before {
+    @apply content-[''] absolute top-0 left-0 w-full h-full bg-gradient-to-r from-drew-purple/20 to-blue-400/10 opacity-50;
+    mask-image: linear-gradient(to bottom, transparent, black);
+  }
+  
+  .tech-grid {
+    @apply relative;
+    background-image: 
+      linear-gradient(rgba(139, 92, 246, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(139, 92, 246, 0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
+  }
+  
+  .neon-glow {
+    @apply relative;
+    box-shadow: 0 0 5px theme('colors.drew.purple'), 0 0 20px theme('colors.drew.purple');
+  }
+  
+  .cyber-text {
+    @apply relative inline-block;
+    text-shadow: 0 0 5px theme('colors.drew.purple'), 0 0 10px rgba(139, 92, 246, 0.5);
+  }
+  
+  .futuristic-gradient {
+    @apply bg-gradient-to-br from-drew-purple/90 via-blue-500/80 to-purple-600/70;
+  }
+  
+  .holographic {
+    @apply relative overflow-hidden;
+    background: linear-gradient(
+      135deg, 
+      rgba(139, 92, 246, 0.2) 0%, 
+      rgba(59, 130, 246, 0.2) 25%, 
+      rgba(139, 92, 246, 0.2) 50%, 
+      rgba(59, 130, 246, 0.2) 75%, 
+      rgba(139, 92, 246, 0.2) 100%
+    );
+  }
+  
+  .holographic::before {
+    @apply content-[''] absolute inset-0;
+    background: linear-gradient(
+      45deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.1) 25%,
+      transparent 50%
+    );
+    animation: holographic-shift 3s linear infinite;
+  }
+  
+  @keyframes holographic-shift {
+    0% {
+      transform: translateX(-50%) translateY(-50%);
+    }
+    100% {
+      transform: translateX(50%) translateY(50%);
+    }
+  }
+  
+  .mask-border {
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+  }
+  
+  .techno-loader {
+    @apply relative;
+    background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.2), transparent);
+    background-size: 200% 100%;
+    animation: techno-loading 1.5s infinite;
+  }
+  
+  @keyframes techno-loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
   }
 }
