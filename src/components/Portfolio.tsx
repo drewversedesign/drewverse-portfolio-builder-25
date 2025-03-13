@@ -1,8 +1,7 @@
-
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Plus } from 'lucide-react';
+import { ArrowRight, Plus, Star, Users, Award } from 'lucide-react';
 import PortfolioHeader from './portfolio/PortfolioHeader';
 import CategoryFilter from './portfolio/CategoryFilter';
 import ProjectsGrid from './portfolio/ProjectsGrid';
