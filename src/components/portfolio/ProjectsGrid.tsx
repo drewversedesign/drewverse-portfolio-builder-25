@@ -11,7 +11,7 @@ interface ProjectsGridProps {
 
 const ProjectsGrid = ({ projects, hoveredProject, setHoveredProject }: ProjectsGridProps) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 perspective-1000">
       <AnimatePresence mode="wait">
         {projects.map((project) => (
           <ProjectCard
