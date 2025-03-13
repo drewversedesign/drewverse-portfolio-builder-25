@@ -91,7 +91,7 @@ const ServicesPage = () => {
               <div className="space-y-8">
                 <div>
                   <h3 className="flex items-center text-xl font-semibold mb-3">
-                    <span className="text-drew-purple mr-2">🌟</span> 
+                    <span className="text-drew-purple mr-2"></span> 
                     Custom Website Design & Development
                   </h3>
                   <ul className="pl-8 space-y-2 text-gray-300">
@@ -102,7 +102,7 @@ const ServicesPage = () => {
                 
                 <div>
                   <h3 className="flex items-center text-xl font-semibold mb-3">
-                    <span className="text-drew-purple mr-2">🌟</span> 
+                    <span className="text-drew-purple mr-2"></span> 
                     E-Commerce Website Solutions
                   </h3>
                   <ul className="pl-8 space-y-2 text-gray-300">
@@ -113,7 +113,7 @@ const ServicesPage = () => {
                 
                 <div>
                   <h3 className="flex items-center text-xl font-semibold mb-3">
-                    <span className="text-drew-purple mr-2">🌟</span> 
+                    <span className="text-drew-purple mr-2"></span> 
                     Responsive & Mobile-Friendly Design
                   </h3>
                   <ul className="pl-8 space-y-2 text-gray-300">
@@ -124,7 +124,7 @@ const ServicesPage = () => {
                 
                 <div>
                   <h3 className="flex items-center text-xl font-semibold mb-3">
-                    <span className="text-drew-purple mr-2">🌟</span> 
+                    <span className="text-drew-purple mr-2"></span> 
                     SEO & Performance Optimization
                   </h3>
                   <ul className="pl-8 space-y-2 text-gray-300">
@@ -135,7 +135,7 @@ const ServicesPage = () => {
                 
                 <div>
                   <h3 className="flex items-center text-xl font-semibold mb-3">
-                    <span className="text-drew-purple mr-2">🌟</span> 
+                    <span className="text-drew-purple mr-2"></span> 
                     Website Maintenance & Support
                   </h3>
                   <ul className="pl-8 space-y-2 text-gray-300">
@@ -146,7 +146,7 @@ const ServicesPage = () => {
               
               <div className="mt-12 text-center">
                 <p className="text-lg font-medium mb-6">
-                  <span className="text-drew-purple mr-2">📌</span> 
+                  <span className="text-drew-purple mr-2"></span> 
                   Need a new website or an upgrade? Let's talk!
                 </p>
                 <Link to="/contact">
