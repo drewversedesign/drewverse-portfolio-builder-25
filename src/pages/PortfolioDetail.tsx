@@ -29,23 +29,23 @@ const PortfolioDetail = () => {
     
     // Find the project by ID or slug
     const findProject = () => {
-      if (id) {
-        // First try to find by slug - this is the most common case
-        const projectBySlug = projectsData.find(p => {
-          // Extract the slug from the link URL
-          const urlParts = p.link.split('/');
-          const pSlug = urlParts[urlParts.length - 1];
-          return pSlug === id;
-        });
-        
-        if (projectBySlug) return projectBySlug;
-        
-        // If no match by slug, try numeric ID (fallback)
-        if (!isNaN(parseInt(id))) {
-          const numId = parseInt(id);
-          return projectsData.find(p => p.id === numId);
-        }
+      if (!id) return null;
+      
+      // First try to find by exact slug match
+      const projectBySlug = projectsData.find(p => {
+        // Extract the slug from the link URL
+        const pSlug = p.link.split('/').pop();
+        return pSlug === id;
+      });
+      
+      if (projectBySlug) return projectBySlug;
+      
+      // If no match by slug, try numeric ID (fallback)
+      if (!isNaN(parseInt(id))) {
+        const numId = parseInt(id);
+        return projectsData.find(p => p.id === numId);
       }
+      
       return null;
     };
     
@@ -59,7 +59,12 @@ const PortfolioDetail = () => {
         .filter(p => p.category === foundProject.category && p.id !== foundProject.id)
         .slice(0, 3);
       setRelatedProjects(related);
+      
+      console.log('Project found:', foundProject.title);
     } else {
+      console.log('Project not found. Current id parameter:', id);
+      console.log('Available slugs:', projectsData.map(p => p.link.split('/').pop()));
+      
       toast.error("Project not found", {
         description: "The project you're looking for doesn't exist or has been removed.",
       });
@@ -78,8 +83,7 @@ const PortfolioDetail = () => {
     const prevProject = projectsData[prevIndex];
     
     // Extract the slug for navigation
-    const urlParts = prevProject.link.split('/');
-    const slug = urlParts[urlParts.length - 1];
+    const slug = prevProject.link.split('/').pop();
     navigate(`/portfolio/${slug}`);
   };
 
@@ -91,8 +95,7 @@ const PortfolioDetail = () => {
     const nextProject = projectsData[nextIndex];
     
     // Extract the slug for navigation
-    const urlParts = nextProject.link.split('/');
-    const slug = urlParts[urlParts.length - 1];
+    const slug = nextProject.link.split('/').pop();
     navigate(`/portfolio/${slug}`);
   };
 
