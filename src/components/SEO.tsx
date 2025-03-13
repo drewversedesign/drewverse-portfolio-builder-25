@@ -1,4 +1,3 @@
-
 import { Helmet } from 'react-helmet-async';
 
 interface SEOProps {
@@ -17,6 +16,7 @@ interface SEOProps {
   modifiedTime?: string;
   category?: string;
   locale?: string;
+  alternateLanguages?: { hrefLang: string, href: string }[];
 }
 
 const SEO = ({
@@ -34,6 +34,7 @@ const SEO = ({
   modifiedTime,
   category,
   locale = 'en-ug',
+  alternateLanguages,
   children
 }: SEOProps) => {
   // Construct full title with branding
@@ -86,6 +87,16 @@ const SEO = ({
       {/* Language and locale */}
       <meta property="og:locale" content={locale} />
       <link rel="alternate" hreflang={locale} href={ogUrl} />
+      
+      {/* Alternate language links */}
+      {alternateLanguages && alternateLanguages.map((item) => (
+        <link 
+          key={item.hrefLang} 
+          rel="alternate" 
+          hrefLang={item.hrefLang} 
+          href={item.href} 
+        />
+      ))}
       
       {/* Structured data if provided */}
       {structuredData && (

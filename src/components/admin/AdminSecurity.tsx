@@ -3,6 +3,7 @@ import React from 'react';
 import RoleManagement from './security/RoleManagement';
 import SecurityCards from './security/SecurityCards';
 import VisitorMonitoring from './security/VisitorMonitoring';
+import SecurityAuditLog from './security/SecurityAuditLog';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '../ui/button';
 import { toast } from 'sonner';
@@ -41,6 +42,7 @@ const AdminSecurity = () => {
       </div>
       
       <RoleManagement />
+      <SecurityAuditLog />
     </div>
   );
 };
