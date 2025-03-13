@@ -1,77 +1,14 @@
 
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Search, ArrowLeft, ArrowRight } from 'lucide-react';
+import { Search, ArrowLeft, ArrowRight, Filter } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import BlogPost, { BlogPostProps } from '../components/BlogPost';
+import BlogPost from '../components/BlogPost';
 import SEO from '../components/SEO';
-
-// Sample blog posts data
-const blogPosts: BlogPostProps[] = [
-  {
-    id: 1,
-    title: 'How to Choose the Right Color Palette for Your Brand',
-    excerpt: 'Color psychology plays a crucial role in brand perception. Learn how to select colors that reflect your brand values and resonate with your audience.',
-    author: 'Drew Thompson',
-    date: 'June 15, 2023',
-    category: 'Branding',
-    image: '/lovable-uploads/c15adf6f-a00b-4c5e-bbe7-58cd9e4f3ccd.png',
-    slug: 'color-palette-brand'
-  },
-  {
-    id: 2,
-    title: 'The Future of UI/UX: AI-Driven Design Trends',
-    excerpt: 'Artificial intelligence is transforming the design landscape. Discover how AI tools are shaping the future of user interfaces and experiences.',
-    author: 'Sarah Chen',
-    date: 'July 8, 2023',
-    category: 'UI/UX',
-    image: '/lovable-uploads/1f6b0b2c-b6e7-41ff-bed6-566bac9c793c.png',
-    slug: 'ai-driven-design-trends'
-  },
-  {
-    id: 3,
-    title: 'Responsive Design: Beyond the Basics',
-    excerpt: 'Go beyond standard breakpoints and learn advanced techniques for creating truly responsive layouts that adapt to any device or screen size.',
-    author: 'Drew Thompson',
-    date: 'August 22, 2023',
-    category: 'Web Design',
-    image: '/lovable-uploads/c1975dfd-5ca5-4ce6-863d-9b881a283e04.png',
-    slug: 'responsive-design-advanced'
-  },
-  {
-    id: 4,
-    title: 'Creating Effective Call-to-Action Buttons',
-    excerpt: 'Learn the psychology behind high-converting CTA buttons and discover design principles that increase engagement and conversion rates.',
-    author: 'Alex Rivera',
-    date: 'September 5, 2023',
-    category: 'Conversion',
-    image: '/lovable-uploads/4c727787-b9ab-4109-a8f0-2728ba907cae.png',
-    slug: 'effective-cta-buttons'
-  },
-  {
-    id: 5,
-    title: 'Typography Trends That Will Dominate This Year',
-    excerpt: 'Explore the latest typography trends that are shaping the design world and learn how to implement them in your projects.',
-    author: 'Sarah Chen',
-    date: 'October 12, 2023',
-    category: 'Typography',
-    image: '/lovable-uploads/c15adf6f-a00b-4c5e-bbe7-58cd9e4f3ccd.png',
-    slug: 'typography-trends'
-  },
-  {
-    id: 6,
-    title: 'The Impact of Dark Mode on User Experience',
-    excerpt: 'Dark mode is more than just aesthetics. Discover its impact on user experience, accessibility, and energy consumption.',
-    author: 'Drew Thompson',
-    date: 'November 18, 2023',
-    category: 'UI/UX',
-    image: '/lovable-uploads/1f6b0b2c-b6e7-41ff-bed6-566bac9c793c.png',
-    slug: 'dark-mode-user-experience'
-  }
-];
-
-const categories = ['All', 'Branding', 'UI/UX', 'Web Design', 'Conversion', 'Typography'];
+import FeaturedPost from '../components/blog/FeaturedPost';
+import TrendingPosts from '../components/blog/TrendingPosts';
+import { blogPosts, getAllCategories, getFeaturedPosts, getTrendingPosts } from '../utils/blogUtils';
 
 const BlogPage = () => {
   useEffect(() => {
@@ -81,9 +18,17 @@ const BlogPage = () => {
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [showFilters, setShowFilters] = useState(false);
   const postsPerPage = 4;
 
-  // Filter posts based on category and search query
+  // Get all available categories
+  const categories = getAllCategories();
+  
+  // Get featured and trending posts
+  const featuredPosts = getFeaturedPosts();
+  const trendingPosts = getTrendingPosts();
+
+  // Filter posts based on category and search query (exclude featured posts from main listing)
   const filteredPosts = blogPosts.filter(post => {
     const matchesCategory = activeCategory === 'All' || post.category === activeCategory;
     const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -129,6 +74,13 @@ const BlogPage = () => {
             </p>
           </motion.div>
           
+          {/* Featured Posts Section */}
+          <FeaturedPost posts={featuredPosts} />
+          
+          {/* Trending Posts Section */}
+          <TrendingPosts posts={trendingPosts} />
+          
+          {/* Search and Filters */}
           <div className="flex flex-col md:flex-row justify-between mb-10 gap-6">
             <div className="relative w-full md:w-96">
               <input
@@ -144,7 +96,17 @@ const BlogPage = () => {
               <Search size={18} className="absolute top-1/2 transform -translate-y-1/2 left-4 text-gray-400" />
             </div>
             
-            <div className="flex flex-wrap gap-2">
+            <div className="md:hidden">
+              <button 
+                onClick={() => setShowFilters(!showFilters)}
+                className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-drew-gray-dark rounded-full"
+              >
+                <Filter size={18} />
+                {showFilters ? 'Hide Filters' : 'Show Categories'}
+              </button>
+            </div>
+            
+            <div className={`flex flex-wrap gap-2 ${showFilters ? 'block' : 'hidden md:flex'}`}>
               {categories.map((category) => (
                 <button
                   key={category}
@@ -163,6 +125,18 @@ const BlogPage = () => {
               ))}
             </div>
           </div>
+          
+          {/* Category Heading */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="mb-8"
+          >
+            <h2 className="text-2xl font-bold">
+              {activeCategory === 'All' ? 'All Articles' : activeCategory}
+              {searchQuery && <span className="text-drew-purple"> • Search Results</span>}
+            </h2>
+          </motion.div>
           
           {currentPosts.length > 0 ? (
             <>

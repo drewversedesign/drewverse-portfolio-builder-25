@@ -1,6 +1,7 @@
+
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Calendar, User } from 'lucide-react';
+import { ArrowRight, Calendar, User, Star, TrendingUp } from 'lucide-react';
 import { useState } from 'react';
 import { getImageWithFallback } from '../utils/imageUtils';
 
@@ -14,14 +15,17 @@ export interface BlogPostProps {
   category: string;
   image: string;
   slug: string;
+  featured?: boolean;
+  trending?: boolean;
 }
 
 interface BlogPostCardProps {
   post: BlogPostProps;
   index: number;
+  size?: 'small' | 'medium' | 'large';
 }
 
-export default function BlogPost({ post, index }: BlogPostCardProps) {
+export default function BlogPost({ post, index, size = 'medium' }: BlogPostCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const rotateX = useMotionValue(0);
   const rotateY = useMotionValue(0);
@@ -52,6 +56,13 @@ export default function BlogPost({ post, index }: BlogPostCardProps) {
 
   const imageProps = getImageWithFallback(post.image);
 
+  // Set different image heights based on card size
+  const imageHeights = {
+    small: 'h-40',
+    medium: 'h-60',
+    large: 'h-80',
+  };
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 20 }}
@@ -76,23 +87,52 @@ export default function BlogPost({ post, index }: BlogPostCardProps) {
       onMouseLeave={handleMouseLeave}
       className="glass-card rounded-xl overflow-hidden transition-all duration-300"
     >
-      <div className="relative h-60 overflow-hidden">
+      <div className={`relative ${imageHeights[size]} overflow-hidden`}>
         <img 
           src={imageProps.src} 
           onError={imageProps.onError}
           alt={post.title} 
           className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
         />
-        <motion.div 
-          className="absolute top-4 left-4"
-          animate={{ 
-            z: isHovered ? 10 : 0,
-            scale: isHovered ? 1.05 : 1
-          }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        >
-          <span className="service-chip">{post.category}</span>
-        </motion.div>
+        <div className="absolute top-4 left-4 flex gap-2">
+          <motion.div 
+            animate={{ 
+              z: isHovered ? 10 : 0,
+              scale: isHovered ? 1.05 : 1
+            }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          >
+            <span className="service-chip">{post.category}</span>
+          </motion.div>
+          
+          {post.featured && (
+            <motion.div 
+              animate={{ 
+                z: isHovered ? 10 : 0,
+                scale: isHovered ? 1.05 : 1
+              }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              <span className="flex items-center gap-1 bg-amber-500 text-white text-xs px-3 py-1 rounded-full">
+                <Star size={12} className="fill-white" /> Featured
+              </span>
+            </motion.div>
+          )}
+          
+          {post.trending && (
+            <motion.div 
+              animate={{ 
+                z: isHovered ? 10 : 0,
+                scale: isHovered ? 1.05 : 1
+              }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              <span className="flex items-center gap-1 bg-rose-500 text-white text-xs px-3 py-1 rounded-full">
+                <TrendingUp size={12} /> Trending
+              </span>
+            </motion.div>
+          )}
+        </div>
       </div>
       
       <div className="p-6">
@@ -108,7 +148,9 @@ export default function BlogPost({ post, index }: BlogPostCardProps) {
         </div>
         
         <motion.h3 
-          className="text-xl font-bold mb-3 hover:text-drew-purple transition-colors duration-300"
+          className={`font-bold mb-3 hover:text-drew-purple transition-colors duration-300 ${
+            size === 'large' ? 'text-2xl' : size === 'medium' ? 'text-xl' : 'text-lg'
+          }`}
           animate={{ 
             z: isHovered ? 15 : 0
           }}
@@ -119,7 +161,7 @@ export default function BlogPost({ post, index }: BlogPostCardProps) {
           </Link>
         </motion.h3>
         
-        <p className="text-gray-400 mb-4 line-clamp-3">
+        <p className={`text-gray-400 mb-4 ${size === 'small' ? 'line-clamp-2' : 'line-clamp-3'}`}>
           {post.excerpt}
         </p>
         

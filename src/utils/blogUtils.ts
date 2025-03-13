@@ -1,7 +1,7 @@
 import { BlogPostProps } from "../components/BlogPost";
 import { placeholderImages } from "./imageUtils";
 
-// Dummy blog post data - moved from BlogPostPage.tsx to this utility file
+// Expanded blog post data with more categories and posts
 export const blogPosts: BlogPostProps[] = [
   {
     id: 1,
@@ -47,6 +47,8 @@ export const blogPosts: BlogPostProps[] = [
     category: "Design",
     image: placeholderImages.portfolio1,
     slug: "ui-ux-design-trends-2023",
+    featured: true,
+    trending: true,
   },
   {
     id: 2,
@@ -58,6 +60,8 @@ export const blogPosts: BlogPostProps[] = [
     category: "E-commerce",
     image: placeholderImages.portfolio2,
     slug: "future-of-ecommerce-ai",
+    featured: false,
+    trending: true,
   },
   {
     id: 3,
@@ -69,8 +73,201 @@ export const blogPosts: BlogPostProps[] = [
     category: "Marketing",
     image: placeholderImages.portfolio3,
     slug: "power-of-data-analytics-in-marketing",
+    featured: true,
+    trending: false,
+  },
+  {
+    id: 4,
+    title: "Building Accessible Web Applications: A Comprehensive Guide",
+    excerpt: "Learn how to create inclusive web experiences that work for everyone, regardless of abilities or disabilities.",
+    content: `<p>Web accessibility is no longer optional—it's a necessity. This comprehensive guide walks through the essential practices for building truly accessible applications.</p>
+    <h2>Understanding Web Accessibility</h2>
+    <p>Accessibility means making your website usable by as many people as possible. This includes those with disabilities such as visual impairments, hearing impairments, mobility impairments, and cognitive disabilities.</p>
+    <h2>WCAG Guidelines: The Foundation</h2>
+    <p>The Web Content Accessibility Guidelines (WCAG) provide a framework for making web content more accessible. Learn about the key principles: Perceivable, Operable, Understandable, and Robust.</p>
+    <h2>Semantic HTML: The Right Foundation</h2>
+    <p>Using the right HTML elements for their intended purpose is crucial for accessibility. Discover how proper heading structures, lists, buttons, and form elements enhance the experience for screen reader users.</p>`,
+    author: "Maya Johnson",
+    date: "Nov 12, 2023",
+    category: "Development",
+    image: placeholderImages.portfolio4,
+    slug: "building-accessible-web-applications",
+    featured: false,
+    trending: true,
+  },
+  {
+    id: 5,
+    title: "The Psychology of Color in Brand Design",
+    excerpt: "Explore how color choices influence consumer perception and behavior, and how to leverage color psychology in your brand design.",
+    content: `<p>Colors have profound effects on our psychology and behavior. Smart brands leverage these effects to create powerful emotional connections with their audience.</p>
+    <h2>The Emotional Impact of Colors</h2>
+    <p>Every color evokes specific emotions and associations. Red can trigger excitement or urgency, blue conveys trust and reliability, while green suggests growth and nature.</p>
+    <h2>Cultural Considerations in Color Selection</h2>
+    <p>Color meanings vary significantly across cultures. What works in one market might send unintended messages in another. This article explores these crucial cultural variations.</p>
+    <h2>Creating Effective Color Palettes</h2>
+    <p>Learn the principles of color harmony and how to create palettes that not only look appealing but also communicate your brand values effectively.</p>`,
+    author: "Sophie Wang",
+    date: "Nov 20, 2023",
+    category: "Branding",
+    image: placeholderImages.portfolio5,
+    slug: "psychology-of-color-brand-design",
+    featured: true,
+    trending: false,
+  },
+  {
+    id: 6,
+    title: "Optimizing Website Performance for Core Web Vitals",
+    excerpt: "Master the techniques to improve your website's Core Web Vitals scores and enhance user experience while boosting SEO rankings.",
+    content: `<p>Google's Core Web Vitals have become crucial metrics for website performance, affecting both user experience and search rankings.</p>
+    <h2>Understanding the Core Metrics</h2>
+    <p>Learn about Largest Contentful Paint (LCP), First Input Delay (FID), and Cumulative Layout Shift (CLS)—what they measure and why they matter.</p>
+    <h2>Image Optimization Techniques</h2>
+    <p>Images often contribute significantly to performance issues. Discover modern approaches to image optimization, including responsive images, next-gen formats, and lazy loading.</p>
+    <h2>JavaScript Performance Optimization</h2>
+    <p>JavaScript can make or break your site's performance. Explore code splitting, tree shaking, and other techniques to deliver JavaScript efficiently.</p>`,
+    author: "Marcus Green",
+    date: "Dec 03, 2023",
+    category: "Performance",
+    image: placeholderImages.portfolio6,
+    slug: "optimizing-core-web-vitals",
+    featured: false,
+    trending: true,
+  },
+  {
+    id: 7,
+    title: "The Rise of Headless CMS in Modern Web Development",
+    excerpt: "Discover how headless CMS architecture is changing content management and enabling more flexible, scalable web experiences.",
+    content: `<p>Headless CMS systems are revolutionizing how we build and manage digital experiences, offering unprecedented flexibility for developers and marketers alike.</p>
+    <h2>What Makes a CMS "Headless"?</h2>
+    <p>Understand the fundamental difference between traditional and headless CMS systems and why this architectural shift matters for modern applications.</p>
+    <h2>Benefits for Developers and Content Teams</h2>
+    <p>Explore how developers gain freedom in their tech stack choices while content creators enjoy streamlined workflows and omnichannel publishing capabilities.</p>
+    <h2>Popular Headless CMS Platforms</h2>
+    <p>From Contentful to Sanity to Strapi, learn about the leading platforms in the headless CMS space and their unique strengths and use cases.</p>`,
+    author: "Elena Rodriguez",
+    date: "Dec 15, 2023",
+    category: "Development",
+    image: placeholderImages.portfolio7,
+    slug: "rise-of-headless-cms",
+    featured: false,
+    trending: false,
+  },
+  {
+    id: 8,
+    title: "Cybersecurity Essentials for Small Business Websites",
+    excerpt: "Learn the fundamental security practices every small business should implement to protect their website and customer data.",
+    content: `<p>Small businesses are increasingly targeted by cybercriminals. This guide covers the essential security measures every business website needs.</p>
+    <h2>Common Vulnerabilities and Threats</h2>
+    <p>Understand the most prevalent security risks for small business websites, from SQL injection to cross-site scripting and credential stuffing attacks.</p>
+    <h2>HTTPS and SSL Certificate Implementation</h2>
+    <p>Secure connections are non-negotiable today. Learn how to properly implement HTTPS and manage SSL certificates for your website.</p>
+    <h2>Regular Security Audits and Updates</h2>
+    <p>Discover how to create and maintain a security maintenance schedule that includes vulnerability scanning, software updates, and security patches.</p>`,
+    author: "James Wilson",
+    date: "Jan 08, 2024",
+    category: "Security",
+    image: placeholderImages.portfolio8,
+    slug: "cybersecurity-small-business",
+    featured: false,
+    trending: false,
+  },
+  {
+    id: 9,
+    title: "Effective Mobile-First Design Strategies",
+    excerpt: "Master the principles of mobile-first design to create exceptional user experiences across all device sizes.",
+    content: `<p>As mobile traffic continues to dominate, designing for mobile first isn't just a trend—it's a necessity for successful digital products.</p>
+    <h2>The Business Case for Mobile-First</h2>
+    <p>Understand the data behind mobile usage trends and why prioritizing mobile experiences leads to better business outcomes across industries.</p>
+    <h2>Content Prioritization</h2>
+    <p>Learn techniques for identifying and highlighting your most important content when screen real estate is limited on mobile devices.</p>
+    <h2>Navigation Patterns That Work</h2>
+    <p>Explore effective mobile navigation patterns that balance discoverability with screen space efficiency, from hamburger menus to tab bars.</p>`,
+    author: "Naomi Park",
+    date: "Jan 22, 2024",
+    category: "Design",
+    image: placeholderImages.portfolio9,
+    slug: "mobile-first-design-strategies",
+    featured: false,
+    trending: false,
+  },
+  {
+    id: 10,
+    title: "Measuring ROI in Digital Marketing Campaigns",
+    excerpt: "Learn practical approaches to tracking and calculating the return on investment for your digital marketing efforts.",
+    content: `<p>Accurately measuring ROI remains one of the biggest challenges in digital marketing. This guide offers practical solutions to this common problem.</p>
+    <h2>Setting Measurable Campaign Objectives</h2>
+    <p>Discover how to set SMART goals that align with business objectives and can be effectively measured through digital analytics.</p>
+    <h2>Attribution Models Explained</h2>
+    <p>Compare different attribution models, from first-click to multi-touch, and learn which is most appropriate for different types of campaigns.</p>
+    <h2>Beyond Conversions: Measuring Brand Impact</h2>
+    <p>Explore methods for quantifying less tangible but equally important aspects of marketing ROI, including brand awareness and sentiment.</p>`,
+    author: "Thomas Johnson",
+    date: "Feb 05, 2024",
+    category: "Marketing",
+    image: placeholderImages.portfolio10,
+    slug: "measuring-marketing-roi",
+    featured: false,
+    trending: false,
+  },
+  {
+    id: 11,
+    title: "Sustainable Web Design: Reducing Digital Carbon Footprint",
+    excerpt: "Discover how to create beautiful, functional websites while minimizing environmental impact through sustainable web design practices.",
+    content: `<p>The internet is responsible for approximately 3.7% of global carbon emissions. Sustainable web design aims to reduce this environmental impact.</p>
+    <h2>The Environmental Cost of Websites</h2>
+    <p>Understand how websites consume energy and contribute to carbon emissions through data centers, network infrastructure, and device usage.</p>
+    <h2>Optimizing Images and Media</h2>
+    <p>Learn techniques for dramatically reducing page weight through proper image formats, compression, and media delivery strategies.</p>
+    <h2>Efficient Coding Practices</h2>
+    <p>Explore development approaches that reduce processing requirements and minimize the resources needed to deliver your web experiences.</p>`,
+    author: "Olivia Chen",
+    date: "Feb 18, 2024",
+    category: "Sustainability",
+    image: placeholderImages.portfolio3,
+    slug: "sustainable-web-design",
+    featured: false,
+    trending: false,
+  },
+  {
+    id: 12,
+    title: "The Impact of Web3 on Digital Product Design",
+    excerpt: "Explore how blockchain, cryptocurrencies, and decentralized applications are reshaping user experience and product design.",
+    content: `<p>Web3 technologies are introducing new paradigms in digital product design, from ownership models to interaction patterns.</p>
+    <h2>Designing for Decentralization</h2>
+    <p>Learn about the unique UX challenges of decentralized applications and how to create intuitive experiences despite the underlying complexity.</p>
+    <h2>Wallet Integration and Authentication</h2>
+    <p>Explore best practices for integrating crypto wallets as authentication methods while maintaining security and usability.</p>
+    <h2>Communicating Value and Trust</h2>
+    <p>Discover strategies for building user trust in Web3 products through transparent design, clear communication, and progressive disclosure.</p>`,
+    author: "Ryan Kim",
+    date: "Mar 02, 2024",
+    category: "Web3",
+    image: placeholderImages.portfolio5,
+    slug: "web3-product-design",
+    featured: true,
+    trending: true,
   },
 ];
+
+// All available categories extracted from blog posts
+export const getAllCategories = (): string[] => {
+  const categories = blogPosts.map(post => post.category);
+  return ['All', ...Array.from(new Set(categories))].sort();
+};
+
+// Get featured posts
+export const getFeaturedPosts = (limit: number = 3): BlogPostProps[] => {
+  return blogPosts
+    .filter(post => post.featured)
+    .slice(0, limit);
+};
+
+// Get trending posts
+export const getTrendingPosts = (limit: number = 4): BlogPostProps[] => {
+  return blogPosts
+    .filter(post => post.trending)
+    .slice(0, limit);
+};
 
 // Calculate reading time (very rough estimate: 200 words per minute)
 export const calculateReadingTime = (content: string = ''): number => {
