@@ -1,12 +1,15 @@
 
 import { motion } from 'framer-motion';
 import { BlogPostProps } from '../BlogPost';
+import { getImageWithFallback } from '../../utils/imageUtils';
 
 interface BlogContentProps {
   post: BlogPostProps;
 }
 
 const BlogContent = ({ post }: BlogContentProps) => {
+  const imageProps = getImageWithFallback(post.image);
+  
   return (
     <>
       <motion.div
@@ -25,7 +28,8 @@ const BlogContent = ({ post }: BlogContentProps) => {
         <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-drew-purple opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
         
         <img 
-          src={post.image} 
+          src={imageProps.src}
+          onError={imageProps.onError}
           alt={post.title} 
           className="w-full h-auto transition-transform duration-700 group-hover:scale-105"
         />

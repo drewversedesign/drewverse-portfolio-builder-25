@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import TestimonialHeader from './testimonials/TestimonialHeader';
 import TestimonialSlider from './testimonials/TestimonialSlider';
 import { TestimonialProps } from './testimonials/TestimonialCard';
+import { placeholderImages } from '../utils/imageUtils';
 
 const testimonials: TestimonialProps[] = [
   {
@@ -10,7 +11,7 @@ const testimonials: TestimonialProps[] = [
     name: 'James Hill',
     company: 'Gentl Fashion',
     position: 'CEO',
-    avatar: '/lovable-uploads/f5615327-db3d-4b2e-9a73-0df11a0a9692.png',
+    avatar: placeholderImages.testimonial1,
     quote: 'Working with DrewVerse Design was an exceptional experience. They delivered a stunning website that perfectly captures our brand essence. Their attention to detail and creative approach exceeded our expectations.'
   },
   {
@@ -18,7 +19,7 @@ const testimonials: TestimonialProps[] = [
     name: 'Sarah Johnson',
     company: 'Everneed AI',
     position: 'Product Manager',
-    avatar: '/lovable-uploads/7b9b8abf-5621-42a1-ba06-9809c753797e.png',
+    avatar: placeholderImages.testimonial2,
     quote: 'The team at DrewVerse transformed our complex AI platform into an intuitive and visually appealing product. Their understanding of UX design principles and ability to simplify complex workflows made all the difference.'
   },
   {
@@ -26,7 +27,7 @@ const testimonials: TestimonialProps[] = [
     name: 'Michael Chen',
     company: 'TechStream',
     position: 'Marketing Director',
-    avatar: '/lovable-uploads/a30fd670-aefb-43e8-bde6-fe81e343a319.png',
+    avatar: placeholderImages.testimonial3,
     quote: 'The branding package DrewVerse created for us has been instrumental in our market positioning. Their strategic approach to design and attention to our company values produced results that truly reflect our mission.'
   },
 ];

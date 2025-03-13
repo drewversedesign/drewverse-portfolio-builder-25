@@ -1,4 +1,5 @@
 import { BlogPostProps } from "../components/BlogPost";
+import { placeholderImages } from "./imageUtils";
 
 // Dummy blog post data - moved from BlogPostPage.tsx to this utility file
 export const blogPosts: BlogPostProps[] = [
@@ -44,7 +45,7 @@ export const blogPosts: BlogPostProps[] = [
     author: "Alex Chen",
     date: "Oct 15, 2023",
     category: "Design",
-    image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80",
+    image: placeholderImages.portfolio1,
     slug: "ui-ux-design-trends-2023",
   },
   {
@@ -55,7 +56,7 @@ export const blogPosts: BlogPostProps[] = [
     author: "Priya Sharma",
     date: "Oct 22, 2023",
     category: "E-commerce",
-    image: "https://images.unsplash.com/photo-1556741533-79ca884cb8f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80",
+    image: placeholderImages.portfolio2,
     slug: "future-of-ecommerce-ai",
   },
   {
@@ -66,7 +67,7 @@ export const blogPosts: BlogPostProps[] = [
     author: "David Lee",
     date: "Nov 05, 2023",
     category: "Marketing",
-    image: "https://images.unsplash.com/photo-1551288049-d113f21a76ca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80",
+    image: placeholderImages.portfolio3,
     slug: "power-of-data-analytics-in-marketing",
   },
 ];

@@ -7,6 +7,7 @@ import PortfolioHeader from './portfolio/PortfolioHeader';
 import CategoryFilter from './portfolio/CategoryFilter';
 import ProjectsGrid from './portfolio/ProjectsGrid';
 import { ProjectProps } from './portfolio/ProjectCard';
+import { placeholderImages } from '../utils/imageUtils';
 
 const categories = ['All', 'Web Design', 'Branding', 'Mobile Apps', 'UI/UX'];
 
@@ -15,7 +16,7 @@ const projects: ProjectProps[] = [
     id: 1,
     title: 'Gentl Fashion',
     category: 'Web Design',
-    image: '/lovable-uploads/c15adf6f-a00b-4c5e-bbe7-58cd9e4f3ccd.png',
+    image: placeholderImages.portfolio1,
     description: 'E-commerce platform with custom animations and seamless checkout experience',
     link: '/portfolio/gentl-fashion'
   },
@@ -23,7 +24,7 @@ const projects: ProjectProps[] = [
     id: 2,
     title: 'Everneed AI',
     category: 'UI/UX',
-    image: '/lovable-uploads/1f6b0b2c-b6e7-41ff-bed6-566bac9c793c.png',
+    image: placeholderImages.portfolio2,
     description: 'AI-powered content creation platform with intuitive user interface',
     link: '/portfolio/everneed-ai'
   },
@@ -31,7 +32,7 @@ const projects: ProjectProps[] = [
     id: 3,
     title: 'TechStream',
     category: 'Branding',
-    image: '/lovable-uploads/c1975dfd-5ca5-4ce6-863d-9b881a283e04.png',
+    image: placeholderImages.portfolio3,
     description: 'Complete brand identity for a tech startup, including logo and style guide',
     link: '/portfolio/techstream'
   },
@@ -39,7 +40,7 @@ const projects: ProjectProps[] = [
     id: 4,
     title: 'Wellness App',
     category: 'Mobile Apps',
-    image: '/lovable-uploads/4c727787-b9ab-4109-a8f0-2728ba907cae.png',
+    image: placeholderImages.portfolio4,
     description: 'Health tracking mobile application with clean design and intuitive UX',
     link: '/portfolio/wellness-app'
   },

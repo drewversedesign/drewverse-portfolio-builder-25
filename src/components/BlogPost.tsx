@@ -1,8 +1,8 @@
-
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Calendar, User } from 'lucide-react';
 import { useState } from 'react';
+import { getImageWithFallback } from '../utils/imageUtils';
 
 export interface BlogPostProps {
   id: number;
@@ -32,13 +32,11 @@ export default function BlogPost({ post, index }: BlogPostCardProps) {
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
     
-    // Calculate mouse position relative to card center
     const cardCenterX = rect.left + rect.width / 2;
     const cardCenterY = rect.top + rect.height / 2;
     const mouseX = e.clientX - cardCenterX;
     const mouseY = e.clientY - cardCenterY;
     
-    // Convert to rotation values (limit rotation to 5 degrees)
     const rotX = (mouseY / (rect.height / 2)) * -3;
     const rotY = (mouseX / (rect.width / 2)) * 3;
     
@@ -51,6 +49,8 @@ export default function BlogPost({ post, index }: BlogPostCardProps) {
     rotateX.set(0);
     rotateY.set(0);
   };
+
+  const imageProps = getImageWithFallback(post.image);
 
   return (
     <motion.article
@@ -78,7 +78,8 @@ export default function BlogPost({ post, index }: BlogPostCardProps) {
     >
       <div className="relative h-60 overflow-hidden">
         <img 
-          src={post.image} 
+          src={imageProps.src} 
+          onError={imageProps.onError}
           alt={post.title} 
           className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
         />

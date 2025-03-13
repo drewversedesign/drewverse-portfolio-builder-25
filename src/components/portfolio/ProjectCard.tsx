@@ -1,7 +1,7 @@
-
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import { getImageWithFallback } from '../../utils/imageUtils';
 
 export interface ProjectProps {
   id: number;
@@ -24,7 +24,6 @@ const ProjectCard = ({ project, isHovered, onMouseEnter, onMouseLeave }: Project
   const rotateY = useMotionValue(0);
   const z = useMotionValue(0);
   
-  // Transform values for parallax effect
   const imgZ = useTransform(z, [0, 50], [0, 30]);
   const titleZ = useTransform(z, [0, 50], [0, 60]);
   const categoryZ = useTransform(z, [0, 50], [0, 45]);
@@ -37,13 +36,11 @@ const ProjectCard = ({ project, isHovered, onMouseEnter, onMouseLeave }: Project
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
     
-    // Calculate mouse position relative to card
     const cardCenterX = rect.left + rect.width / 2;
     const cardCenterY = rect.top + rect.height / 2;
     const mouseX = e.clientX - cardCenterX;
     const mouseY = e.clientY - cardCenterY;
     
-    // Convert to rotation values (limit rotation to 5 degrees)
     const rotX = (mouseY / (rect.height / 2)) * -5;
     const rotY = (mouseX / (rect.width / 2)) * 5;
     
@@ -57,6 +54,8 @@ const ProjectCard = ({ project, isHovered, onMouseEnter, onMouseLeave }: Project
     rotateY.set(0);
     z.set(0);
   };
+  
+  const imageProps = getImageWithFallback(project.image);
   
   return (
     <motion.div
@@ -79,13 +78,13 @@ const ProjectCard = ({ project, isHovered, onMouseEnter, onMouseLeave }: Project
       className="relative rounded-xl overflow-hidden group h-[400px]"
     >
       <motion.img 
-        src={project.image} 
+        src={imageProps.src}
+        onError={imageProps.onError}
         alt={project.title} 
         style={{ z: imgZ }}
         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
       />
       
-      {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-8 flex flex-col justify-end" style={{ transformStyle: "preserve-3d" }}>
         <div className="transform transition-transform duration-300 group-hover:translate-y-0" style={{ transformStyle: "preserve-3d" }}>
           <motion.span 
@@ -117,7 +116,6 @@ const ProjectCard = ({ project, isHovered, onMouseEnter, onMouseLeave }: Project
         </div>
       </div>
       
-      {/* Hover animation elements */}
       <motion.div 
         className="absolute top-4 right-4 w-12 h-12 rounded-full bg-drew-purple flex items-center justify-center"
         animate={{ 
