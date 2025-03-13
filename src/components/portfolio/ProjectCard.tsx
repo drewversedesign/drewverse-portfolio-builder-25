@@ -1,10 +1,8 @@
 
 import { motion, useMotionValue, useTransform } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
 import { useState } from 'react';
-import { getImageWithFallback } from '../../utils/imageUtils';
-import { TechGrid, GlitchTextEffect } from '../effects/TechEffects';
+import ProjectCardFront from './ProjectCardFront';
+import ProjectCardBack from './ProjectCardBack';
 
 export interface ProjectProps {
   id: number;
@@ -59,11 +57,10 @@ const ProjectCard = ({ project, isHovered, onMouseEnter, onMouseLeave }: Project
     z.set(0);
   };
 
-  const toggleFlip = () => {
+  const toggleFlip = (e: React.MouseEvent) => {
+    e.stopPropagation();
     setIsFlipped(!isFlipped);
   };
-  
-  const imageProps = getImageWithFallback(project.image);
   
   return (
     <motion.div
@@ -77,9 +74,10 @@ const ProjectCard = ({ project, isHovered, onMouseEnter, onMouseLeave }: Project
         if (!isFlipped) handleMouseLeave();
       }}
       onMouseMove={handleMouseMove}
-      onClick={toggleFlip}
+      onClick={() => !isFlipped && setIsFlipped(true)}
       className="relative h-[400px] cursor-pointer transform-style-3d"
     >
+      {/* Front card */}
       <motion.div 
         className="absolute w-full h-full rounded-xl backface-hidden"
         animate={{ 
@@ -94,41 +92,14 @@ const ProjectCard = ({ project, isHovered, onMouseEnter, onMouseLeave }: Project
         }}
         style={{ transformStyle: "preserve-3d" }}
       >
-        {/* Front of card */}
-        <div className="absolute w-full h-full rounded-xl overflow-hidden">
-          <motion.img 
-            src={imageProps.src}
-            onError={imageProps.onError}
-            alt={project.title} 
-            style={{ z: imgZ }}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-          />
-          
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-8 flex flex-col justify-end" style={{ transformStyle: "preserve-3d" }}>
-            <div className="transform transition-transform duration-300" style={{ transformStyle: "preserve-3d" }}>
-              <motion.span 
-                className="service-chip mb-3"
-                style={{ z: categoryZ }}
-              >
-                {project.category}
-              </motion.span>
-              
-              <motion.h3 
-                className="text-2xl font-bold text-white mb-2"
-                style={{ z: titleZ }}
-              >
-                {project.title}
-              </motion.h3>
-              
-              <motion.p 
-                className="text-gray-300 mb-6 max-w-md"
-                style={{ z: descriptionZ }}
-              >
-                {isFlipped ? "" : "Click to see details"}
-              </motion.p>
-            </div>
-          </div>
-        </div>
+        <ProjectCardFront 
+          project={project}
+          imgZ={imgZ}
+          categoryZ={categoryZ}
+          titleZ={titleZ}
+          descriptionZ={descriptionZ}
+          isFlipped={isFlipped}
+        />
       </motion.div>
 
       {/* Back of card */}
@@ -144,57 +115,13 @@ const ProjectCard = ({ project, isHovered, onMouseEnter, onMouseLeave }: Project
         }}
         style={{ transformStyle: "preserve-3d" }}
       >
-        <TechGrid>
-          <div className="h-full flex flex-col justify-between">
-            <div>
-              <motion.div className="service-chip mb-3">
-                {project.category}
-              </motion.div>
-              
-              <GlitchTextEffect 
-                text={project.title}
-                intensity="low"
-                color="text-white"
-              />
-              
-              <motion.p 
-                className="text-gray-300 my-6"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
-              >
-                {project.description}
-              </motion.p>
-            </div>
-            
-            <div className="space-y-4">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-              >
-                <Link to={project.link} className="inline-flex items-center text-drew-purple story-link">
-                  View Project <ArrowRight size={16} className="ml-2" />
-                </Link>
-              </motion.div>
-              
-              <motion.button
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4 }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  toggleFlip();
-                }}
-                className="text-gray-400 text-sm"
-              >
-                ← Flip back
-              </motion.button>
-            </div>
-          </div>
-        </TechGrid>
+        <ProjectCardBack 
+          project={project} 
+          toggleFlip={toggleFlip}
+        />
       </motion.div>
       
+      {/* Project number badge */}
       <motion.div 
         className="absolute top-4 right-4 w-12 h-12 rounded-full bg-drew-purple flex items-center justify-center z-20"
         animate={{ 
