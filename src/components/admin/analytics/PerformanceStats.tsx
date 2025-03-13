@@ -1,12 +1,25 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../ui/card';
 import { Progress } from '../../ui/progress';
-import { Zap, Globe, Clock } from 'lucide-react';
+import { Zap, Globe, Clock, RefreshCw } from 'lucide-react';
+import { Button } from '../../ui/button';
+import { toast } from 'sonner';
+
+interface PerformanceMetric {
+  name: string;
+  value: string;
+  progress: number;
+  status: 'good' | 'warning' | 'bad';
+  icon: React.ElementType;
+  description: string;
+}
 
 const PerformanceStats = () => {
-  // In a real app, these would come from analytics or monitoring APIs
-  const metrics = [
+  const [loading, setLoading] = useState(false);
+  const [lastUpdated, setLastUpdated] = useState<Date>(new Date());
+  
+  const [metrics, setMetrics] = useState<PerformanceMetric[]>([
     {
       name: 'Average Page Load',
       value: '0.8s',
@@ -31,7 +44,7 @@ const PerformanceStats = () => {
       icon: Globe,
       description: 'Content delivery uptime'
     }
-  ];
+  ]);
 
   const getProgressColor = (status: string) => {
     switch (status) {
@@ -46,10 +59,78 @@ const PerformanceStats = () => {
     }
   };
 
+  const refreshStats = () => {
+    setLoading(true);
+    
+    // Simulate API call to get fresh stats
+    setTimeout(() => {
+      // Randomly vary the metrics a bit to simulate real monitoring
+      const updatedMetrics = metrics.map(metric => {
+        const random = Math.random();
+        
+        if (metric.name === 'Average Page Load') {
+          const newValue = 0.7 + random * 0.5;
+          const newProgress = 100 - (newValue * 50);
+          return {
+            ...metric,
+            value: `${newValue.toFixed(1)}s`,
+            progress: Math.min(100, Math.max(0, newProgress)),
+            status: newValue < 1 ? 'good' : newValue < 1.5 ? 'warning' : 'bad'
+          };
+        }
+        
+        if (metric.name === 'Server Response') {
+          const newValue = 180 + random * 100;
+          const newProgress = 100 - (newValue / 10);
+          return {
+            ...metric,
+            value: `${Math.round(newValue)}ms`,
+            progress: Math.min(100, Math.max(0, newProgress)),
+            status: newValue < 250 ? 'good' : newValue < 500 ? 'warning' : 'bad'
+          };
+        }
+        
+        if (metric.name === 'Global CDN') {
+          const newValue = 99.5 + random * 0.5;
+          return {
+            ...metric,
+            value: `${newValue.toFixed(1)}%`,
+            progress: newValue,
+            status: newValue > 99.8 ? 'good' : newValue > 99.5 ? 'warning' : 'bad'
+          };
+        }
+        
+        return metric;
+      });
+      
+      setMetrics(updatedMetrics);
+      setLastUpdated(new Date());
+      setLoading(false);
+      toast.success('Performance metrics updated');
+    }, 1500);
+  };
+
+  const formatTime = (date: Date) => {
+    return date.toLocaleTimeString(undefined, { 
+      hour: '2-digit', 
+      minute: '2-digit',
+      second: '2-digit'
+    });
+  };
+
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle>Performance Metrics</CardTitle>
+        <Button 
+          variant="outline" 
+          size="sm" 
+          onClick={refreshStats}
+          disabled={loading}
+        >
+          <RefreshCw className={`h-4 w-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
+          Refresh Metrics
+        </Button>
       </CardHeader>
       <CardContent>
         <div className="space-y-6">
@@ -68,6 +149,10 @@ const PerformanceStats = () => {
               </div>
             </div>
           ))}
+          
+          <div className="text-xs text-gray-400 mt-4">
+            Last updated: {formatTime(lastUpdated)}
+          </div>
         </div>
       </CardContent>
     </Card>
