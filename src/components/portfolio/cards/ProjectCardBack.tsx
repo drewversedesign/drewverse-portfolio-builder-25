@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion';
 import { X, ArrowRight } from 'lucide-react';
 import { ProjectProps } from './ProjectCard';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTrigger, DialogTitle } from '@/components/ui/dialog';
 import ProjectDetails from '../detail/ProjectDetails';
 
 interface ProjectCardBackProps {
@@ -97,6 +97,7 @@ const ProjectCardBack = ({ project, toggleFlip }: ProjectCardBackProps) => {
               </button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[900px] bg-drew-black border border-drew-purple/20">
+              <DialogTitle className="sr-only">Project Details for {project.title}</DialogTitle>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div className="md:col-span-2">
                   <div className="space-y-4">
@@ -110,7 +111,7 @@ const ProjectCardBack = ({ project, toggleFlip }: ProjectCardBackProps) => {
                       />
                     </div>
                     <div className="prose prose-invert max-w-none">
-                      <p className="text-gray-300">{project.description}</p>
+                      <p className="text-gray-100">{project.description}</p>
                     </div>
                   </div>
                 </div>

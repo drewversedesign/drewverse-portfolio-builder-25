@@ -58,7 +58,7 @@ const TestimonialCard = ({ testimonial, direction }: TestimonialCardProps) => {
       
       <div className="text-center mt-4">
         <motion.h4 
-          className="text-xl font-bold"
+          className="text-xl font-bold text-white"
           animate={{ 
             y: isHovered ? -2 : 0,
             z: isHovered ? 10 : 0,
@@ -69,7 +69,7 @@ const TestimonialCard = ({ testimonial, direction }: TestimonialCardProps) => {
           {testimonial.name}
         </motion.h4>
         <motion.p 
-          className="text-drew-purple"
+          className="text-drew-purple font-medium"
           animate={{ 
             y: isHovered ? -1 : 0,
             z: isHovered ? 5 : 0 
@@ -79,7 +79,7 @@ const TestimonialCard = ({ testimonial, direction }: TestimonialCardProps) => {
           {testimonial.position}
         </motion.p>
         <motion.p 
-          className="text-gray-400 text-sm"
+          className="text-gray-300 text-sm"
           animate={{ z: isHovered ? 3 : 0 }}
           transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.1 }}
         >
@@ -128,7 +128,7 @@ const TestimonialCard = ({ testimonial, direction }: TestimonialCardProps) => {
           >
             "
           </motion.span>
-          <p className="text-lg text-gray-300 italic relative z-10 mb-6">
+          <p className="text-lg text-white italic relative z-10 mb-6">
             {testimonial.quote}
           </p>
           <motion.span 
