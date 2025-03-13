@@ -1,5 +1,6 @@
+
 import { Link } from 'react-router-dom';
-import { Map, HelpCircle } from 'lucide-react';
+import { MapPin, HelpCircle } from 'lucide-react';
 
 const FooterAdditions = () => {
   return (
@@ -8,7 +9,7 @@ const FooterAdditions = () => {
         to="/sitemap" 
         className="flex items-center gap-2 text-gray-400 hover:text-drew-purple transition-colors duration-200"
       >
-        <Map size={16} />
+        <MapPin size={16} />
         <span>Sitemap</span>
       </Link>
       <Link 

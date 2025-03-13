@@ -1,6 +1,6 @@
 
 import { Link } from 'react-router-dom';
-import { Sitemap, HelpCircle } from 'lucide-react';
+import { MapPin, HelpCircle } from 'lucide-react';
 
 interface FooterLinkProps {
   to: string;
@@ -25,7 +25,7 @@ const FooterLinks = () => {
     <div className="flex flex-wrap gap-6 items-center justify-center mt-4">
       <FooterLink 
         to="/sitemap" 
-        icon={<Map size={16} />} 
+        icon={<MapPin size={16} />} 
         label="Sitemap" 
       />
       <FooterLink 
