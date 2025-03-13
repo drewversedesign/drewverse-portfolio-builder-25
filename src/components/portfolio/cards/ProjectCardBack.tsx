@@ -1,8 +1,7 @@
 
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Calendar, User, Code } from 'lucide-react';
-import { TechGrid, GlitchTextEffect } from '../../effects/TechEffects';
+import { ArrowLeft, Tag, Calendar, User, CheckSquare } from 'lucide-react';
 import { ProjectProps } from './ProjectCard';
 
 interface ProjectCardBackProps {
@@ -11,111 +10,86 @@ interface ProjectCardBackProps {
 }
 
 const ProjectCardBack = ({ project, toggleFlip }: ProjectCardBackProps) => {
-  // Extract technologies and services if available
-  const technologies = 'technologies' in project ? project.technologies : [];
-  const services = 'services' in project ? project.services : [];
-  const clientName = 'clientName' in project ? project.clientName : 'Client';
-  const completionDate = 'completionDate' in project ? project.completionDate : '';
-
+  // Extract the project ID from the link
+  const projectSlug = project.link.split('/').pop();
+  
   return (
-    <TechGrid>
-      <div className="h-full flex flex-col justify-between">
+    <div className="relative h-full flex flex-col">
+      <button 
+        onClick={toggleFlip}
+        className="absolute top-0 right-0 bg-drew-gray-dark/80 rounded-full p-1 hover:bg-drew-gray-dark"
+      >
+        <ArrowLeft size={16} />
+      </button>
+      
+      <div className="space-y-4 h-full flex flex-col">
         <div>
-          <motion.div className="service-chip mb-3">
+          <span className="text-xs font-medium px-2 py-1 rounded-full bg-drew-purple/20 text-drew-purple">
             {project.category}
-          </motion.div>
-          
-          <GlitchTextEffect 
-            text={project.title}
-            intensity="low"
-            color="text-white"
-          />
-          
-          <motion.p 
-            className="text-gray-300 my-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-          >
-            {project.description}
-          </motion.p>
-          
-          {/* Project details */}
-          {(clientName || completionDate) && (
-            <div className="space-y-2 mb-4">
-              {clientName && (
-                <div className="flex items-center text-sm text-gray-400">
-                  <User size={14} className="mr-2 text-drew-purple" />
-                  <span>{clientName}</span>
-                </div>
-              )}
-              
-              {completionDate && (
-                <div className="flex items-center text-sm text-gray-400">
-                  <Calendar size={14} className="mr-2 text-drew-purple" />
-                  <span>{completionDate}</span>
-                </div>
-              )}
-            </div>
-          )}
-          
-          {/* Technologies used */}
-          {technologies && technologies.length > 0 && (
-            <div className="mb-4">
-              <div className="flex items-center text-sm text-gray-400 mb-2">
-                <Code size={14} className="mr-2 text-drew-purple" />
-                <span>Technologies</span>
-              </div>
-              
-              <div className="flex flex-wrap gap-2">
-                {technologies.map((tech, index) => (
-                  <span 
-                    key={index}
-                    className="text-xs bg-drew-black/60 text-gray-300 px-2 py-1 rounded"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-          
-          {/* Services provided */}
-          {services && services.length > 0 && (
-            <div className="mb-4">
-              <div className="text-sm text-gray-400 mb-2">Services:</div>
-              <ul className="text-xs text-gray-300 list-disc list-inside">
-                {services.map((service, index) => (
-                  <li key={index}>{service}</li>
-                ))}
-              </ul>
-            </div>
-          )}
+          </span>
+          <h3 className="text-lg font-bold mt-2">{project.title}</h3>
         </div>
         
-        <div className="space-y-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            <Link to={project.link} className="inline-flex items-center text-drew-purple story-link">
-              View Project <ArrowRight size={16} className="ml-2" />
-            </Link>
-          </motion.div>
+        <div className="flex-grow space-y-4">
+          {/* Client */}
+          <div className="flex items-center">
+            <User size={16} className="text-drew-purple mr-2" />
+            <span className="text-sm text-gray-400">Client: </span>
+            <span className="text-sm ml-1">{project.clientName || 'Confidential'}</span>
+          </div>
           
-          <motion.button
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            onClick={toggleFlip}
-            className="text-gray-400 text-sm"
-          >
-            ← Flip back
-          </motion.button>
+          {/* Completion Date */}
+          <div className="flex items-center">
+            <Calendar size={16} className="text-drew-purple mr-2" />
+            <span className="text-sm text-gray-400">Completed: </span>
+            <span className="text-sm ml-1">{project.completionDate || 'Ongoing'}</span>
+          </div>
+          
+          {/* Technologies */}
+          <div>
+            <div className="flex items-center mb-2">
+              <Tag size={16} className="text-drew-purple mr-2" />
+              <span className="text-sm text-gray-400">Technologies:</span>
+            </div>
+            <div className="flex flex-wrap gap-1 ml-6">
+              {project.technologies?.map((tech, index) => (
+                <span 
+                  key={index} 
+                  className="px-2 py-1 bg-drew-black/30 rounded-md text-xs border border-white/5"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+          
+          {/* Services */}
+          <div>
+            <div className="flex items-center mb-2">
+              <CheckSquare size={16} className="text-drew-purple mr-2" />
+              <span className="text-sm text-gray-400">Services:</span>
+            </div>
+            <div className="flex flex-wrap gap-1 ml-6">
+              {project.services?.map((service, index) => (
+                <span 
+                  key={index} 
+                  className="px-2 py-1 bg-drew-black/30 rounded-md text-xs border border-white/5"
+                >
+                  {service}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
+        
+        <Link 
+          to={`/portfolio/${projectSlug}`}
+          className="w-full px-4 py-2 bg-drew-purple hover:bg-drew-purple/90 text-white text-sm rounded-lg transition-colors mt-auto flex justify-center items-center"
+        >
+          View Full Case Study
+        </Link>
       </div>
-    </TechGrid>
+    </div>
   );
 };
 
