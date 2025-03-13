@@ -1,6 +1,6 @@
 
 import { BlogPostProps } from "./types";
-import { blogPosts } from "./blogData";
+import { blogPosts } from "./data"; // Updated import
 
 // All available categories extracted from blog posts
 export const getAllCategories = (): string[] => {

@@ -1,6 +1,6 @@
 
 import { BlogPostProps } from "./types";
-import { blogPosts } from "./blogData";
+import { blogPosts } from "./data"; // Updated import
 
 // Get featured posts
 export const getFeaturedPosts = (limit: number = 3): BlogPostProps[] => {
