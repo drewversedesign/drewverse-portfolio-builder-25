@@ -1,6 +1,5 @@
-
 import { motion } from 'framer-motion';
-import { ReactNode } from 'react';
+import { ReactNode, useState, useEffect } from 'react';
 
 // Scanning line effect component
 export const ScanningLine = () => (
@@ -80,3 +79,106 @@ export const HolographicCard = ({ children }: { children: ReactNode }) => (
     {children}
   </motion.div>
 );
+
+// New Advanced Glitch text effect with more distortion and character manipulation
+export const GlitchTextEffect = ({ 
+  text,
+  intensity = "medium", // low, medium, high
+  color = "text-drew-purple"
+}: { 
+  text: string;
+  intensity?: "low" | "medium" | "high";
+  color?: string;
+}) => {
+  const [displayText, setDisplayText] = useState(text);
+  const [isGlitching, setIsGlitching] = useState(false);
+  
+  // Set glitch parameters based on intensity
+  const glitchFrequency = intensity === "low" ? 5000 : intensity === "medium" ? 3000 : 1500;
+  const glitchDuration = intensity === "low" ? 200 : intensity === "medium" ? 400 : 700;
+  const maxDistortion = intensity === "low" ? 1 : intensity === "medium" ? 2 : 3;
+  
+  // Characters for distortion
+  const distortionChars = "!@#$%^&*()_+-=[]{}|;:,.<>?/\\";
+  
+  // Function to create distorted version of text
+  const distortText = (originalText: string, amount: number) => {
+    let result = "";
+    for (let i = 0; i < originalText.length; i++) {
+      // Randomly decide if this character should be distorted
+      if (Math.random() < amount / 10) {
+        // Replace with random distortion character
+        result += distortionChars[Math.floor(Math.random() * distortionChars.length)];
+      } else {
+        result += originalText[i];
+      }
+    }
+    return result;
+  };
+  
+  useEffect(() => {
+    // Setup random glitching intervals
+    const triggerGlitchInterval = setInterval(() => {
+      // Only start a new glitch if not currently glitching
+      if (!isGlitching) {
+        setIsGlitching(true);
+        
+        // Create a series of rapid text changes
+        let glitchCount = 0;
+        const maxGlitches = intensity === "low" ? 2 : intensity === "medium" ? 4 : 6;
+        
+        const glitchInterval = setInterval(() => {
+          if (glitchCount < maxGlitches) {
+            // Apply distortion with increasing then decreasing intensity
+            const distortionAmount = glitchCount < maxGlitches/2 
+              ? (glitchCount + 1) * maxDistortion 
+              : (maxGlitches - glitchCount) * maxDistortion;
+              
+            setDisplayText(distortText(text, distortionAmount));
+            glitchCount++;
+          } else {
+            // Reset back to original text
+            setDisplayText(text);
+            clearInterval(glitchInterval);
+            setIsGlitching(false);
+          }
+        }, glitchDuration / maxGlitches);
+      }
+    }, glitchFrequency + Math.random() * 2000); // Add randomness to the interval
+    
+    // Cleanup
+    return () => clearInterval(triggerGlitchInterval);
+  }, [text, intensity, isGlitching, maxDistortion, glitchDuration]);
+  
+  return (
+    <span className={`relative inline-block ${color} font-mono`}>
+      {/* Main text */}
+      <span className="relative z-10">{displayText}</span>
+      
+      {/* Glitch layers */}
+      <motion.span 
+        className="absolute left-0 top-0 text-red-500 opacity-70 z-0"
+        animate={{ 
+          x: isGlitching ? [-1, 1, -2, 0] : 0,
+          y: isGlitching ? [1, -1, 0, 1] : 0,
+          opacity: isGlitching ? [0.7, 0.4, 0.7, 0.3] : 0
+        }}
+        transition={{ duration: 0.2, ease: "easeInOut" }}
+      >
+        {displayText}
+      </motion.span>
+      
+      <motion.span 
+        className="absolute left-0 top-0 text-blue-500 opacity-70 z-0"
+        animate={{ 
+          x: isGlitching ? [1, -1, 2, 0] : 0,
+          y: isGlitching ? [-1, 1, 0, -1] : 0,
+          opacity: isGlitching ? [0.7, 0.3, 0.6, 0.2] : 0
+        }}
+        transition={{ duration: 0.2, ease: "easeInOut" }}
+      >
+        {displayText}
+      </motion.span>
+    </span>
+  );
+};
