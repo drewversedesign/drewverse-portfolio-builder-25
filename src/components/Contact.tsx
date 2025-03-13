@@ -1,6 +1,5 @@
 
 import { motion } from 'framer-motion';
-import ContactHeader from './contact/ContactHeader';
 import ContactInfo from './contact/ContactInfo';
 import ContactForm from './contact/ContactForm';
 
@@ -14,13 +13,6 @@ export default function Contact() {
       </div>
       
       <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <ContactHeader 
-          title="Let's Collaborate"
-          subtitle="Get In Touch"
-          description="Have a project in mind? We'd love to hear about it. Drop us a message
-          and we'll get back to you as soon as possible."
-        />
-        
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
           <div className="lg:col-span-2">
             <ContactInfo />
