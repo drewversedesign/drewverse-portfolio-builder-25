@@ -1,6 +1,9 @@
 
 import { useEffect, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { ArrowUp } from 'lucide-react';
+
+// Components
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import Services from '../components/Services';
@@ -10,7 +13,6 @@ import Testimonials from '../components/Testimonials';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
-import { ArrowUp } from 'lucide-react';
 import { TechGrid, GlitchText } from '../components/effects/TechEffects';
 
 const Index = () => {
@@ -24,14 +26,12 @@ const Index = () => {
   const scale = useTransform(scrollYProgress, [0, 0.3], [1, 0.9]);
 
   useEffect(() => {
+    // Scroll to top on page load
     window.scrollTo(0, 0);
 
+    // Handle scroll events
     const handleScroll = () => {
-      if (window.scrollY > 500) {
-        setShowScrollTop(true);
-      } else {
-        setShowScrollTop(false);
-      }
+      setShowScrollTop(window.scrollY > 500);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -43,6 +43,16 @@ const Index = () => {
       top: 0,
       behavior: 'smooth'
     });
+  };
+
+  // Section animation variants
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut" }
+    }
   };
 
   return (
@@ -68,17 +78,52 @@ const Index = () => {
             zIndex: 10,
           }}
         >
-          <motion.div style={{ y: y1, scale }}>
+          <motion.div 
+            style={{ y: y1, scale }}
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
             <Services />
           </motion.div>
           
-          <motion.div style={{ y: y2 }}>
+          <motion.div 
+            style={{ y: y2 }}
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
             <Portfolio />
           </motion.div>
           
-          <DataVisualization />
-          <Testimonials />
-          <Contact />
+          <motion.div
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            <DataVisualization />
+          </motion.div>
+          
+          <motion.div
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            <Testimonials />
+          </motion.div>
+          
+          <motion.div
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            <Contact />
+          </motion.div>
         </motion.div>
       </main>
       

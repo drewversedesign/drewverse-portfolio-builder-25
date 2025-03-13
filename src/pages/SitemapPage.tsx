@@ -1,101 +1,89 @@
 
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Map, ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import Breadcrumb from '../components/Breadcrumb';
-
-// Sitemap data structure
-const sitemapData = [
-  {
-    section: 'Main Pages',
-    links: [
-      { name: 'Home', path: '/' },
-      { name: 'About Us', path: '/about' },
-      { name: 'Services', path: '/services' },
-      { name: 'Portfolio', path: '/portfolio' },
-      { name: 'Blog', path: '/blog' },
-      { name: 'Contact', path: '/contact' },
-      { name: 'FAQ', path: '/faq' },
-      { name: 'Sitemap', path: '/sitemap' },
-    ]
-  },
-  {
-    section: 'Services',
-    links: [
-      { name: 'Design & Animation', path: '/services/design' },
-      { name: 'Web Development', path: '/services/web-development' },
-      { name: 'App Development', path: '/services/app-development' },
-      { name: 'Brand Strategy', path: '/services/brand-strategy' },
-    ]
-  },
-  {
-    section: 'Legal',
-    links: [
-      { name: 'Privacy Policy', path: '/privacy' },
-      { name: 'Terms of Service', path: '/terms' },
-    ]
-  },
-];
+import SEO from '../components/SEO';
 
 const SitemapPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Breadcrumb items
-  const breadcrumbItems = [
-    { label: 'Home', path: '/' },
-    { label: 'Sitemap', path: '/sitemap', active: true },
+  const sitemapSections = [
+    {
+      title: "Main Pages",
+      links: [
+        { name: "Home", path: "/" },
+        { name: "About", path: "/about" },
+        { name: "Services", path: "/services" },
+        { name: "Portfolio", path: "/portfolio" },
+        { name: "Blog", path: "/blog" },
+        { name: "Contact", path: "/contact" },
+      ]
+    },
+    {
+      title: "Information",
+      links: [
+        { name: "FAQ", path: "/faq" },
+        { name: "Sitemap", path: "/sitemap" },
+      ]
+    },
+    {
+      title: "Portfolio Categories",
+      links: [
+        { name: "Web Design", path: "/portfolio?category=web-design" },
+        { name: "Mobile Apps", path: "/portfolio?category=mobile-apps" },
+        { name: "UI/UX", path: "/portfolio?category=ui-ux" },
+        { name: "Branding", path: "/portfolio?category=branding" },
+      ]
+    },
   ];
 
   return (
     <div className="min-h-screen bg-drew-black text-white">
+      <SEO 
+        title="Sitemap" 
+        description="Navigate our website with ease. View our complete sitemap."
+      />
       <Navbar />
       
-      <main className="pt-32 pb-24">
+      <main className="pt-32 pb-20">
         <div className="container mx-auto px-4 md:px-6">
-          {/* Breadcrumb navigation */}
-          <Breadcrumb items={breadcrumbItems} className="mb-8" />
-          
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="text-center mb-16"
           >
-            <span className="service-chip">Navigation Guide</span>
+            <span className="service-chip">Navigation</span>
             <h1 className="text-4xl md:text-5xl font-bold mt-4">
               Site<span className="text-gradient">map</span>
             </h1>
             <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
-              Find your way around our website with this complete overview of all pages and sections.
+              Find everything you need with our complete site navigation
             </p>
           </motion.div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {sitemapData.map((section, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+            {sitemapSections.map((section, index) => (
               <motion.div
-                key={section.section}
+                key={section.title}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="glass-card p-6 rounded-xl"
+                className="glass-card rounded-xl p-6"
               >
-                <div className="flex items-center mb-4">
-                  <Map className="mr-2 text-drew-purple" size={20} />
-                  <h2 className="text-xl font-semibold">{section.section}</h2>
-                </div>
+                <h2 className="text-xl font-bold mb-4 text-drew-purple">{section.title}</h2>
                 <ul className="space-y-3">
                   {section.links.map((link) => (
-                    <li key={link.path} className="transition-colors duration-200">
+                    <li key={link.path}>
                       <Link 
-                        to={link.path} 
-                        className="flex items-center text-gray-300 hover:text-drew-purple group"
+                        to={link.path}
+                        className="text-white hover:text-drew-purple transition-colors duration-300 flex items-center"
                       >
-                        <ArrowRight size={14} className="mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                        <span className="mr-2">•</span>
                         {link.name}
                       </Link>
                     </li>

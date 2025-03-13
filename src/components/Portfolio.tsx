@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Plus } from 'lucide-react';
 import PortfolioHeader from './portfolio/PortfolioHeader';
 import CategoryFilter from './portfolio/CategoryFilter';
 import ProjectsGrid from './portfolio/ProjectsGrid';
@@ -44,15 +44,39 @@ const projects: ProjectProps[] = [
     description: 'Health tracking mobile application with clean design and intuitive UX',
     link: '/portfolio/wellness-app'
   },
+  {
+    id: 5,
+    title: 'Crypto Dashboard',
+    category: 'Web Design',
+    image: placeholderImages.portfolio2,
+    description: 'Real-time cryptocurrency tracking dashboard with advanced data visualization',
+    link: '/portfolio/crypto-dashboard'
+  },
+  {
+    id: 6,
+    title: 'FutureBank',
+    category: 'UI/UX',
+    image: placeholderImages.portfolio3,
+    description: 'Next-generation banking interface with biometric authentication',
+    link: '/portfolio/futurebank'
+  },
 ];
 
 export default function Portfolio() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+  const [displayCount, setDisplayCount] = useState(4);
 
   const filteredProjects = activeCategory === 'All' 
     ? projects 
     : projects.filter(project => project.category === activeCategory);
+
+  const visibleProjects = filteredProjects.slice(0, displayCount);
+  const hasMoreProjects = visibleProjects.length < filteredProjects.length;
+
+  const loadMore = () => {
+    setDisplayCount(prev => Math.min(prev + 2, filteredProjects.length));
+  };
 
   return (
     <section id="portfolio" className="py-24 relative overflow-hidden">
@@ -76,10 +100,24 @@ export default function Portfolio() {
         />
         
         <ProjectsGrid 
-          projects={filteredProjects}
+          projects={visibleProjects}
           hoveredProject={hoveredProject}
           setHoveredProject={setHoveredProject}
         />
+
+        {hasMoreProjects && (
+          <div className="text-center mt-10">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+              className="bg-drew-black border border-drew-purple/50 hover:border-drew-purple text-white font-medium px-6 py-2 rounded-lg transition-all duration-300 flex items-center mx-auto"
+              onClick={loadMore}
+            >
+              <Plus size={16} className="mr-2 text-drew-purple" />
+              Load More Projects
+            </motion.button>
+          </div>
+        )}
         
         <div className="text-center mt-16">
           <Link to="/portfolio">
