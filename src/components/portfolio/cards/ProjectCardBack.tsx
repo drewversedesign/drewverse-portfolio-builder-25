@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import { TechGrid, GlitchTextEffect } from '../effects/TechEffects';
+import { TechGrid, GlitchTextEffect } from '../../effects/TechEffects';
 import { ProjectProps } from './ProjectCard';
 
 interface ProjectCardBackProps {

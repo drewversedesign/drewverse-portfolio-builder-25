@@ -1,7 +1,7 @@
 
 import { AnimatePresence } from 'framer-motion';
-import ProjectCard from './ProjectCard';
-import { ProjectProps } from './ProjectCard';
+import ProjectCard from './cards/ProjectCard';
+import { ProjectProps } from './cards/ProjectCard';
 
 interface ProjectsGridProps {
   projects: ProjectProps[];

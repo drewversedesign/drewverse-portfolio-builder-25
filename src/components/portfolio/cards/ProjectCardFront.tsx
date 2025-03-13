@@ -1,6 +1,6 @@
 
 import { motion } from 'framer-motion';
-import { getImageWithFallback } from '../../utils/imageUtils';
+import { getImageWithFallback } from '../../../utils/imageUtils';
 import { ProjectProps } from './ProjectCard';
 
 interface ProjectCardFrontProps {
