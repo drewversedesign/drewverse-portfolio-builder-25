@@ -86,18 +86,6 @@ const ProjectCardBack = ({ project, toggleFlip }: ProjectCardBackProps) => {
         
         {/* Footer with buttons */}
         <div className="mt-4 flex flex-col gap-2">
-          {project.link && (
-            <a 
-              href={project.link} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center px-4 py-2 bg-drew-purple/20 hover:bg-drew-purple/40 rounded-lg transition-colors text-white text-sm"
-            >
-              View Live Project
-              <ExternalLink size={14} className="ml-2" />
-            </a>
-          )}
-          
           <Link 
             to={project.link} 
             className="inline-flex items-center justify-center px-4 py-2 bg-drew-purple hover:bg-drew-purple/90 rounded-lg transition-colors text-white text-sm group"

@@ -1,6 +1,6 @@
 
 import { motion } from 'framer-motion';
-import { User, Calendar, Tag, Clock, ExternalLink } from 'lucide-react';
+import { User, Calendar, Tag, Clock } from 'lucide-react';
 import { ProjectProps } from '../cards/ProjectCard';
 
 interface ProjectDetailsProps {
@@ -63,18 +63,6 @@ const ProjectDetails = ({ project }: ProjectDetailsProps) => {
             ))}
           </div>
         </div>
-        
-        {project.link && (
-          <a 
-            href={project.link} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="inline-flex items-center px-4 py-2 bg-drew-purple hover:bg-drew-purple/90 rounded-lg transition-colors mt-4 w-full justify-center"
-          >
-            View Live Project
-            <ExternalLink size={16} className="ml-2" />
-          </a>
-        )}
       </div>
     </motion.div>
   );
