@@ -9,6 +9,7 @@ import DataVisualization from '../components/DataVisualization';
 import Testimonials from '../components/Testimonials';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
 import { ArrowUp } from 'lucide-react';
 import { TechGrid, GlitchText } from '../components/effects/TechEffects';
 
@@ -46,6 +47,11 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-drew-black text-white">
+      <SEO 
+        title="DrewVerse Design - Premium Digital Agency"
+        description="We create stunning digital experiences through innovative design and development solutions. Transform your ideas into digital excellence."
+        keywords="digital agency, web design, UI/UX design, mobile apps, branding, premium design"
+      />
       <Navbar />
       
       <main>

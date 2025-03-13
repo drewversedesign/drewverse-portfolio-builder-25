@@ -8,6 +8,7 @@ import BlogHeader from '../components/blog/BlogHeader';
 import BlogContent from '../components/blog/BlogContent';
 import RelatedPosts from '../components/blog/RelatedPosts';
 import BlogNotFound from '../components/blog/BlogNotFound';
+import SEO from '../components/SEO';
 import { blogPosts, calculateReadingTime, findRelatedPosts } from '../utils/blogUtils';
 
 const BlogPostPage = () => {
@@ -41,6 +42,14 @@ const BlogPostPage = () => {
   
   return (
     <div className="min-h-screen bg-drew-black text-white">
+      <SEO 
+        title={post.title}
+        description={post.excerpt}
+        keywords={`${post.category}, blog, article, drewverse, design`}
+        ogType="article"
+        ogImage={post.image}
+        ogUrl={`https://drewverse.design/blog/${post.slug}`}
+      />
       <Navbar />
       
       <main className="pt-32 pb-24">

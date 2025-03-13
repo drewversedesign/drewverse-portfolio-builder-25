@@ -5,6 +5,7 @@ import { Search, ArrowLeft, ArrowRight } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import BlogPost, { BlogPostProps } from '../components/BlogPost';
+import SEO from '../components/SEO';
 
 // Sample blog posts data
 const blogPosts: BlogPostProps[] = [
@@ -103,6 +104,12 @@ const BlogPage = () => {
 
   return (
     <div className="min-h-screen bg-drew-black text-white">
+      <SEO 
+        title="Blog"
+        description="Discover insights, tips, and trends in design, development, and digital marketing on the DrewVerse Design blog."
+        keywords="design blog, web development tips, UI/UX trends, digital marketing insights"
+        ogType="article"
+      />
       <Navbar />
       
       <main className="pt-32 pb-24">

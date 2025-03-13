@@ -8,6 +8,7 @@ import Footer from '../components/Footer';
 import ServiceHeader from '../components/services/ServiceHeader';
 import ServicesGrid from '../components/services/ServicesGrid';
 import Breadcrumb from '../components/Breadcrumb';
+import SEO from '../components/SEO';
 import { ServiceProps } from '../components/services/ServiceCard';
 
 // Services data for the services page
@@ -59,6 +60,11 @@ const ServicesPage = () => {
 
   return (
     <div className="min-h-screen bg-drew-black text-white">
+      <SEO 
+        title="Our Services"
+        description="Explore our comprehensive range of digital services including web development, design, branding, and app development."
+        keywords="web development, app development, UI/UX design, brand strategy, digital services"
+      />
       <Navbar />
       
       <main className="pt-32 pb-24">
