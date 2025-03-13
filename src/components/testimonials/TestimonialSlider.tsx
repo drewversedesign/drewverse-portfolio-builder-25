@@ -23,12 +23,14 @@ const TestimonialSlider = ({
   
   const nextTestimonial = () => {
     setDirection(1);
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
+    const newIndex = (currentIndex + 1) % testimonials.length;
+    setCurrentIndex(newIndex);
   };
 
   const prevTestimonial = () => {
     setDirection(-1);
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length);
+    const newIndex = (currentIndex - 1 + testimonials.length) % testimonials.length;
+    setCurrentIndex(newIndex);
   };
   
   return (
