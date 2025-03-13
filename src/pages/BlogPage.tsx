@@ -8,6 +8,7 @@ import BlogPost from '../components/BlogPost';
 import SEO from '../components/SEO';
 import FeaturedPost from '../components/blog/FeaturedPost';
 import TrendingPosts from '../components/blog/TrendingPosts';
+import CategoryTags from '../components/blog/CategoryTags';
 import { blogPosts, getAllCategories, getFeaturedPosts, getTrendingPosts } from '../utils/blogUtils';
 
 const BlogPage = () => {
@@ -47,6 +48,12 @@ const BlogPage = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleCategorySelect = (category: string) => {
+    setActiveCategory(category);
+    setCurrentPage(1);
+    setShowFilters(false);
+  };
+
   return (
     <div className="min-h-screen bg-drew-black text-white">
       <SEO 
@@ -80,121 +87,126 @@ const BlogPage = () => {
           {/* Trending Posts Section */}
           <TrendingPosts posts={trendingPosts} />
           
-          {/* Search and Filters */}
-          <div className="flex flex-col md:flex-row justify-between mb-10 gap-6">
-            <div className="relative w-full md:w-96">
-              <input
-                type="text"
-                placeholder="Search articles..."
-                value={searchQuery}
-                onChange={(e) => {
-                  setSearchQuery(e.target.value);
-                  setCurrentPage(1);
-                }}
-                className="w-full bg-drew-gray-dark/70 border border-white/10 rounded-full px-5 py-3 text-white focus:outline-none focus:ring-2 focus:ring-drew-purple/50 pl-12 transition-all duration-300"
-              />
-              <Search size={18} className="absolute top-1/2 transform -translate-y-1/2 left-4 text-gray-400" />
-            </div>
-            
-            <div className="md:hidden">
-              <button 
-                onClick={() => setShowFilters(!showFilters)}
-                className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-drew-gray-dark rounded-full"
-              >
-                <Filter size={18} />
-                {showFilters ? 'Hide Filters' : 'Show Categories'}
-              </button>
-            </div>
-            
-            <div className={`flex flex-wrap gap-2 ${showFilters ? 'block' : 'hidden md:flex'}`}>
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => {
-                    setActiveCategory(category);
-                    setCurrentPage(1);
-                  }}
-                  className={`px-4 py-2 rounded-full text-sm transition-all duration-300 ${
-                    activeCategory === category 
-                      ? 'bg-drew-purple text-white' 
-                      : 'bg-drew-gray-dark hover:bg-drew-purple/20 text-gray-300'
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
-          </div>
-          
-          {/* Category Heading */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="mb-8"
-          >
-            <h2 className="text-2xl font-bold">
-              {activeCategory === 'All' ? 'All Articles' : activeCategory}
-              {searchQuery && <span className="text-drew-purple"> • Search Results</span>}
-            </h2>
-          </motion.div>
-          
-          {currentPosts.length > 0 ? (
-            <>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                {currentPosts.map((post, index) => (
-                  <BlogPost key={post.id} post={post} index={index} />
-                ))}
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div className="lg:col-span-1">
+              {/* Category sidebar for larger screens */}
+              <div className="hidden lg:block sticky top-32">
+                <CategoryTags 
+                  categories={categories} 
+                  activeCategory={activeCategory} 
+                  onSelectCategory={handleCategorySelect}
+                />
               </div>
-              
-              {/* Pagination */}
-              {filteredPosts.length > postsPerPage && (
-                <div className="flex justify-center items-center gap-2 mt-16">
-                  <button
-                    onClick={() => handlePageChange(currentPage - 1)}
-                    disabled={currentPage === 1}
-                    className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                      currentPage === 1
-                        ? 'bg-drew-gray-dark/50 text-gray-500 cursor-not-allowed'
-                        : 'bg-drew-gray-dark hover:bg-drew-purple/20 text-white'
-                    }`}
+            </div>
+            
+            <div className="lg:col-span-3">
+              {/* Search and Mobile Filters */}
+              <div className="flex flex-col md:flex-row justify-between mb-10 gap-6">
+                <div className="relative w-full md:w-96">
+                  <input
+                    type="text"
+                    placeholder="Search articles..."
+                    value={searchQuery}
+                    onChange={(e) => {
+                      setSearchQuery(e.target.value);
+                      setCurrentPage(1);
+                    }}
+                    className="w-full bg-drew-gray-dark/70 border border-white/10 rounded-full px-5 py-3 text-white focus:outline-none focus:ring-2 focus:ring-drew-purple/50 pl-12 transition-all duration-300"
+                  />
+                  <Search size={18} className="absolute top-1/2 transform -translate-y-1/2 left-4 text-gray-400" />
+                </div>
+                
+                <div className="lg:hidden">
+                  <button 
+                    onClick={() => setShowFilters(!showFilters)}
+                    className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-drew-gray-dark rounded-full"
                   >
-                    <ArrowLeft size={16} />
-                  </button>
-                  
-                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((number) => (
-                    <button
-                      key={number}
-                      onClick={() => handlePageChange(number)}
-                      className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                        currentPage === number
-                          ? 'bg-drew-purple text-white'
-                          : 'bg-drew-gray-dark hover:bg-drew-purple/20 text-white'
-                      }`}
-                    >
-                      {number}
-                    </button>
-                  ))}
-                  
-                  <button
-                    onClick={() => handlePageChange(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                    className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                      currentPage === totalPages
-                        ? 'bg-drew-gray-dark/50 text-gray-500 cursor-not-allowed'
-                        : 'bg-drew-gray-dark hover:bg-drew-purple/20 text-white'
-                    }`}
-                  >
-                    <ArrowRight size={16} />
+                    <Filter size={18} />
+                    {showFilters ? 'Hide Filters' : 'Show Categories'}
                   </button>
                 </div>
+              </div>
+              
+              {/* Mobile category tags */}
+              <div className={`lg:hidden mb-8 ${showFilters ? 'block' : 'hidden'}`}>
+                <CategoryTags 
+                  categories={categories} 
+                  activeCategory={activeCategory} 
+                  onSelectCategory={handleCategorySelect}
+                />
+              </div>
+              
+              {/* Category Heading */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="mb-8"
+              >
+                <h2 className="text-2xl font-bold">
+                  {activeCategory === 'All' ? 'All Articles' : activeCategory}
+                  {searchQuery && <span className="text-drew-purple"> • Search Results</span>}
+                </h2>
+              </motion.div>
+              
+              {currentPosts.length > 0 ? (
+                <>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                    {currentPosts.map((post, index) => (
+                      <BlogPost key={post.id} post={post} index={index} />
+                    ))}
+                  </div>
+                  
+                  {/* Pagination */}
+                  {filteredPosts.length > postsPerPage && (
+                    <div className="flex justify-center items-center gap-2 mt-16">
+                      <button
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        disabled={currentPage === 1}
+                        className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+                          currentPage === 1
+                            ? 'bg-drew-gray-dark/50 text-gray-500 cursor-not-allowed'
+                            : 'bg-drew-gray-dark hover:bg-drew-purple/20 text-white'
+                        }`}
+                      >
+                        <ArrowLeft size={16} />
+                      </button>
+                      
+                      {Array.from({ length: totalPages }, (_, i) => i + 1).map((number) => (
+                        <button
+                          key={number}
+                          onClick={() => handlePageChange(number)}
+                          className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+                            currentPage === number
+                              ? 'bg-drew-purple text-white'
+                              : 'bg-drew-gray-dark hover:bg-drew-purple/20 text-white'
+                          }`}
+                        >
+                          {number}
+                        </button>
+                      ))}
+                      
+                      <button
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                        className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+                          currentPage === totalPages
+                            ? 'bg-drew-gray-dark/50 text-gray-500 cursor-not-allowed'
+                            : 'bg-drew-gray-dark hover:bg-drew-purple/20 text-white'
+                        }`}
+                      >
+                        <ArrowRight size={16} />
+                      </button>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <div className="text-center py-16">
+                  <h3 className="text-xl font-medium mb-2">No matching articles found</h3>
+                  <p className="text-gray-400">Try adjusting your search or filter criteria</p>
+                </div>
               )}
-            </>
-          ) : (
-            <div className="text-center py-16">
-              <h3 className="text-xl font-medium mb-2">No matching articles found</h3>
-              <p className="text-gray-400">Try adjusting your search or filter criteria</p>
             </div>
-          )}
+          </div>
         </div>
       </main>
       
