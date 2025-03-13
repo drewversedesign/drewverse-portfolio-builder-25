@@ -3,6 +3,7 @@ import { useState, ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { LucideIcon } from 'lucide-react';
+import { ScanningLine, DataFlow } from '../effects/TechEffects';
 
 interface ChartCardProps {
   title: string;
@@ -33,17 +34,24 @@ const ChartCard = ({ title, value, increase, children, icon: Icon }: ChartCardPr
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Scanning line animation */}
-      {isHovered && (
-        <div className="absolute inset-0 overflow-hidden rounded-xl pointer-events-none">
-          <div className="absolute w-full h-[2px] bg-drew-purple/30 animate-scanning-line"></div>
-        </div>
-      )}
+      {isHovered && <ScanningLine />}
+      
+      {/* Data flow effect */}
+      {isHovered && <DataFlow />}
       
       <div className="flex justify-between items-start mb-4">
         <div>
           <h3 className="text-gray-400 text-sm font-mono uppercase tracking-wider">{title}</h3>
           <div className="flex items-baseline mt-1">
-            <span className="text-2xl font-display font-bold mr-2 tracking-wider">{value}</span>
+            <motion.span 
+              className="text-2xl font-display font-bold mr-2 tracking-wider"
+              animate={isHovered ? {
+                textShadow: ["0 0 0px rgba(249, 115, 22, 0)", "0 0 5px rgba(249, 115, 22, 0.5)", "0 0 0px rgba(249, 115, 22, 0)"],
+              } : {}}
+              transition={{ duration: 1.5, repeat: isHovered ? Infinity : 0 }}
+            >
+              {value}
+            </motion.span>
             {increase && (
               <span className="text-green-400 text-xs flex items-center font-mono">
                 +{increase}% <ArrowUpRight size={14} className="ml-0.5" />
@@ -53,16 +61,23 @@ const ChartCard = ({ title, value, increase, children, icon: Icon }: ChartCardPr
         </div>
         <motion.div 
           className="bg-drew-purple/20 p-2 rounded-lg"
-          animate={{ rotateY: isHovered ? 15 : 0 }}
+          animate={{ 
+            rotateY: isHovered ? 15 : 0,
+            boxShadow: isHovered ? "0 0 10px rgba(249, 115, 22, 0.3)" : "0 0 0px rgba(249, 115, 22, 0)"
+          }}
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
         >
           <Icon size={18} className="text-drew-purple" />
         </motion.div>
       </div>
       
-      <div className="h-48">
+      <motion.div 
+        className="h-48"
+        animate={isHovered ? { scale: 1.02 } : { scale: 1 }}
+        transition={{ type: "spring", stiffness: 300, damping: 15 }}
+      >
         {children}
-      </div>
+      </motion.div>
     </motion.div>
   );
 };
