@@ -13,7 +13,8 @@ const services: ServiceProps[] = [
     title: 'Design & Animation',
     description: 'We create beautiful, functional designs that elevate your brand and engage your audience.',
     specialties: ['Branding', 'UI/UX Design', 'Logo Design', 'Custom Animations'],
-    link: '/services/design'
+    link: '/services/design',
+    slug: 'design'
   },
   {
     id: 2,
@@ -21,7 +22,8 @@ const services: ServiceProps[] = [
     title: 'Web Development',
     description: 'Custom websites built with modern technologies for optimal performance and user experience.',
     specialties: ['Responsive Design', 'E-commerce', 'CMS Integration', 'SEO Optimization'],
-    link: '/services/web-development'
+    link: '/services/web-development',
+    slug: 'web-development'
   },
   {
     id: 3,
@@ -29,7 +31,8 @@ const services: ServiceProps[] = [
     title: 'App Development',
     description: 'Native and cross-platform mobile applications that provide seamless experiences.',
     specialties: ['iOS', 'Android', 'React Native', 'Flutter'],
-    link: '/services/app-development'
+    link: '/services/app-development',
+    slug: 'app-development'
   },
   {
     id: 4,
@@ -37,7 +40,8 @@ const services: ServiceProps[] = [
     title: 'Brand Strategy',
     description: 'Comprehensive brand strategies that position you for success in competitive markets.',
     specialties: ['Market Research', 'Brand Identity', 'Positioning', 'Style Guides'],
-    link: '/services/brand-strategy'
+    link: '/services/brand-strategy',
+    slug: 'brand-strategy'
   },
 ];
 

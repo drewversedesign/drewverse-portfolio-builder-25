@@ -1,55 +1,47 @@
+import React, { useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
-import { HelmetProvider } from "react-helmet-async";
+// Import components and pages
+import Index from './pages/Index';
+import About from './pages/About';
+import ServicesPage from './pages/ServicesPage';
+import PortfolioPage from './pages/PortfolioPage';
+import PortfolioDetail from './pages/PortfolioDetail';
+import BlogPage from './pages/BlogPage';
+import BlogPostPage from './pages/BlogPostPage';
+import ContactPage from './pages/ContactPage';
+import FAQPage from './pages/FAQPage';
+import SitemapPage from './pages/SitemapPage';
+import NotFound from './pages/NotFound';
+import ServiceDetailPage from './pages/ServiceDetailPage';
 
-// Pages
-import Index from "./pages/Index";
-import About from "./pages/About";
-import ServicesPage from "./pages/ServicesPage";
-import BlogPage from "./pages/BlogPage";
-import BlogPostPage from "./pages/BlogPostPage";
-import ContactPage from "./pages/ContactPage";
-import PortfolioPage from "./pages/PortfolioPage";
-import PortfolioDetail from "./pages/PortfolioDetail";
-import SitemapPage from "./pages/SitemapPage";
-import FAQPage from "./pages/FAQPage";
-import NotFound from "./pages/NotFound";
+const App = () => {
+  const location = useLocation();
 
-// Create a client
-const queryClient = new QueryClient();
+  useEffect(() => {
+    // Log the current route
+    console.log('Current Route:', location.pathname);
+  }, [location]);
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <HelmetProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <AnimatePresence mode="wait">
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/services" element={<ServicesPage />} />
-              <Route path="/services/:serviceId" element={<ServicesPage />} />
-              <Route path="/blog" element={<BlogPage />} />
-              <Route path="/blog/:slug" element={<BlogPostPage />} />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="/portfolio" element={<PortfolioPage />} />
-              <Route path="/portfolio/:id" element={<PortfolioDetail />} />
-              <Route path="/sitemap" element={<SitemapPage />} />
-              <Route path="/faq" element={<FAQPage />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </AnimatePresence>
-        </BrowserRouter>
-      </TooltipProvider>
-    </HelmetProvider>
-  </QueryClientProvider>
-);
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<Index />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/services" element={<ServicesPage />} />
+        <Route path="/services/:serviceSlug" element={<ServiceDetailPage />} />
+        <Route path="/portfolio" element={<PortfolioPage />} />
+        <Route path="/portfolio/:projectId" element={<PortfolioDetail />} />
+        <Route path="/blog" element={<BlogPage />} />
+        <Route path="/blog/:postId" element={<BlogPostPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/faq" element={<FAQPage />} />
+        <Route path="/sitemap" element={<SitemapPage />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </AnimatePresence>
+  );
+};
 
 export default App;

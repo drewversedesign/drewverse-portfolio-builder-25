@@ -11,6 +11,7 @@ export interface ServiceProps {
   description: string;
   specialties: string[];
   link: string;
+  slug?: string;
 }
 
 interface ServiceCardProps {
