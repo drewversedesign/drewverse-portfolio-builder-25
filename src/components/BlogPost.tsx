@@ -87,7 +87,7 @@ export default function BlogPost({ post, index, size = 'medium' }: BlogPostCardP
       onMouseLeave={handleMouseLeave}
       className="glass-card rounded-xl overflow-hidden transition-all duration-300"
     >
-      <div className={`relative ${imageHeights[size]} overflow-hidden`}>
+      <Link to={`/blog/${post.slug}`} className="block relative ${imageHeights[size]} overflow-hidden">
         <img 
           src={imageProps.src} 
           onError={imageProps.onError}
@@ -133,7 +133,7 @@ export default function BlogPost({ post, index, size = 'medium' }: BlogPostCardP
             </motion.div>
           )}
         </div>
-      </div>
+      </Link>
       
       <div className="p-6">
         <div className="flex items-center text-sm text-gray-400 mb-3 gap-4">
@@ -148,7 +148,7 @@ export default function BlogPost({ post, index, size = 'medium' }: BlogPostCardP
         </div>
         
         <motion.h3 
-          className={`font-bold mb-3 hover:text-drew-purple transition-colors duration-300 ${
+          className={`font-bold mb-3 transition-colors duration-300 ${
             size === 'large' ? 'text-2xl' : size === 'medium' ? 'text-xl' : 'text-lg'
           }`}
           animate={{ 
@@ -156,7 +156,7 @@ export default function BlogPost({ post, index, size = 'medium' }: BlogPostCardP
           }}
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
         >
-          <Link to={`/blog/${post.slug}`}>
+          <Link to={`/blog/${post.slug}`} className="hover:text-drew-purple">
             {post.title}
           </Link>
         </motion.h3>
@@ -175,6 +175,7 @@ export default function BlogPost({ post, index, size = 'medium' }: BlogPostCardP
           <Link 
             to={`/blog/${post.slug}`} 
             className="inline-flex items-center text-drew-purple story-link"
+            aria-label={`Read more about ${post.title}`}
           >
             Read More <ArrowRight size={16} className="ml-2" />
           </Link>
