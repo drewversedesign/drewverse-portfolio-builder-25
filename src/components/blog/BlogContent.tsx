@@ -44,7 +44,11 @@ const BlogContent = ({ post }: BlogContentProps) => {
         {/* Subtle grid background for content */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(66,71,112,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(66,71,112,0.03)_1px,transparent_1px)] bg-[size:30px_30px] -z-10"></div>
         
-        <div dangerouslySetInnerHTML={{ __html: post.content || '' }} />
+        {/* Render the HTML content safely */}
+        <div 
+          dangerouslySetInnerHTML={{ __html: post.content || '' }} 
+          className="prose-headings:text-white prose-headings:font-bold prose-h2:text-xl prose-h2:mt-8 prose-h2:mb-4 prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-6 prose-strong:text-drew-purple"
+        />
       </motion.div>
     </>
   );
