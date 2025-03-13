@@ -91,17 +91,17 @@ const AdminEmailTemplates = () => {
                   className="font-mono text-sm"
                 />
               </div>
-              <p className="text-xs text-gray-500 mt-1">Use {{variable}} syntax for dynamic content.</p>
+              <p className="text-xs text-gray-500 mt-1">Use &#123;&#123;variable&#125;&#125; syntax for dynamic content.</p>
             </div>
             
             <div className="space-y-2">
               <label className="text-sm font-medium">Dynamic Variables</label>
               <div className="flex flex-wrap gap-2">
-                <Button variant="outline" size="sm">{{name}}</Button>
-                <Button variant="outline" size="sm">{{email}}</Button>
-                <Button variant="outline" size="sm">{{company}}</Button>
-                <Button variant="outline" size="sm">{{date}}</Button>
-                <Button variant="outline" size="sm">{{link}}</Button>
+                <Button variant="outline" size="sm">&#123;&#123;name&#125;&#125;</Button>
+                <Button variant="outline" size="sm">&#123;&#123;email&#125;&#125;</Button>
+                <Button variant="outline" size="sm">&#123;&#123;company&#125;&#125;</Button>
+                <Button variant="outline" size="sm">&#123;&#123;date&#125;&#125;</Button>
+                <Button variant="outline" size="sm">&#123;&#123;link&#125;&#125;</Button>
               </div>
             </div>
             
