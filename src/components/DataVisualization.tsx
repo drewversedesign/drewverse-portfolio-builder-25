@@ -138,7 +138,7 @@ const DataVisualization = () => {
             </ResponsiveContainer>
           </ChartCard>
           
-          <ChartCard title="PROJECT ALLOCATION" value="32 Projects" icon={PieChartIcon}>
+          <ChartCard title="PROJECT ALLOCATION" value="32 Projects" increase="0" icon={PieChartIcon}>
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
