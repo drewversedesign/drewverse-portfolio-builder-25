@@ -22,7 +22,7 @@ const ProjectCardFront = ({
   descriptionZ,
   isFlipped
 }: ProjectCardFrontProps) => {
-  // Extract the project ID from the link
+  // Extract the project slug from the title
   const projectSlug = project.link.split('/').pop();
   
   return (

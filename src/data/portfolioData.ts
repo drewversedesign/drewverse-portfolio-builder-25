@@ -1,4 +1,3 @@
-
 // Portfolio data for website designs
 export const projectsData = [
   {
@@ -198,19 +197,19 @@ export const projectsData = [
     title: "PureSound Wireless Headphones",
     category: "Product Landing",
     image: "/lovable-uploads/cd4a8928-d83b-469f-b461-02944638cb38.png",
-    description: "Minimalist product page for wireless headphones with elegant product photography.",
+    description: "Premium wireless headphones product page with immersive audio technology showcase and features comparison.",
     link: "/portfolio/wireless-headphones",
     clientName: "PureSound Audio",
     completionDate: "May 2024",
     technologies: ["React", "GSAP", "Three.js", "TailwindCSS"],
-    services: ["3D Modeling", "Animation", "Landing Page Optimization"]
+    services: ["Product Visualization", "3D Modeling", "Interactive Design", "E-commerce Integration"]
   },
   {
     id: 18,
     title: "HomeDesign Furniture Marketplace",
     category: "E-commerce",
     image: "/lovable-uploads/cf7289f9-2740-4d85-be2d-c838014cce83.png",
-    description: "Clean, modern furniture e-commerce site with categorized collections and special offers.",
+    description: "Modern furniture e-commerce marketplace with categorized collections and special offers.",
     link: "/portfolio/furniture-marketplace",
     clientName: "HomeDesign Collective",
     completionDate: "June 2024",

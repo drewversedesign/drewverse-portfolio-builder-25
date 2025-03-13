@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useParams, Link, useNavigate } from 'react-router-dom';
@@ -21,21 +20,21 @@ const PortfolioDetail = () => {
     setIsLoading(true);
     
     // Find the project by ID or slug
-    const projectId = id?.includes('-') 
-      ? id 
-      : parseInt(id as string);
-    
     const findProject = () => {
-      if (typeof projectId === 'string') {
-        // Try to find by slug (assuming the URL format is like "/portfolio/project-name")
-        const formattedProjectId = projectId.replace(/-/g, ' ');
-        return projectsData.find(p => 
-          p.title.toLowerCase().includes(formattedProjectId.toLowerCase())
-        );
-      } else {
-        // Find by numeric ID
-        return projectsData.find(p => p.id === projectId);
+      if (id) {
+        if (id.includes('-')) {
+          // Find by slug (URL path)
+          return projectsData.find(p => {
+            const pSlug = p.link.split('/').pop();
+            return pSlug === id;
+          });
+        } else {
+          // Find by numeric ID
+          const numId = parseInt(id);
+          return projectsData.find(p => p.id === numId);
+        }
       }
+      return null;
     };
     
     const foundProject = findProject();
