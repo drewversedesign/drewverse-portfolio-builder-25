@@ -33,12 +33,6 @@ const variants = {
 
 const TestimonialCard = ({ testimonial, direction }: TestimonialCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
-  // Generate initials from the name
-  const initials = testimonial.name
-    .split(' ')
-    .map(n => n[0])
-    .join('')
-    .toUpperCase();
 
   return (
     <motion.div
@@ -61,40 +55,6 @@ const TestimonialCard = ({ testimonial, direction }: TestimonialCardProps) => {
           <div className="absolute w-full h-[2px] bg-drew-purple/30 animate-scanning-line"></div>
         </div>
       )}
-      
-      <motion.div 
-        className="relative w-32 h-32 rounded-full overflow-hidden mx-auto flex items-center justify-center bg-drew-purple/20 border-2 border-drew-purple"
-        style={{
-          perspective: "1000px",
-          transformStyle: "preserve-3d",
-        }}
-        animate={{
-          rotateY: isHovered ? 10 : 0,
-          z: isHovered ? 20 : 0
-        }}
-        transition={{ type: "spring", stiffness: 200, damping: 25 }}
-      >
-        {/* Tech overlay for initials */}
-        {isHovered && (
-          <motion.div 
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-drew-purple/20 to-transparent z-10"
-            animate={{ x: ['-100%', '200%'] }}
-            transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
-          />
-        )}
-        
-        {/* Display initials instead of avatar */}
-        <span className="text-4xl font-bold text-drew-purple">{initials}</span>
-        
-        <motion.div 
-          className="absolute inset-0 border-2 border-drew-purple rounded-full"
-          animate={{
-            boxShadow: isHovered 
-              ? "0 0 15px rgba(249, 115, 22, 0.4)" 
-              : "0 0 0px rgba(249, 115, 22, 0)"
-          }}
-        ></motion.div>
-      </motion.div>
       
       <div className="text-center mt-4">
         <motion.h4 
