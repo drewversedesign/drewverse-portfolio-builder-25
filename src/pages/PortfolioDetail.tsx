@@ -30,14 +30,18 @@ const PortfolioDetail = () => {
     // Find the project by ID or slug
     const findProject = () => {
       if (id) {
-        if (id.includes('-')) {
-          // Find by slug (URL path)
-          return projectsData.find(p => {
-            const pSlug = p.link.split('/').pop();
-            return pSlug === id;
-          });
-        } else {
-          // Find by numeric ID
+        // First try to find by slug - this is the most common case
+        const projectBySlug = projectsData.find(p => {
+          // Extract the slug from the link URL
+          const urlParts = p.link.split('/');
+          const pSlug = urlParts[urlParts.length - 1];
+          return pSlug === id;
+        });
+        
+        if (projectBySlug) return projectBySlug;
+        
+        // If no match by slug, try numeric ID (fallback)
+        if (!isNaN(parseInt(id))) {
           const numId = parseInt(id);
           return projectsData.find(p => p.id === numId);
         }
@@ -73,17 +77,23 @@ const PortfolioDetail = () => {
     const prevIndex = currentIndex > 0 ? currentIndex - 1 : projectsData.length - 1;
     const prevProject = projectsData[prevIndex];
     
-    navigate(`/portfolio/${prevProject.link.split('/').pop()}`);
+    // Extract the slug for navigation
+    const urlParts = prevProject.link.split('/');
+    const slug = urlParts[urlParts.length - 1];
+    navigate(`/portfolio/${slug}`);
   };
 
   const handleNextProject = () => {
     if (!project) return;
     
     const currentIndex = projectsData.findIndex(p => p.id === project.id);
-    const nextIndex = currentIndex < projectsData.length - 1 ? currentIndex + 0 : 0;
+    const nextIndex = currentIndex < projectsData.length - 1 ? currentIndex + 1 : 0;
     const nextProject = projectsData[nextIndex];
     
-    navigate(`/portfolio/${nextProject.link.split('/').pop()}`);
+    // Extract the slug for navigation
+    const urlParts = nextProject.link.split('/');
+    const slug = urlParts[urlParts.length - 1];
+    navigate(`/portfolio/${slug}`);
   };
 
   return (
