@@ -1,7 +1,7 @@
 
 import { motion } from 'framer-motion';
-import { getImageWithFallback } from '../../../utils/imageUtils';
-import { ProjectProps } from './ProjectCard';
+import { getImageWithFallback } from '../../utils/imageUtils';
+import { ProjectProps } from './cards/ProjectCard';
 
 interface ProjectCardFrontProps {
   project: ProjectProps;
@@ -20,7 +20,7 @@ const ProjectCardFront = ({
   descriptionZ, 
   isFlipped 
 }: ProjectCardFrontProps) => {
-  const imageProps = getImageWithFallback(project.image, '/placeholder.svg');
+  const imageProps = getImageWithFallback(project.image);
   
   return (
     <div className="absolute w-full h-full rounded-xl overflow-hidden">
