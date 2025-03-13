@@ -7,7 +7,7 @@ export interface TestimonialProps {
   name: string;
   company: string;
   position: string;
-  avatar: string;
+  avatar: string; // We'll keep this in the interface for compatibility, but won't use it
   quote: string;
 }
 
@@ -33,6 +33,12 @@ const variants = {
 
 const TestimonialCard = ({ testimonial, direction }: TestimonialCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
+  // Generate initials from the name
+  const initials = testimonial.name
+    .split(' ')
+    .map(n => n[0])
+    .join('')
+    .toUpperCase();
 
   return (
     <motion.div
@@ -58,7 +64,7 @@ const TestimonialCard = ({ testimonial, direction }: TestimonialCardProps) => {
       
       <div className="md:w-1/3">
         <motion.div 
-          className="relative w-32 h-32 rounded-full overflow-hidden mx-auto"
+          className="relative w-32 h-32 rounded-full overflow-hidden mx-auto flex items-center justify-center bg-drew-purple/20 border-2 border-drew-purple"
           style={{
             perspective: "1000px",
             transformStyle: "preserve-3d",
@@ -69,7 +75,7 @@ const TestimonialCard = ({ testimonial, direction }: TestimonialCardProps) => {
           }}
           transition={{ type: "spring", stiffness: 200, damping: 25 }}
         >
-          {/* Tech overlay for avatar */}
+          {/* Tech overlay for initials */}
           {isHovered && (
             <motion.div 
               className="absolute inset-0 bg-gradient-to-r from-transparent via-drew-purple/20 to-transparent z-10"
@@ -78,11 +84,9 @@ const TestimonialCard = ({ testimonial, direction }: TestimonialCardProps) => {
             />
           )}
           
-          <img 
-            src={testimonial.avatar} 
-            alt={testimonial.name}
-            className="w-full h-full object-cover"
-          />
+          {/* Display initials instead of avatar */}
+          <span className="text-4xl font-bold text-drew-purple">{initials}</span>
+          
           <motion.div 
             className="absolute inset-0 border-2 border-drew-purple rounded-full"
             animate={{
