@@ -2,11 +2,13 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Plus, Star, Users, Award, Zap } from 'lucide-react';
+import { ArrowRight, Plus, Zap, Star, Users, Award } from 'lucide-react';
 import PortfolioHeader from './portfolio/PortfolioHeader';
 import CategoryFilter from './portfolio/CategoryFilter';
 import ProjectsGrid from './portfolio/ProjectsGrid';
 import ProjectStats from './portfolio/ProjectStats';
+import ClientReviews from './portfolio/masonry/ClientReviews';
+import ProjectCallToAction from './portfolio/masonry/ProjectCallToAction';
 import { projectsData, portfolioCategories } from '../data/portfolioData';
 import { toast } from 'sonner';
 
@@ -115,31 +117,7 @@ export default function Portfolio() {
         )}
 
         {/* Client Reviews Section */}
-        <div className="my-12 bg-drew-gray-dark/60 backdrop-blur-sm rounded-xl p-6 md:p-8">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-xl font-bold">Client Reviews</h3>
-            <div className="flex items-center">
-              <div className="flex">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <Star 
-                    key={star} 
-                    size={16} 
-                    className={star <= 4.7 ? "text-amber-400 fill-amber-400" : "text-gray-500"} 
-                  />
-                ))}
-              </div>
-              <span className="ml-2 text-amber-400 font-medium">4.7</span>
-              <span className="ml-1 text-gray-400 text-sm">(128 reviews)</span>
-            </div>
-          </div>
-          
-          <blockquote className="italic text-gray-300 border-l-4 border-drew-purple pl-4">
-            "The team delivered exceptional work that exceeded our expectations. Their attention to detail and creative approach helped our e-commerce site stand out from competitors."
-            <footer className="mt-2 text-sm text-gray-400">
-              — James Wilson, CEO at Techmart
-            </footer>
-          </blockquote>
-        </div>
+        <ClientReviews />
 
         {hasMoreProjects && (
           <div className="text-center mt-10">
@@ -160,18 +138,7 @@ export default function Portfolio() {
           </div>
         )}
         
-        <div className="text-center mt-16">
-          <Link to="/portfolio">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
-              className="bg-drew-purple hover:bg-drew-purple/90 text-white font-medium px-8 py-3 rounded-lg transition-all duration-300 flex items-center mx-auto"
-            >
-              View All Projects
-              <ArrowRight size={18} className="ml-2" />
-            </motion.button>
-          </Link>
-        </div>
+        <ProjectCallToAction />
       </div>
     </section>
   );
