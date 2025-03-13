@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
+import Breadcrumb from '../components/Breadcrumb';
 
 const SitemapPage = () => {
   useEffect(() => {
@@ -39,18 +40,79 @@ const SitemapPage = () => {
         { name: "Branding", path: "/portfolio?category=branding" },
       ]
     },
+    {
+      title: "Service Pages",
+      links: [
+        { name: "Website Design", path: "/services/website-design" },
+        { name: "Mobile App Development", path: "/services/mobile-app-development" },
+        { name: "UI/UX Design", path: "/services/ui-ux-design" },
+        { name: "Brand Identity", path: "/services/brand-identity" },
+        { name: "SEO Services", path: "/services/seo-services" },
+      ]
+    },
+    {
+      title: "Blog Categories",
+      links: [
+        { name: "Design", path: "/blog/category/design" },
+        { name: "Development", path: "/blog/category/development" },
+        { name: "Business", path: "/blog/category/business" },
+        { name: "Marketing", path: "/blog/category/marketing" },
+      ]
+    },
   ];
+
+  // Breadcrumb items
+  const breadcrumbItems = [
+    { label: "Home", path: "/" },
+    { label: "Sitemap", path: "/sitemap", active: true }
+  ];
+
+  // Structured data for this page
+  const sitemapSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Sitemap - DrewVerse Design",
+    "description": "Complete sitemap for DrewVerse Design website, showing all pages and sections.",
+    "url": "https://drewverse.design/sitemap",
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://drewverse.design/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Sitemap",
+          "item": "https://drewverse.design/sitemap"
+        }
+      ]
+    }
+  };
 
   return (
     <div className="min-h-screen bg-drew-black text-white">
       <SEO 
-        title="Sitemap" 
-        description="Navigate our website with ease. View our complete sitemap."
+        title="Sitemap - Website Navigation" 
+        description="Explore the full DrewVerse Design website structure. Find all pages including our services, portfolio, blog, and contact information for website design in Kampala."
+        keywords="sitemap, website navigation, DrewVerse Design pages, website design Kampala, branding agency Uganda"
+        ogUrl="https://drewverse.design/sitemap"
+        canonicalUrl="https://drewverse.design/sitemap"
+        ogType="website"
+        structuredData={sitemapSchema}
       />
+      
       <Navbar />
       
       <main className="pt-32 pb-20">
         <div className="container mx-auto px-4 md:px-6">
+          <div className="mb-6">
+            <Breadcrumb items={breadcrumbItems} className="text-sm mb-8" />
+          </div>
+          
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -62,7 +124,7 @@ const SitemapPage = () => {
               Site<span className="text-gradient">map</span>
             </h1>
             <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
-              Find everything you need with our complete site navigation
+              Complete navigation guide to all pages and sections of the DrewVerse Design website
             </p>
           </motion.div>
           
@@ -91,6 +153,16 @@ const SitemapPage = () => {
                 </ul>
               </motion.div>
             ))}
+          </div>
+          
+          {/* XML Sitemap link for search engines */}
+          <div className="mt-16 text-center">
+            <p className="text-gray-400">
+              <a href="/sitemap.xml" target="_blank" rel="noopener noreferrer" className="text-drew-purple hover:underline">
+                XML Sitemap
+              </a>
+              {" "}available for search engines
+            </p>
           </div>
         </div>
       </main>

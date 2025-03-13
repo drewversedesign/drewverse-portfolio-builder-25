@@ -1,0 +1,22 @@
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+# Prevent crawling of sensitive or admin areas
+Disallow: /admin/*
+Disallow: /api/*
+Disallow: /private/*
+
+# Allow all bots to access CSS, JS, and image files
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
+Allow: /*.gif$
+Allow: /*.svg$
+Allow: /*.webp$
+
+# Location of sitemap file
+Sitemap: https://drewverse.design/sitemap.xml

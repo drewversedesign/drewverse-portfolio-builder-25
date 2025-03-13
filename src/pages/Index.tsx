@@ -40,12 +40,28 @@ const Index = () => {
     }
   };
 
+  // Homepage structured data
+  const homePageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "DrewVerse Design",
+    "url": "https://drewverse.design",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://drewverse.design/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  };
+
   return (
     <div className="min-h-screen bg-drew-black text-white">
       <SEO 
-        title="DrewVerse Design - Premium Digital Agency"
-        description="We create stunning digital experiences through innovative design and development solutions. Transform your ideas into digital excellence."
-        keywords="digital agency, web design, UI/UX design, mobile apps, branding, premium design"
+        title="DrewVerse Design - Premium Digital Agency in Uganda"
+        description="Top-rated website design in Kampala & branding agency in Uganda. We create stunning websites, mobile apps, and custom website development solutions throughout Uganda."
+        keywords="website design Kampala, branding agency Uganda, custom website development Uganda, affordable website design in Kampala, best branding services in Uganda 2025"
+        ogUrl="https://drewverse.design/"
+        canonicalUrl="https://drewverse.design/"
+        structuredData={homePageSchema}
       />
       <Navbar />
       
