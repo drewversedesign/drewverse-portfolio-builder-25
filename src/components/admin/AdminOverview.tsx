@@ -1,99 +1,170 @@
 
-import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { Users, Image, Mail, Eye } from 'lucide-react';
-import { 
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer 
-} from 'recharts';
+import React, { useEffect, useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../ui/card';
+import { supabase } from '@/integrations/supabase/client';
+
+type OverviewStats = {
+  totalProjects: number;
+  totalBlogPosts: number;
+  publishedPosts: number;
+  draftPosts: number;
+  totalTestimonials: number;
+  totalServices: number;
+};
 
 const AdminOverview = () => {
-  // Sample data for stats and charts
-  const stats = [
-    { id: 'users', label: 'Total Users', value: '142', icon: Users, color: 'bg-blue-100 text-blue-600' },
-    { id: 'projects', label: 'Projects', value: '24', icon: Image, color: 'bg-purple-100 text-purple-600' },
-    { id: 'messages', label: 'New Messages', value: '8', icon: Mail, color: 'bg-rose-100 text-rose-600' },
-    { id: 'views', label: 'Page Views', value: '1,842', icon: Eye, color: 'bg-amber-100 text-amber-600' },
-  ];
+  const [stats, setStats] = useState<OverviewStats>({
+    totalProjects: 0,
+    totalBlogPosts: 0,
+    publishedPosts: 0,
+    draftPosts: 0,
+    totalTestimonials: 0,
+    totalServices: 0
+  });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const visitData = [
-    { name: 'Jan', visits: 400 },
-    { name: 'Feb', visits: 300 },
-    { name: 'Mar', visits: 600 },
-    { name: 'Apr', visits: 800 },
-    { name: 'May', visits: 500 },
-    { name: 'Jun', visits: 900 },
-    { name: 'Jul', visits: 1100 },
-  ];
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        setLoading(true);
+        
+        // Fetch counts from Supabase
+        const [
+          projectsResponse, 
+          blogPostsResponse, 
+          publishedPostsResponse,
+          draftPostsResponse,
+          testimonialsResponse,
+          servicesResponse
+        ] = await Promise.all([
+          supabase.from('projects').select('id', { count: 'exact', head: true }),
+          supabase.from('blog_posts').select('id', { count: 'exact', head: true }),
+          supabase.from('blog_posts').select('id', { count: 'exact', head: true }).eq('published', true),
+          supabase.from('blog_posts').select('id', { count: 'exact', head: true }).eq('published', false),
+          supabase.from('testimonials').select('id', { count: 'exact', head: true }),
+          supabase.from('services').select('id', { count: 'exact', head: true })
+        ]);
 
-  return (
-    <div className="space-y-6">
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {stats.map((stat) => (
-          <Card key={stat.id}>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-500 dark:text-gray-400">{stat.label}</p>
-                  <h3 className="text-2xl font-bold mt-1">{stat.value}</h3>
-                </div>
-                <div className={`p-3 rounded-full ${stat.color}`}>
-                  <stat.icon className="h-6 w-6" />
-                </div>
-              </div>
+        if (projectsResponse.error) throw new Error(projectsResponse.error.message);
+        if (blogPostsResponse.error) throw new Error(blogPostsResponse.error.message);
+        if (publishedPostsResponse.error) throw new Error(publishedPostsResponse.error.message);
+        if (draftPostsResponse.error) throw new Error(draftPostsResponse.error.message);
+        if (testimonialsResponse.error) throw new Error(testimonialsResponse.error.message);
+        if (servicesResponse.error) throw new Error(servicesResponse.error.message);
+
+        setStats({
+          totalProjects: projectsResponse.count || 0,
+          totalBlogPosts: blogPostsResponse.count || 0,
+          publishedPosts: publishedPostsResponse.count || 0,
+          draftPosts: draftPostsResponse.count || 0,
+          totalTestimonials: testimonialsResponse.count || 0,
+          totalServices: servicesResponse.count || 0
+        });
+        
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching overview stats:', err);
+        setError(err instanceof Error ? err.message : 'An unknown error occurred');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStats();
+
+    // Set up real-time subscription for updates
+    const statsChannel = supabase
+      .channel('overview-stats-changes')
+      .on('postgres_changes', { event: '*', schema: 'public' }, () => {
+        fetchStats();
+      })
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(statsChannel);
+    };
+  }, []);
+
+  // Render loading state
+  if (loading) {
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {[...Array(4)].map((_, i) => (
+          <Card key={i} className="animate-pulse">
+            <CardHeader className="pb-2">
+              <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2 mb-2"></div>
+            </CardHeader>
+            <CardContent>
+              <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-1/3"></div>
             </CardContent>
           </Card>
         ))}
       </div>
+    );
+  }
 
-      {/* Charts Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <Card className="col-span-1">
-          <CardHeader>
-            <CardTitle>Website Traffic</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[300px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={visitData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Bar dataKey="visits" fill="#8884d8" />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
+  // Render error state
+  if (error) {
+    return (
+      <Card className="bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800">
+        <CardHeader>
+          <CardTitle className="text-red-500">Error Loading Overview</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-red-700 dark:text-red-300">{error}</p>
+          <p className="mt-2">Please check your database connection and try again.</p>
+        </CardContent>
+      </Card>
+    );
+  }
 
-        <Card className="col-span-1">
-          <CardHeader>
-            <CardTitle>Recent Activity</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {[1, 2, 3, 4, 5].map((item) => (
-                <div key={item} className="flex items-start space-x-4">
-                  <div className="bg-gray-100 dark:bg-gray-700 rounded-full p-2">
-                    <Users className="h-4 w-4 text-gray-600 dark:text-gray-300" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium">New user registered</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">{item} hour{item !== 1 ? 's' : ''} ago</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <Card>
+        <CardHeader className="pb-2">
+          <CardTitle className="text-xl">Projects</CardTitle>
+          <CardDescription>Total portfolio projects</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="text-3xl font-bold text-drew-purple">{stats.totalProjects}</div>
+        </CardContent>
+      </Card>
+      
+      <Card>
+        <CardHeader className="pb-2">
+          <CardTitle className="text-xl">Blog Posts</CardTitle>
+          <CardDescription>Total articles</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="text-3xl font-bold text-drew-purple">{stats.totalBlogPosts}</div>
+          <div className="text-sm text-gray-500 mt-1">
+            <span className="text-green-500">{stats.publishedPosts} published</span>
+            {' • '}
+            <span className="text-amber-500">{stats.draftPosts} drafts</span>
+          </div>
+        </CardContent>
+      </Card>
+      
+      <Card>
+        <CardHeader className="pb-2">
+          <CardTitle className="text-xl">Testimonials</CardTitle>
+          <CardDescription>Client reviews</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="text-3xl font-bold text-drew-purple">{stats.totalTestimonials}</div>
+        </CardContent>
+      </Card>
+      
+      <Card>
+        <CardHeader className="pb-2">
+          <CardTitle className="text-xl">Services</CardTitle>
+          <CardDescription>Service offerings</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="text-3xl font-bold text-drew-purple">{stats.totalServices}</div>
+        </CardContent>
+      </Card>
     </div>
   );
 };

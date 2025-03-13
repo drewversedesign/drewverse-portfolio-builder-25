@@ -9,7 +9,186 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      blog_posts: {
+        Row: {
+          author: string
+          category: string
+          content: string
+          created_at: string | null
+          excerpt: string
+          featured: boolean | null
+          id: string
+          image_url: string
+          published: boolean | null
+          published_at: string | null
+          slug: string
+          tags: string[] | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          author: string
+          category: string
+          content: string
+          created_at?: string | null
+          excerpt: string
+          featured?: boolean | null
+          id?: string
+          image_url: string
+          published?: boolean | null
+          published_at?: string | null
+          slug: string
+          tags?: string[] | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          author?: string
+          category?: string
+          content?: string
+          created_at?: string | null
+          excerpt?: string
+          featured?: boolean | null
+          id?: string
+          image_url?: string
+          published?: boolean | null
+          published_at?: string | null
+          slug?: string
+          tags?: string[] | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      projects: {
+        Row: {
+          category: string
+          client_name: string | null
+          completion_date: string | null
+          content: string
+          created_at: string | null
+          description: string
+          featured: boolean | null
+          id: string
+          image_url: string
+          link: string | null
+          slug: string
+          technologies: string[] | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          category: string
+          client_name?: string | null
+          completion_date?: string | null
+          content: string
+          created_at?: string | null
+          description: string
+          featured?: boolean | null
+          id?: string
+          image_url: string
+          link?: string | null
+          slug: string
+          technologies?: string[] | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          category?: string
+          client_name?: string | null
+          completion_date?: string | null
+          content?: string
+          created_at?: string | null
+          description?: string
+          featured?: boolean | null
+          id?: string
+          image_url?: string
+          link?: string | null
+          slug?: string
+          technologies?: string[] | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      services: {
+        Row: {
+          content: string
+          created_at: string | null
+          description: string
+          features: string[] | null
+          icon: string | null
+          id: string
+          image_url: string
+          order_index: number | null
+          slug: string
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          description: string
+          features?: string[] | null
+          icon?: string | null
+          id?: string
+          image_url: string
+          order_index?: number | null
+          slug: string
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          description?: string
+          features?: string[] | null
+          icon?: string | null
+          id?: string
+          image_url?: string
+          order_index?: number | null
+          slug?: string
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      testimonials: {
+        Row: {
+          client_company: string | null
+          client_image: string | null
+          client_name: string
+          client_position: string | null
+          content: string
+          created_at: string | null
+          featured: boolean | null
+          id: string
+          rating: number | null
+        }
+        Insert: {
+          client_company?: string | null
+          client_image?: string | null
+          client_name: string
+          client_position?: string | null
+          content: string
+          created_at?: string | null
+          featured?: boolean | null
+          id?: string
+          rating?: number | null
+        }
+        Update: {
+          client_company?: string | null
+          client_image?: string | null
+          client_name?: string
+          client_position?: string | null
+          content?: string
+          created_at?: string | null
+          featured?: boolean | null
+          id?: string
+          rating?: number | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

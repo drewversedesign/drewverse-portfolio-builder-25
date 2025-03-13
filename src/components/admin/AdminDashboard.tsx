@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Users, 
@@ -34,9 +34,54 @@ import AdminEmailTemplates from './AdminEmailTemplates';
 import AdminIntegrations from './AdminIntegrations';
 import AdminActivityTimeline from './AdminActivityTimeline';
 import AdminHealthCheck from './AdminHealthCheck';
+import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('overview');
+  const [supportsRealtime, setSupportsRealtime] = useState(true);
+  
+  useEffect(() => {
+    // Check connection to Supabase
+    const checkConnection = async () => {
+      try {
+        const { data, error } = await supabase.from('projects').select('id').limit(1);
+        
+        if (error) {
+          console.error('Error connecting to Supabase:', error);
+          toast.error('Database connection failed. Some features may not work properly.', {
+            duration: 5000,
+          });
+          setSupportsRealtime(false);
+        } else {
+          console.log('Successfully connected to Supabase');
+          
+          // Set up a real-time subscription to test if it works
+          const channel = supabase
+            .channel('connection-test')
+            .on('presence', { event: 'sync' }, () => {
+              setSupportsRealtime(true);
+            })
+            .subscribe((status) => {
+              if (status !== 'SUBSCRIBED') {
+                setSupportsRealtime(false);
+              }
+            });
+            
+          // Clean up subscription after 5 seconds
+          setTimeout(() => {
+            supabase.removeChannel(channel);
+          }, 5000);
+        }
+      } catch (err) {
+        console.error('Error checking Supabase connection:', err);
+        toast.error('Database connection check failed.');
+        setSupportsRealtime(false);
+      }
+    };
+    
+    checkConnection();
+  }, []);
 
   const tabs = [
     { id: 'overview', label: 'Overview', icon: BarChart3 },
@@ -103,6 +148,15 @@ const AdminDashboard = () => {
     <section className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <div className="container mx-auto px-4 py-8">
         <AdminHeader />
+        
+        {!supportsRealtime && (
+          <div className="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-md text-amber-800 dark:bg-amber-900/20 dark:border-amber-800 dark:text-amber-300">
+            <p className="text-sm flex items-center">
+              <Zap className="h-4 w-4 mr-2" />
+              Real-time updates may not be available. Changes may require a page refresh.
+            </p>
+          </div>
+        )}
         
         <div className="mt-8 grid grid-cols-1 lg:grid-cols-5 gap-8">
           {/* Sidebar */}
