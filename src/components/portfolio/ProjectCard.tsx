@@ -84,8 +84,8 @@ const ProjectCard = ({ project, isHovered, onMouseEnter, onMouseLeave }: Project
         className="absolute w-full h-full rounded-xl backface-hidden"
         animate={{ 
           rotateY: isFlipped ? 180 : 0,
-          rotateX: isFlipped ? 0 : rotateX,
-          rotateZ: isFlipped ? 0 : rotateY 
+          rotateX: isFlipped ? 0 : rotateX.get(),
+          rotateZ: isFlipped ? 0 : rotateY.get() 
         }}
         transition={{ 
           type: "spring", 
