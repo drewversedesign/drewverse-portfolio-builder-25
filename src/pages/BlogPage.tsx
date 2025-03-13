@@ -1,14 +1,15 @@
 
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { Search, ArrowLeft, ArrowRight, Filter } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import BlogPost from '../components/BlogPost';
 import SEO from '../components/SEO';
 import FeaturedPost from '../components/blog/FeaturedPost';
 import TrendingPosts from '../components/blog/TrendingPosts';
 import CategoryTags from '../components/blog/CategoryTags';
+import BlogSearch from '../components/blog/BlogSearch';
+import MobileFilters from '../components/blog/MobileFilters';
+import BlogList from '../components/blog/BlogList';
+import BlogPageHeader from '../components/blog/BlogPageHeader';
 import { blogPosts, getAllCategories, getFeaturedPosts, getTrendingPosts } from '../utils/blogUtils';
 
 const BlogPage = () => {
@@ -29,7 +30,7 @@ const BlogPage = () => {
   const featuredPosts = getFeaturedPosts();
   const trendingPosts = getTrendingPosts();
 
-  // Filter posts based on category and search query (exclude featured posts from main listing)
+  // Filter posts based on category and search query
   const filteredPosts = blogPosts.filter(post => {
     const matchesCategory = activeCategory === 'All' || post.category === activeCategory;
     const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -66,20 +67,7 @@ const BlogPage = () => {
       
       <main className="pt-32 pb-24">
         <div className="container mx-auto px-4 md:px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-center mb-16"
-          >
-            <span className="service-chip">Latest Articles</span>
-            <h1 className="text-4xl md:text-5xl font-bold mt-4">
-              Our <span className="text-gradient">Blog</span>
-            </h1>
-            <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
-              Insights, tips, and stories about design, development, and digital trends.
-            </p>
-          </motion.div>
+          <BlogPageHeader />
           
           {/* Featured Posts Section */}
           <FeaturedPost posts={featuredPosts} />
@@ -102,29 +90,18 @@ const BlogPage = () => {
             <div className="lg:col-span-3">
               {/* Search and Mobile Filters */}
               <div className="flex flex-col md:flex-row justify-between mb-10 gap-6">
-                <div className="relative w-full md:w-96">
-                  <input
-                    type="text"
-                    placeholder="Search articles..."
-                    value={searchQuery}
-                    onChange={(e) => {
-                      setSearchQuery(e.target.value);
-                      setCurrentPage(1);
-                    }}
-                    className="w-full bg-drew-gray-dark/70 border border-white/10 rounded-full px-5 py-3 text-white focus:outline-none focus:ring-2 focus:ring-drew-purple/50 pl-12 transition-all duration-300"
-                  />
-                  <Search size={18} className="absolute top-1/2 transform -translate-y-1/2 left-4 text-gray-400" />
-                </div>
+                <BlogSearch 
+                  searchQuery={searchQuery}
+                  setSearchQuery={(query) => {
+                    setSearchQuery(query);
+                    setCurrentPage(1);
+                  }}
+                />
                 
-                <div className="lg:hidden">
-                  <button 
-                    onClick={() => setShowFilters(!showFilters)}
-                    className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-drew-gray-dark rounded-full"
-                  >
-                    <Filter size={18} />
-                    {showFilters ? 'Hide Filters' : 'Show Categories'}
-                  </button>
-                </div>
+                <MobileFilters 
+                  showFilters={showFilters}
+                  setShowFilters={setShowFilters}
+                />
               </div>
               
               {/* Mobile category tags */}
@@ -136,75 +113,16 @@ const BlogPage = () => {
                 />
               </div>
               
-              {/* Category Heading */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="mb-8"
-              >
-                <h2 className="text-2xl font-bold">
-                  {activeCategory === 'All' ? 'All Articles' : activeCategory}
-                  {searchQuery && <span className="text-drew-purple"> • Search Results</span>}
-                </h2>
-              </motion.div>
-              
-              {currentPosts.length > 0 ? (
-                <>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                    {currentPosts.map((post, index) => (
-                      <BlogPost key={post.id} post={post} index={index} />
-                    ))}
-                  </div>
-                  
-                  {/* Pagination */}
-                  {filteredPosts.length > postsPerPage && (
-                    <div className="flex justify-center items-center gap-2 mt-16">
-                      <button
-                        onClick={() => handlePageChange(currentPage - 1)}
-                        disabled={currentPage === 1}
-                        className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                          currentPage === 1
-                            ? 'bg-drew-gray-dark/50 text-gray-500 cursor-not-allowed'
-                            : 'bg-drew-gray-dark hover:bg-drew-purple/20 text-white'
-                        }`}
-                      >
-                        <ArrowLeft size={16} />
-                      </button>
-                      
-                      {Array.from({ length: totalPages }, (_, i) => i + 1).map((number) => (
-                        <button
-                          key={number}
-                          onClick={() => handlePageChange(number)}
-                          className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                            currentPage === number
-                              ? 'bg-drew-purple text-white'
-                              : 'bg-drew-gray-dark hover:bg-drew-purple/20 text-white'
-                          }`}
-                        >
-                          {number}
-                        </button>
-                      ))}
-                      
-                      <button
-                        onClick={() => handlePageChange(currentPage + 1)}
-                        disabled={currentPage === totalPages}
-                        className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                          currentPage === totalPages
-                            ? 'bg-drew-gray-dark/50 text-gray-500 cursor-not-allowed'
-                            : 'bg-drew-gray-dark hover:bg-drew-purple/20 text-white'
-                        }`}
-                      >
-                        <ArrowRight size={16} />
-                      </button>
-                    </div>
-                  )}
-                </>
-              ) : (
-                <div className="text-center py-16">
-                  <h3 className="text-xl font-medium mb-2">No matching articles found</h3>
-                  <p className="text-gray-400">Try adjusting your search or filter criteria</p>
-                </div>
-              )}
+              <BlogList 
+                filteredPosts={filteredPosts}
+                currentPosts={currentPosts}
+                currentPage={currentPage}
+                totalPages={totalPages}
+                postsPerPage={postsPerPage}
+                handlePageChange={handlePageChange}
+                activeCategory={activeCategory}
+                searchQuery={searchQuery}
+              />
             </div>
           </div>
         </div>
