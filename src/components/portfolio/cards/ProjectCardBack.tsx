@@ -1,8 +1,9 @@
 
 import { motion } from 'framer-motion';
-import { ExternalLink, X, ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { X, ArrowRight } from 'lucide-react';
 import { ProjectProps } from './ProjectCard';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import ProjectDetails from '../detail/ProjectDetails';
 
 interface ProjectCardBackProps {
   project: ProjectProps;
@@ -86,13 +87,39 @@ const ProjectCardBack = ({ project, toggleFlip }: ProjectCardBackProps) => {
         
         {/* Footer with buttons */}
         <div className="mt-4 flex flex-col gap-2">
-          <Link 
-            to={project.link} 
-            className="inline-flex items-center justify-center px-4 py-2 bg-drew-purple hover:bg-drew-purple/90 rounded-lg transition-colors text-white text-sm group"
-          >
-            View Project Details
-            <ArrowRight size={14} className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
-          </Link>
+          <Dialog>
+            <DialogTrigger asChild>
+              <button 
+                className="inline-flex items-center justify-center px-4 py-2 bg-drew-purple hover:bg-drew-purple/90 rounded-lg transition-colors text-white text-sm group"
+              >
+                View Project Details
+                <ArrowRight size={14} className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+              </button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[900px] bg-drew-black border border-drew-purple/20">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="md:col-span-2">
+                  <div className="space-y-4">
+                    <h2 className="text-2xl font-bold text-white">{project.title}</h2>
+                    <span className="service-chip">{project.category}</span>
+                    <div className="aspect-video overflow-hidden rounded-lg">
+                      <img 
+                        src={project.image} 
+                        alt={project.title} 
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="prose prose-invert max-w-none">
+                      <p className="text-gray-300">{project.description}</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="md:col-span-1">
+                  <ProjectDetails project={project} />
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
     </div>
