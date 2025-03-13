@@ -1,27 +1,26 @@
-
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-
 const About = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  return (
-    <div className="min-h-screen bg-drew-black text-white">
+  return <div className="min-h-screen bg-drew-black text-white">
       <Navbar />
       
       <main className="pt-32 pb-24">
         <div className="container mx-auto px-4 md:px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-center mb-16"
-          >
+          <motion.div initial={{
+          opacity: 0,
+          y: 20
+        }} animate={{
+          opacity: 1,
+          y: 0
+        }} transition={{
+          duration: 0.5
+        }} className="text-center mb-16">
             <span className="service-chip">Our Story</span>
             <h1 className="text-4xl md:text-5xl font-bold mt-4">
               About <span className="text-gradient">DrewVerse Design</span>
@@ -34,21 +33,20 @@ const About = () => {
           
           <div className="max-w-4xl mx-auto space-y-16">
             {/* About Us / Our Story Section */}
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="prose prose-lg prose-invert max-w-none"
-            >
+            <motion.section initial={{
+            opacity: 0,
+            y: 20
+          }} animate={{
+            opacity: 1,
+            y: 0
+          }} transition={{
+            duration: 0.5,
+            delay: 0.1
+          }} className="prose prose-lg prose-invert max-w-none">
               <h2 className="text-3xl font-bold mb-6 text-gradient">About Us</h2>
               <div className="bg-drew-dark-gray/30 p-8 rounded-xl border border-drew-purple/20 shadow-glow">
                 <h3 className="text-2xl font-semibold mb-4">Our Story</h3>
-                <p className="text-gray-300">
-                  Founded in 2024 by Ddamba Ian, Drewverse Design was born from a passion for creative 
-                  storytelling, digital innovation, and brand transformation. Based in Kampala, Uganda, 
-                  we set out to redefine how businesses establish their online presence through cutting-edge 
-                  website development and branding solutions.
-                </p>
+                <p className="text-gray-300">Founded in early 2023 by Ddamba Ian, Drewverse Design was born from a passion for creative storytelling, digital innovation, and brand transformation. Based in Kampala, Uganda, we set out to redefine how businesses establish their online presence through cutting-edge website development and branding solutions.</p>
                 <p className="text-gray-300 mt-4">
                   With a team of talented designers, developers, and strategists, we help brands create 
                   a strong digital footprint by blending creativity with functionality. Whether you're a 
@@ -59,12 +57,16 @@ const About = () => {
             </motion.section>
 
             {/* Mission & Vision Section */}
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="grid md:grid-cols-2 gap-8"
-            >
+            <motion.section initial={{
+            opacity: 0,
+            y: 20
+          }} animate={{
+            opacity: 1,
+            y: 0
+          }} transition={{
+            duration: 0.5,
+            delay: 0.2
+          }} className="grid md:grid-cols-2 gap-8">
               <div className="bg-drew-dark-gray/30 p-8 rounded-xl border border-drew-purple/20 shadow-glow">
                 <h3 className="text-2xl font-semibold mb-4 text-gradient">Our Mission</h3>
                 <p className="text-gray-300">
@@ -83,11 +85,16 @@ const About = () => {
             </motion.section>
 
             {/* Our Values Section */}
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
+            <motion.section initial={{
+            opacity: 0,
+            y: 20
+          }} animate={{
+            opacity: 1,
+            y: 0
+          }} transition={{
+            duration: 0.5,
+            delay: 0.3
+          }}>
               <h2 className="text-3xl font-bold mb-6 text-gradient">Our Values</h2>
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="bg-drew-dark-gray/30 p-6 rounded-xl border border-drew-purple/20 shadow-glow">
@@ -133,11 +140,16 @@ const About = () => {
             </motion.section>
 
             {/* Why Work With Us Section */}
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-            >
+            <motion.section initial={{
+            opacity: 0,
+            y: 20
+          }} animate={{
+            opacity: 1,
+            y: 0
+          }} transition={{
+            duration: 0.5,
+            delay: 0.4
+          }}>
               <h2 className="text-3xl font-bold mb-6 text-gradient">Why Work With Us?</h2>
               <div className="bg-drew-dark-gray/30 p-8 rounded-xl border border-drew-purple/20 shadow-glow space-y-4">
                 <div className="flex items-start">
@@ -163,17 +175,18 @@ const About = () => {
             </motion.section>
 
             {/* CTA Section */}
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-              className="text-center mt-16"
-            >
+            <motion.section initial={{
+            opacity: 0,
+            y: 20
+          }} animate={{
+            opacity: 1,
+            y: 0
+          }} transition={{
+            duration: 0.5,
+            delay: 0.5
+          }} className="text-center mt-16">
               <h2 className="text-3xl font-bold mb-6">🚀 Let's build something extraordinary together!</h2>
-              <Link 
-                to="/contact" 
-                className="inline-block bg-gradient-to-r from-drew-purple to-blue-500 hover:from-purple-700 hover:to-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-glow transition-all duration-300 transform hover:scale-105"
-              >
+              <Link to="/contact" className="inline-block bg-gradient-to-r from-drew-purple to-blue-500 hover:from-purple-700 hover:to-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-glow transition-all duration-300 transform hover:scale-105">
                 Start Your Project
               </Link>
             </motion.section>
@@ -182,8 +195,6 @@ const About = () => {
       </main>
       
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default About;
