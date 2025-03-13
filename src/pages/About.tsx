@@ -109,7 +109,7 @@ const About = () => {
                 
                 <div className="bg-drew-dark-gray/30 p-6 rounded-xl border border-drew-purple/20 shadow-glow">
                   <div className="flex items-start">
-                    <span className="text-3xl mr-4">💡</span>
+                    
                     <div>
                       <h4 className="text-xl font-semibold mb-2">Client-Centered Approach</h4>
                       <p className="text-gray-300">Your vision is at the heart of everything we create.</p>
@@ -119,7 +119,7 @@ const About = () => {
                 
                 <div className="bg-drew-dark-gray/30 p-6 rounded-xl border border-drew-purple/20 shadow-glow">
                   <div className="flex items-start">
-                    <span className="text-3xl mr-4">🚀</span>
+                    
                     <div>
                       <h4 className="text-xl font-semibold mb-2">Quality & Excellence</h4>
                       <p className="text-gray-300">Every project is a masterpiece, built for impact.</p>
@@ -129,7 +129,7 @@ const About = () => {
                 
                 <div className="bg-drew-dark-gray/30 p-6 rounded-xl border border-drew-purple/20 shadow-glow">
                   <div className="flex items-start">
-                    <span className="text-3xl mr-4">🌍</span>
+                    
                     <div>
                       <h4 className="text-xl font-semibold mb-2">Integrity & Transparency</h4>
                       <p className="text-gray-300">We believe in honest communication and delivering on our promises.</p>
