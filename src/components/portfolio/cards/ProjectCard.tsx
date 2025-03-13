@@ -11,6 +11,10 @@ export interface ProjectProps {
   image: string;
   description: string;
   link: string;
+  clientName?: string;
+  completionDate?: string;
+  technologies?: string[];
+  services?: string[];
 }
 
 interface ProjectCardProps {
