@@ -10,7 +10,7 @@ import BlogSearch from '../components/blog/BlogSearch';
 import MobileFilters from '../components/blog/MobileFilters';
 import BlogList from '../components/blog/BlogList';
 import BlogPageHeader from '../components/blog/BlogPageHeader';
-import { blogPosts, getAllCategories, getFeaturedPosts, getTrendingPosts } from '../utils/blogUtils';
+import { blogPosts, getAllCategories, getFeaturedPosts, getTrendingPosts } from '../utils/blog';
 
 const BlogPage = () => {
   useEffect(() => {

@@ -10,7 +10,7 @@ import RelatedPosts from '../components/blog/RelatedPosts';
 import BlogNotFound from '../components/blog/BlogNotFound';
 import SocialShare from '../components/blog/SocialShare';
 import SEO from '../components/SEO';
-import { blogPosts, calculateReadingTime, findRelatedPosts } from '../utils/blogUtils';
+import { blogPosts, calculateReadingTime, findRelatedPosts } from '../utils/blog';
 
 const BlogPostPage = () => {
   const { slug } = useParams();
