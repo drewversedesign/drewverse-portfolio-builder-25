@@ -16,7 +16,7 @@ interface SEOProps {
 const SEO = ({
   title = 'DrewVerse Design - Premium Digital Agency in Uganda',
   description = 'Top website design in Kampala & branding agency in Uganda. We create stunning websites, apps, and custom website development solutions throughout Uganda. Affordable website design in Kampala and SEO-optimized solutions.',
-  keywords = 'website design Kampala, branding agency Uganda, custom website development Uganda, affordable website design in Kampala, best branding services in Uganda 2025, SEO-optimized website design near me, digital agency, web design, UX/UI design, brand identity, mobile apps',
+  keywords = 'website design Kampala, branding agency Uganda, custom website development Uganda, affordable website design in Kampala, best branding services in Uganda 2025, SEO-optimized website design near me, website designer near me, build website, digital agency, web design, UX/UI design, brand identity, mobile apps',
   author = 'DrewVerse Design',
   ogImage = '/lovable-uploads/9d8eb58e-b3c8-4d28-afb4-0e85b24f49d9.png',
   ogUrl = 'https://drewverse.design/',

@@ -5,6 +5,155 @@ import { placeholderImages } from "./imageUtils";
 export const blogPosts: BlogPostProps[] = [
   {
     id: 1,
+    title: "Why Website Design Matters for Your Kampala Business in 2025",
+    excerpt: "Discover why a professional website design is essential for businesses in Kampala and how it can drive growth in the digital landscape of 2025.",
+    content: `
+      <p>If you're running a business in Kampala, Uganda, your online presence is no longer optional—it's essential. At Drewverse Design, we believe website design is the cornerstone of digital success. Founded in 2024 by Ddamba Ian, our mission is to help businesses like yours stand out with stunning, user-friendly websites. But why does website design matter so much in 2025? Let's dive in.</p>
+      
+      <h2>The Power of First Impressions</h2>
+      <p>Studies show that users form an opinion about your website in just 0.05 seconds. A cluttered, outdated design can send potential customers running to your competitors. Our website design process at Drewverse ensures your site is visually appealing, reflecting your brand's unique identity with custom layouts, bold typography, and cohesive colors.</p>
+      
+      <h2>Boosting Engagement with User-Centric Design</h2>
+      <p>Great website design isn't just about looks—it's about functionality. A site that's easy to navigate keeps visitors engaged longer, increasing the chances they'll contact you or make a purchase. We prioritize responsive designs that work seamlessly on desktops, tablets, and phones—critical since over 60% of web traffic in Uganda comes from mobile devices.</p>
+      
+      <h2>SEO and Website Design: A Perfect Pair</h2>
+      <p>A beautifully designed website won't help if no one can find it. That's why we integrate SEO into every project. From fast load times to keyword-rich content (like this blog!), our designs are built to rank high on Google. Searching for "website designer near me" in Kampala? We aim to make Drewverse Design your top result.</p>
+      
+      <h2>Why Choose Drewverse for Website Design?</h2>
+      <ul>
+        <li><strong>Custom-Tailored:</strong> No templates here—every site reflects your vision.</li>
+        <li><strong>Scalable:</strong> Ready to grow with your business.</li>
+        <li><strong>Results-Driven:</strong> We've helped clients boost engagement by up to 200%.</li>
+      </ul>
+      <p>Ready to build a website that works as hard as you do? Contact us at +256772653789 or visit drewversedesign.online to start your journey.</p>
+      
+      <h2>Get Started Today</h2>
+      <p>Whether you need a new site or a redesign, our website development expertise ensures your digital storefront shines. Let's craft a website design that turns visitors into loyal customers—because in 2025, your business deserves nothing less.</p>
+    `,
+    author: "Ddamba Ian",
+    date: "May 15, 2024",
+    category: "Website Design",
+    image: placeholderImages.portfolio1,
+    slug: "website-design-matters-kampala-business-2025",
+    featured: true,
+    trending: true,
+  },
+  {
+    id: 2,
+    title: "Website Development 101: Building Your Digital Future in Uganda",
+    excerpt: "Learn the essentials of website development and how it can transform your business presence in Uganda's growing digital marketplace.",
+    content: `
+      <p>At Drewverse Design, we know that website development is more than just code—it's about building a digital foundation for your brand. Based in Kampala, Uganda, and founded by Ddamba Ian in 2024, we specialize in creating high-performance websites that drive real results. Here's everything you need to know about website development and why it's a game-changer for your business.</p>
+      
+      <h2>What Is Website Development?</h2>
+      <p>Think of website development as the engine behind your site. While website design focuses on aesthetics, development brings it to life with functionality—think smooth navigation, fast load times, and secure e-commerce features. At Drewverse, we blend both to deliver sites that look great and perform even better.</p>
+      
+      <h2>Key Elements of Effective Website Development</h2>
+      <ul>
+        <li><strong>Responsiveness:</strong> Your site must adapt to all devices—essential in Uganda's mobile-first market.</li>
+        <li><strong>Speed:</strong> A one-second delay can drop conversions by 7%. We optimize every line of code.</li>
+        <li><strong>Security:</strong> With HTTPS and regular updates, we keep your site safe from threats.</li>
+        <li><strong>Scalability:</strong> Need to add features later? Our sites grow with you.</li>
+      </ul>
+      
+      <h2>Why Invest in Professional Website Development?</h2>
+      <p>DIY platforms might seem tempting, but they often lack the customization and optimization businesses need. Our team at Drewverse crafts sites tailored to your goals—whether it's a sleek portfolio or a robust online store. Searching "website designer near me" in Kampala? We're here to build a website that stands out.</p>
+      
+      <h2>Success Story: A 200% Engagement Boost</h2>
+      <p>One Kampala client came to us with a slow, outdated site. After a full website development overhaul—faster load times, mobile optimization, and SEO—we saw their engagement soar by 200%. That's the Drewverse difference.</p>
+      
+      <h2>Let's Build Your Website</h2>
+      <p>From startups to established brands, we're passionate about helping Ugandan businesses thrive online. Call us at +256772653789 or visit drewversedesign.online to discuss your website development needs. Your digital future starts here!</p>
+    `,
+    author: "Ddamba Ian",
+    date: "May 20, 2024",
+    category: "Web Development",
+    image: placeholderImages.portfolio2,
+    slug: "website-development-digital-future-uganda",
+    featured: true,
+    trending: true,
+  },
+  {
+    id: 3,
+    title: "Finding the Best Website Designer Near Me in Kampala",
+    excerpt: "Discover why choosing a local website designer in Kampala can make all the difference for your business's online presence and success.",
+    content: `
+      <p>If you've ever typed "website designer near me" into Google, you're not alone. Businesses in Kampala, Uganda, are waking up to the power of a professional online presence. At Drewverse Design, founded by Ddamba Ian in 2024, we're proud to be the go-to local choice for website design and development. Here's why hiring a nearby expert matters—and how we can help.</p>
+      
+      <h2>Why Local Matters</h2>
+      <p>A Kampala-based website designer near me understands your market. We know Ugandan customers value fast, mobile-friendly sites and brands that feel authentic. Drewverse Design isn't just a faceless agency—we're part of your community, crafting solutions that resonate locally.</p>
+      
+      <h2>What Sets Drewverse Apart?</h2>
+      <ul>
+        <li><strong>Custom Designs:</strong> Your site won't look like anyone else's.</li>
+        <li><strong>SEO Expertise:</strong> We optimize for local searches like "Kampala website designer."</li>
+        <li><strong>Personal Touch:</strong> Work directly with us to bring your vision to life.</li>
+        <li><strong>Fast Turnaround:</strong> Based in Kampala, we're on your time zone and ready to deliver.</li>
+      </ul>
+      
+      <h2>The Process: From Vision to Victory</h2>
+      <ol>
+        <li><strong>Consultation:</strong> We listen to your goals—more sales, better branding, or both.</li>
+        <li><strong>Design:</strong> Stunning visuals tailored to your audience.</li>
+        <li><strong>Development:</strong> A site that's fast, secure, and scalable.</li>
+        <li><strong>Launch:</strong> Go live and watch your business grow.</li>
+      </ol>
+      
+      <h2>Why Wait?</h2>
+      <p>Don't settle for generic templates or overseas firms. A local website designer near me like Drewverse ensures your site reflects your brand and ranks high in Uganda. Contact us at +256772653789 or visit drewversedesign.online to get started. Let's make your business the next big thing in Kampala!</p>
+    `,
+    author: "Ddamba Ian",
+    date: "May 25, 2024",
+    category: "Local Services",
+    image: placeholderImages.portfolio3,
+    slug: "finding-best-website-designer-near-me-kampala",
+    featured: false,
+    trending: true,
+  },
+  {
+    id: 4,
+    title: "How to Build a Website That Drives Business Growth in 2025",
+    excerpt: "Learn the essential steps to create a website that not only looks great but also drives real business growth and conversions in the digital landscape of 2025.",
+    content: `
+      <p>Ready to build a website that takes your business to new heights? At Drewverse Design in Kampala, Uganda, we've been helping brands do just that since our founding by Ddamba Ian in 2024. In 2025, a website isn't just a luxury—it's your digital handshake. Here's how we make it happen.</p>
+      
+      <h2>Step 1: Define Your Goals</h2>
+      <p>What do you want your site to do? Sell products? Showcase your portfolio? Attract clients? We start by aligning your website with your business objectives, ensuring every pixel serves a purpose.</p>
+      
+      <h2>Step 2: Prioritize Website Design</h2>
+      <p>A great site begins with website design. We create custom, visually stunning layouts that capture your brand's essence—think bold visuals and intuitive navigation that keep visitors hooked.</p>
+      
+      <h2>Step 3: Master Website Development</h2>
+      <p>Next, our website development team brings the design to life. We focus on:</p>
+      <ul>
+        <li><strong>Speed:</strong> Optimized for Uganda's varying internet speeds.</li>
+        <li><strong>Mobile-First:</strong> Over 60% of your audience is on phones.</li>
+        <li><strong>SEO:</strong> Built to rank for terms like "website designer near me."</li>
+      </ul>
+      
+      <h2>Step 4: Launch and Grow</h2>
+      <p>Once live, we don't stop. We monitor performance, tweak SEO, and offer maintenance to keep your site ahead of the curve. One client saw a 200% conversion boost after we helped them build a website—imagine what we could do for you.</p>
+      
+      <h2>Why Drewverse?</h2>
+      <ul>
+        <li>Innovative, client-centered solutions.</li>
+        <li>Proven results for Ugandan businesses.</li>
+        <li>A team passionate about your success.</li>
+      </ul>
+      
+      <h2>Take the Leap</h2>
+      <p>Ready to build a website that drives growth? Call +256772653789 or visit drewversedesign.online. Let's turn your vision into a digital masterpiece in 2025!</p>
+    `,
+    author: "Ddamba Ian",
+    date: "June 1, 2024",
+    category: "Business Growth",
+    image: placeholderImages.portfolio4,
+    slug: "build-website-business-growth-2025",
+    featured: true,
+    trending: false,
+  },
+  {
+    id: 5,
     title: "10 UI/UX Design Trends to Watch in 2023",
     excerpt: "Stay ahead of the curve with these emerging trends in user interface and experience design.",
     content: `
@@ -47,11 +196,11 @@ export const blogPosts: BlogPostProps[] = [
     category: "Design",
     image: placeholderImages.portfolio1,
     slug: "ui-ux-design-trends-2023",
-    featured: true,
-    trending: true,
+    featured: false,
+    trending: false,
   },
   {
-    id: 2,
+    id: 6,
     title: "The Future of E-commerce: AI-Powered Shopping Experiences",
     excerpt: "Explore how artificial intelligence is transforming online retail, from personalized recommendations to virtual try-ons.",
     content: "<p>E-commerce is on the cusp of a revolution, driven by advancements in artificial intelligence (AI). These technologies are not just improving backend operations; they're fundamentally changing how consumers discover, interact with, and purchase products online. Let's delve into the AI-powered innovations that are shaping the future of e-commerce.</p>\n\n<h2>1. Personalized Product Recommendations</h2>\n<p>AI algorithms analyze vast amounts of data about customer behavior, preferences, and purchase history to provide highly personalized product recommendations. This goes beyond simple 'customers who bought this also bought' suggestions. AI can understand the context of a shopper's current browsing session, predict their needs, and offer relevant products in real-time.</p>\n\n<h2>2. AI-Driven Search and Discovery</h2>\n<p>Traditional keyword-based search is evolving into AI-powered semantic search. This means that e-commerce platforms can understand the intent behind a shopper's query, even if it's phrased in natural language. AI can also analyze images and videos to help shoppers find products based on visual cues.</p>\n\n<h2>3. Virtual Try-On and Augmented Reality</h2>\n<p>Augmented reality (AR) is enabling shoppers to virtually try on clothing, accessories, and makeup before making a purchase. AI algorithms can accurately map products onto a shopper's image or video feed, providing a realistic preview of how the item will look. This technology reduces the risk of returns and enhances the overall shopping experience.</p>\n\n<h2>4. Chatbots and Virtual Assistants</h2>\n<p>AI-powered chatbots are becoming increasingly sophisticated, capable of handling a wide range of customer service inquiries. These virtual assistants can answer questions, provide product information, assist with order tracking, and even offer personalized recommendations. Chatbots provide instant support and free up human agents to focus on more complex issues.</p>\n\n<h2>5. Dynamic Pricing and Promotions</h2>\n<p>AI algorithms can analyze market trends, competitor pricing, and customer demand to dynamically adjust prices and promotions in real-time. This ensures that e-commerce businesses can maximize revenue while remaining competitive. AI can also personalize promotions based on individual shopper behavior.</p>\n\n<h2>6. Fraud Detection and Prevention</h2>\n<p>AI is playing a crucial role in detecting and preventing fraudulent transactions in e-commerce. Machine learning algorithms can identify suspicious patterns and flag potentially fraudulent orders for review. This helps protect both businesses and consumers from financial losses.</p>\n\n<h2>7. Supply Chain Optimization</h2>\n<p>AI is being used to optimize various aspects of the e-commerce supply chain, from inventory management to logistics. Predictive analytics can forecast demand, optimize warehouse operations, and improve delivery routes. This leads to reduced costs, faster shipping times, and improved customer satisfaction.</p>\n\n<h2>8. Visual Search</h2>\n<p>Visual search allows customers to upload an image of a product they want to find, and AI algorithms will identify similar items in the e-commerce platform's catalog. This is particularly useful for shoppers who don't know the exact name or description of the product they're looking for.</p>\n\n<h2>9. Sentiment Analysis</h2>\n<p>AI-powered sentiment analysis can analyze customer reviews, social media posts, and other forms of feedback to understand how shoppers feel about products and brands. This information can be used to improve product development, marketing strategies, and customer service.</p>\n\n<h2>10. Voice Commerce</h2>\n<p>With the rise of voice assistants like Amazon Alexa and Google Assistant, voice commerce is becoming increasingly popular. AI enables shoppers to make purchases using voice commands, creating a hands-free and convenient shopping experience.</p>\n\n<p>As AI continues to evolve, it will undoubtedly play an even greater role in shaping the future of e-commerce. Businesses that embrace these technologies will be well-positioned to deliver personalized, seamless, and engaging shopping experiences that meet the evolving needs of today's consumers.</p>",
@@ -64,7 +213,7 @@ export const blogPosts: BlogPostProps[] = [
     trending: true,
   },
   {
-    id: 3,
+    id: 7,
     title: "The Power of Data Analytics in Modern Marketing",
     excerpt: "Discover how data analytics is revolutionizing marketing strategies, enabling businesses to make informed decisions and drive growth.",
     content: "<p>In today's digital age, data is abundant, and businesses have access to vast amounts of information about their customers, markets, and competitors. However, data alone is not enough. To unlock its true potential, businesses need to leverage the power of data analytics. Data analytics involves the process of collecting, cleaning, analyzing, and interpreting data to extract meaningful insights and inform decision-making. In the context of marketing, data analytics is revolutionizing how businesses understand their customers, optimize their campaigns, and drive growth.</p>\n\n<h2>1. Understanding Customer Behavior</h2>\n<p>Data analytics enables marketers to gain a deep understanding of customer behavior. By analyzing data from various sources, such as website analytics, social media, CRM systems, and surveys, marketers can identify patterns, trends, and preferences. This knowledge can be used to segment customers, personalize marketing messages, and tailor product offerings to meet specific needs.</p>\n\n<h2>2. Optimizing Marketing Campaigns</h2>\n<p>Data analytics provides marketers with the tools to optimize their campaigns in real-time. By tracking key metrics, such as click-through rates, conversion rates, and return on ad spend, marketers can identify what's working and what's not. This allows them to make data-driven adjustments to their campaigns, such as refining targeting, tweaking ad copy, or reallocating budget to more effective channels.</p>\n\n<h2>3. Improving Customer Experience</h2>\n<p>Data analytics can be used to improve the overall customer experience. By analyzing customer feedback, support tickets, and online reviews, marketers can identify pain points and areas for improvement. This information can be used to enhance product design, streamline customer service processes, and create more personalized interactions.</p>\n\n<h2>4. Predicting Future Trends</h2>\n<p>Data analytics can help marketers predict future trends and anticipate changes in customer behavior. By analyzing historical data and applying predictive modeling techniques, marketers can identify emerging trends, forecast demand, and prepare for future challenges. This allows them to stay ahead of the curve and maintain a competitive advantage.</p>\n\n<h2>5. Measuring Marketing ROI</h2>\n<p>Data analytics provides marketers with the ability to accurately measure the return on investment (ROI) of their marketing efforts. By tracking the costs and revenues associated with each campaign, marketers can determine which channels and tactics are generating the most value. This information can be used to optimize budget allocation and improve overall marketing effectiveness.</p>\n\n<h2>6. Personalizing Marketing Messages</h2>\n<p>Data analytics enables marketers to personalize their messages to individual customers. By analyzing customer data, marketers can create targeted campaigns that resonate with specific segments. This can lead to higher engagement rates, improved conversion rates, and increased customer loyalty.</p>\n\n<h2>7. Identifying New Opportunities</h2>\n<p>Data analytics can help marketers identify new opportunities for growth. By analyzing market data, competitor data, and customer data, marketers can uncover unmet needs, identify emerging markets, and develop innovative products and services.</p>\n\n<h2>8. Enhancing Customer Segmentation</h2>\n<p>Data analytics enables marketers to create more sophisticated customer segments. By analyzing a wide range of data points, marketers can identify segments based on demographics, psychographics, behavior, and purchase history. This allows them to target their messages more effectively and improve campaign performance.</p>\n\n<h2>9. Improving Lead Generation</h2>\n<p>Data analytics can be used to improve lead generation efforts. By analyzing data from lead generation campaigns, marketers can identify the most effective channels, tactics, and messaging. This allows them to optimize their campaigns and generate more qualified leads.</p>\n\n<h2>10. Optimizing Pricing Strategies</h2>\n<p>Data analytics can help marketers optimize their pricing strategies. By analyzing data on customer demand, competitor pricing, and cost of goods sold, marketers can determine the optimal price points for their products and services. This can lead to increased revenue and improved profitability.</p>\n\n<p>In conclusion, data analytics is a powerful tool that can transform marketing strategies and drive growth. By leveraging the power of data, marketers can gain a deeper understanding of their customers, optimize their campaigns, improve customer experience, and predict future trends. As data continues to grow in volume and complexity, the importance of data analytics in marketing will only increase.</p>",
@@ -77,7 +226,7 @@ export const blogPosts: BlogPostProps[] = [
     trending: false,
   },
   {
-    id: 4,
+    id: 8,
     title: "Building Accessible Web Applications: A Comprehensive Guide",
     excerpt: "Learn how to create inclusive web experiences that work for everyone, regardless of abilities or disabilities.",
     content: `<p>Web accessibility is no longer optional—it's a necessity. This comprehensive guide walks through the essential practices for building truly accessible applications.</p>
@@ -96,7 +245,7 @@ export const blogPosts: BlogPostProps[] = [
     trending: true,
   },
   {
-    id: 5,
+    id: 9,
     title: "The Psychology of Color in Brand Design",
     excerpt: "Explore how color choices influence consumer perception and behavior, and how to leverage color psychology in your brand design.",
     content: `<p>Colors have profound effects on our psychology and behavior. Smart brands leverage these effects to create powerful emotional connections with their audience.</p>
@@ -115,7 +264,7 @@ export const blogPosts: BlogPostProps[] = [
     trending: false,
   },
   {
-    id: 6,
+    id: 10,
     title: "Optimizing Website Performance for Core Web Vitals",
     excerpt: "Master the techniques to improve your website's Core Web Vitals scores and enhance user experience while boosting SEO rankings.",
     content: `<p>Google's Core Web Vitals have become crucial metrics for website performance, affecting both user experience and search rankings.</p>
@@ -134,7 +283,7 @@ export const blogPosts: BlogPostProps[] = [
     trending: true,
   },
   {
-    id: 7,
+    id: 11,
     title: "The Rise of Headless CMS in Modern Web Development",
     excerpt: "Discover how headless CMS architecture is changing content management and enabling more flexible, scalable web experiences.",
     content: `<p>Headless CMS systems are revolutionizing how we build and manage digital experiences, offering unprecedented flexibility for developers and marketers alike.</p>
@@ -153,7 +302,7 @@ export const blogPosts: BlogPostProps[] = [
     trending: false,
   },
   {
-    id: 8,
+    id: 12,
     title: "Cybersecurity Essentials for Small Business Websites",
     excerpt: "Learn the fundamental security practices every small business should implement to protect their website and customer data.",
     content: `<p>Small businesses are increasingly targeted by cybercriminals. This guide covers the essential security measures every business website needs.</p>
@@ -172,7 +321,7 @@ export const blogPosts: BlogPostProps[] = [
     trending: false,
   },
   {
-    id: 9,
+    id: 13,
     title: "Effective Mobile-First Design Strategies",
     excerpt: "Master the principles of mobile-first design to create exceptional user experiences across all device sizes.",
     content: `<p>As mobile traffic continues to dominate, designing for mobile first isn't just a trend—it's a necessity for successful digital products.</p>
@@ -191,7 +340,7 @@ export const blogPosts: BlogPostProps[] = [
     trending: false,
   },
   {
-    id: 10,
+    id: 14,
     title: "Measuring ROI in Digital Marketing Campaigns",
     excerpt: "Learn practical approaches to tracking and calculating the return on investment for your digital marketing efforts.",
     content: `<p>Accurately measuring ROI remains one of the biggest challenges in digital marketing. This guide offers practical solutions to this common problem.</p>
@@ -210,7 +359,7 @@ export const blogPosts: BlogPostProps[] = [
     trending: false,
   },
   {
-    id: 11,
+    id: 15,
     title: "Sustainable Web Design: Reducing Digital Carbon Footprint",
     excerpt: "Discover how to create beautiful, functional websites while minimizing environmental impact through sustainable web design practices.",
     content: `<p>The internet is responsible for approximately 3.7% of global carbon emissions. Sustainable web design aims to reduce this environmental impact.</p>
@@ -229,7 +378,7 @@ export const blogPosts: BlogPostProps[] = [
     trending: false,
   },
   {
-    id: 12,
+    id: 16,
     title: "The Impact of Web3 on Digital Product Design",
     excerpt: "Explore how blockchain, cryptocurrencies, and decentralized applications are reshaping user experience and product design.",
     content: `<p>Web3 technologies are introducing new paradigms in digital product design, from ownership models to interaction patterns.</p>
@@ -273,15 +422,4 @@ export const getTrendingPosts = (limit: number = 4): BlogPostProps[] => {
 export const calculateReadingTime = (content: string = ''): number => {
   const wordCount = content.split(/\s+/).length || 0;
   return Math.max(1, Math.ceil(wordCount / 200));
-};
-
-// Find related posts
-export const findRelatedPosts = (
-  currentPost: BlogPostProps,
-  allPosts: BlogPostProps[],
-  limit: number = 3
-): BlogPostProps[] => {
-  return allPosts
-    .filter((p) => p.category === currentPost.category && p.id !== currentPost.id)
-    .slice(0, limit);
 };
