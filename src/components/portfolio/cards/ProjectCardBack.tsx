@@ -98,9 +98,10 @@ const ProjectCardBack = ({ project, toggleFlip }: ProjectCardBackProps) => {
         <div className="mt-4 grid grid-cols-2 gap-3">
           <Link 
             to={`/portfolio/${projectSlug}`}
-            className="px-4 py-2 bg-drew-purple hover:bg-drew-purple/90 text-white text-sm rounded-lg transition-colors flex justify-center items-center"
+            className="px-4 py-2 bg-drew-purple hover:bg-drew-purple/90 text-white text-sm rounded-lg transition-colors flex justify-center items-center group"
           >
             View Details
+            <ArrowRight size={16} className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
           
           {project.link.startsWith('http') ? (
@@ -108,10 +109,10 @@ const ProjectCardBack = ({ project, toggleFlip }: ProjectCardBackProps) => {
               href={project.link}
               target="_blank" 
               rel="noopener noreferrer"
-              className="px-4 py-2 bg-black/30 border border-white/10 hover:border-drew-purple/30 text-white text-sm rounded-lg transition-colors flex justify-center items-center"
+              className="px-4 py-2 bg-black/30 border border-white/10 hover:border-drew-purple/30 text-white text-sm rounded-lg transition-colors flex justify-center items-center group"
             >
               Live Preview
-              <ExternalLink size={14} className="ml-2" />
+              <ExternalLink size={14} className="ml-2 transition-transform duration-300 group-hover:scale-110" />
             </a>
           ) : (
             <button 
