@@ -1,112 +1,94 @@
+
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
 interface SEOProps {
   title?: string;
   description?: string;
-  keywords?: string;
-  author?: string;
+  canonical?: string;
   ogImage?: string;
-  ogUrl?: string;
-  ogType?: 'website' | 'article' | 'product' | 'service';
-  twitterCard?: 'summary' | 'summary_large_image';
-  canonicalUrl?: string;
-  structuredData?: Record<string, any>;
-  children?: React.ReactNode;
-  publishedTime?: string;
-  modifiedTime?: string;
-  category?: string;
-  locale?: string;
-  alternateLanguages?: { hrefLang: string, href: string }[];
+  ogType?: string;
+  twitterHandle?: string;
+  twitterCard?: string;
+  structuredData?: object;
+  alternateLanguages?: Array<{
+    lang: string;
+    href: string;
+  }>;
 }
 
-const SEO = ({
-  title = 'DrewVerse Design - Premium Digital Agency in Uganda',
-  description = 'Top website design in Kampala & branding agency in Uganda. We create stunning websites, apps, and custom website development solutions throughout Uganda. Affordable website design in Kampala and SEO-optimized solutions.',
-  keywords = 'website design Kampala, branding agency Uganda, custom website development Uganda, affordable website design in Kampala, best branding services in Uganda 2025, SEO-optimized website design near me, website designer near me, build website, digital agency, web design, UX/UI design, brand identity, mobile apps',
-  author = 'DrewVerse Design',
-  ogImage = '/lovable-uploads/9d8eb58e-b3c8-4d28-afb4-0e85b24f49d9.png',
-  ogUrl = 'https://drewverse.design/',
+const SEO: React.FC<SEOProps> = ({
+  title = 'Drew Creative Agency - Professional Web Development & Design',
+  description = 'Drew Creative Agency specializes in modern web development, design, and digital marketing strategies that elevate your brand and drive results.',
+  canonical = 'https://www.drewcreative.com',
+  ogImage = '/og-image.png',
   ogType = 'website',
+  twitterHandle = '@drewcreative',
   twitterCard = 'summary_large_image',
-  canonicalUrl,
   structuredData,
-  publishedTime,
-  modifiedTime,
-  category,
-  locale = 'en-ug',
-  alternateLanguages,
-  children
-}: SEOProps) => {
-  // Construct full title with branding
-  const fullTitle = title.includes('DrewVerse') ? title : `${title} | DrewVerse Design`;
-  
-  // Use provided canonical URL or default to ogUrl
-  const canonical = canonicalUrl || ogUrl;
-  
+  alternateLanguages = [],
+}) => {
+  // Format JSON-LD structured data
+  const structuredDataString = structuredData
+    ? JSON.stringify(structuredData)
+    : JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: 'Drew Creative Agency',
+        url: 'https://www.drewcreative.com',
+        description:
+          'Professional web development, design, and digital marketing services for businesses of all sizes.',
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: 'https://www.drewcreative.com/search?q={search_term_string}',
+          'query-input': 'required name=search_term_string',
+        },
+      });
+
+  // Get full canonical URL
+  const fullCanonicalUrl = canonical.startsWith('http')
+    ? canonical
+    : `https://www.drewcreative.com${canonical}`;
+
+  // Get full OG image URL
+  const fullOgImageUrl = ogImage.startsWith('http')
+    ? ogImage
+    : `https://www.drewcreative.com${ogImage}`;
+
   return (
     <Helmet>
       {/* Basic Meta Tags */}
-      <title>{fullTitle}</title>
+      <title>{title}</title>
       <meta name="description" content={description} />
-      <meta name="keywords" content={keywords} />
-      <meta name="author" content={author} />
-      
-      {/* Canonical URL */}
-      <link rel="canonical" href={canonical} />
-      
-      {/* Open Graph / Facebook */}
-      <meta property="og:type" content={ogType} />
-      <meta property="og:url" content={ogUrl} />
-      <meta property="og:title" content={fullTitle} />
+      <link rel="canonical" href={fullCanonicalUrl} />
+
+      {/* Open Graph Tags */}
+      <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta property="og:image" content={ogImage.startsWith('http') ? ogImage : `https://drewverse.design${ogImage}`} />
-      <meta property="og:site_name" content="DrewVerse Design" />
-      
-      {/* Article specific metadata */}
-      {ogType === 'article' && publishedTime && (
-        <meta property="article:published_time" content={publishedTime} />
-      )}
-      {ogType === 'article' && modifiedTime && (
-        <meta property="article:modified_time" content={modifiedTime} />
-      )}
-      {ogType === 'article' && category && (
-        <meta property="article:section" content={category} />
-      )}
-      
-      {/* Twitter */}
-      <meta property="twitter:card" content={twitterCard} />
-      <meta property="twitter:url" content={ogUrl} />
-      <meta property="twitter:title" content={fullTitle} />
-      <meta property="twitter:description" content={description} />
-      <meta property="twitter:image" content={ogImage.startsWith('http') ? ogImage : `https://drewverse.design${ogImage}`} />
-      
-      {/* Location-specific meta tags */}
-      <meta name="geo.region" content="UG" />
-      <meta name="geo.placename" content="Kampala" />
-      
-      {/* Language and locale */}
-      <meta property="og:locale" content={locale} />
-      <link rel="alternate" hreflang={locale} href={ogUrl} />
-      
-      {/* Alternate language links */}
-      {alternateLanguages && alternateLanguages.map((item) => (
+      <meta property="og:type" content={ogType} />
+      <meta property="og:url" content={fullCanonicalUrl} />
+      <meta property="og:image" content={fullOgImageUrl} />
+      <meta property="og:site_name" content="Drew Creative Agency" />
+
+      {/* Twitter Card Tags */}
+      <meta name="twitter:card" content={twitterCard} />
+      <meta name="twitter:site" content={twitterHandle} />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={fullOgImageUrl} />
+
+      {/* Alternate Languages */}
+      {alternateLanguages.map((alt) => (
         <link 
-          key={item.hrefLang} 
+          key={alt.lang} 
           rel="alternate" 
-          hrefLang={item.hrefLang} 
-          href={item.href} 
+          hrefLang={alt.lang} 
+          href={alt.href} 
         />
       ))}
-      
-      {/* Structured data if provided */}
-      {structuredData && (
-        <script type="application/ld+json">
-          {JSON.stringify(structuredData)}
-        </script>
-      )}
-      
-      {/* Additional meta tags from children */}
-      {children}
+
+      {/* JSON-LD Structured Data */}
+      <script type="application/ld+json">{structuredDataString}</script>
     </Helmet>
   );
 };

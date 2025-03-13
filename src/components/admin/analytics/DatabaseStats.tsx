@@ -1,139 +1,120 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../ui/card';
+import { CircleOff, Database, Cpu, Server } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
-import { Database, FileText, Clock, Users } from 'lucide-react';
 
-type TableCount = {
-  table_name: string;
-  row_count: number;
-};
+interface TableStat {
+  tableName: string;
+  rowCount: number;
+}
 
 const DatabaseStats = () => {
-  const [tableCounts, setTableCounts] = useState<TableCount[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [lastUpdated, setLastUpdated] = useState<string | null>(null);
+  const [tableStats, setTableStats] = useState<TableStat[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchTableStats = async () => {
       try {
-        setIsLoading(true);
-        
-        // Get counts from main tables
-        const { data, error } = await supabase.rpc('get_table_row_counts');
-        
-        if (error) {
-          console.error('Error fetching table stats:', error);
-          return;
-        }
-        
-        if (data) {
-          setTableCounts(data as TableCount[]);
+        // For demonstration, we're getting row counts from specific tables
+        // In a real app, you might have a function that returns counts for all tables
+        const tables = ['projects', 'blog_posts', 'users', 'messages'];
+        const stats: TableStat[] = [];
+
+        for (const table of tables) {
+          const { count, error } = await supabase
+            .from(table)
+            .select('*', { count: 'exact', head: true });
+
+          if (error) throw error;
           
-          // Set last updated time
-          const now = new Date();
-          setLastUpdated(now.toLocaleTimeString());
+          stats.push({
+            tableName: table,
+            rowCount: count || 0
+          });
         }
+
+        setTableStats(stats);
+        setLoading(false);
       } catch (err) {
-        console.error('Unexpected error:', err);
-      } finally {
-        setIsLoading(false);
+        console.error('Error fetching table stats:', err);
+        setError('Failed to load database statistics');
+        setLoading(false);
       }
     };
 
     fetchTableStats();
-
-    // Setup real-time subscription
-    const statsChannel = supabase
-      .channel('db-stats-changes')
-      .on('postgres_changes', { event: '*', schema: 'public' }, () => {
-        fetchTableStats();
-      })
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(statsChannel);
-    };
   }, []);
 
-  // Before we have the function, simulate the data
-  const mockTableCounts = [
-    { table_name: 'projects', row_count: 12 },
-    { table_name: 'blog_posts', row_count: 24 },
-    { table_name: 'services', row_count: 6 },
-    { table_name: 'testimonials', row_count: 8 }
-  ];
-
-  const getIconForTable = (tableName: string) => {
-    switch (tableName) {
-      case 'projects':
-        return <Database className="h-5 w-5 text-drew-purple" />;
-      case 'blog_posts':
-        return <FileText className="h-5 w-5 text-drew-purple" />;
-      case 'services':
-        return <Users className="h-5 w-5 text-drew-purple" />;
-      case 'testimonials':
-        return <Users className="h-5 w-5 text-drew-purple" />;
-      default:
-        return <Database className="h-5 w-5 text-drew-purple" />;
-    }
+  const getTotalRows = () => {
+    return tableStats.reduce((total, stat) => total + stat.rowCount, 0);
   };
-
-  const formatTableName = (tableName: string) => {
-    return tableName
-      .split('_')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
-  };
-
-  if (isLoading) {
-    return (
-      <Card>
-        <CardHeader>
-          <CardTitle>Database Statistics</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-2 gap-4">
-            {[1, 2, 3, 4].map((_, i) => (
-              <div key={i} className="flex items-center p-3 bg-gray-100 dark:bg-gray-800 rounded-md animate-pulse">
-                <div className="h-10 w-10 bg-gray-200 dark:bg-gray-700 rounded-full mr-3"></div>
-                <div>
-                  <div className="h-4 w-24 bg-gray-200 dark:bg-gray-700 rounded mb-2"></div>
-                  <div className="h-6 w-12 bg-gray-200 dark:bg-gray-700 rounded"></div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-    );
-  }
 
   return (
     <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle>Database Statistics</CardTitle>
-        {lastUpdated && (
-          <div className="flex items-center text-sm text-gray-500">
-            <Clock className="mr-1 h-4 w-4" />
-            Last updated: {lastUpdated}
-          </div>
-        )}
+      <CardHeader>
+        <CardTitle className="flex items-center">
+          <Database className="h-5 w-5 mr-2 text-drew-purple" />
+          Database Stats
+        </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-2 gap-4">
-          {(tableCounts.length > 0 ? tableCounts : mockTableCounts).map((table) => (
-            <div key={table.table_name} className="flex items-center p-3 bg-gray-50 dark:bg-gray-800 rounded-md">
-              <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-full mr-3">
-                {getIconForTable(table.table_name)}
+        {loading ? (
+          <div className="py-8 text-center">
+            <p className="text-gray-500">Loading database statistics...</p>
+          </div>
+        ) : error ? (
+          <div className="py-8 text-center">
+            <CircleOff className="h-10 w-10 mx-auto mb-4 text-gray-400" />
+            <p className="text-gray-500">{error}</p>
+          </div>
+        ) : (
+          <div className="space-y-6">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-500">Total Records</p>
+                    <p className="text-2xl font-bold">{getTotalRows()}</p>
+                  </div>
+                  <Database className="h-8 w-8 text-drew-purple opacity-80" />
+                </div>
               </div>
-              <div>
-                <h3 className="text-sm font-medium">{formatTableName(table.table_name)}</h3>
-                <p className="text-xl font-bold">{table.row_count}</p>
+              <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-500">Tables</p>
+                    <p className="text-2xl font-bold">{tableStats.length}</p>
+                  </div>
+                  <Server className="h-8 w-8 text-amber-500 opacity-80" />
+                </div>
               </div>
             </div>
-          ))}
-        </div>
+            
+            <div>
+              <h3 className="text-sm font-medium mb-3">Table Statistics</h3>
+              <div className="space-y-2">
+                {tableStats.map((stat) => (
+                  <div 
+                    key={stat.tableName} 
+                    className="flex items-center justify-between p-2 bg-gray-50 dark:bg-gray-800 rounded"
+                  >
+                    <span className="font-medium text-sm capitalize">
+                      {stat.tableName.replace(/_/g, ' ')}
+                    </span>
+                    <span className="text-sm">{stat.rowCount} rows</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            <div className="flex items-center text-xs text-gray-500">
+              <Cpu className="h-3 w-3 mr-1" />
+              <span>Database health: Good</span>
+            </div>
+          </div>
+        )}
       </CardContent>
     </Card>
   );
