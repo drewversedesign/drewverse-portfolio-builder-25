@@ -14,9 +14,9 @@ interface SEOProps {
 }
 
 const SEO = ({
-  title = 'DrewVerse Design - Premium Digital Agency',
-  description = 'Innovative solutions for your digital needs. We create stunning websites, apps, and digital experiences that transform ideas into digital excellence.',
-  keywords = 'digital agency, web design, UX/UI design, brand identity, mobile apps, premium design studio',
+  title = 'DrewVerse Design - Premium Digital Agency in Uganda',
+  description = 'Top website design in Kampala & branding agency in Uganda. We create stunning websites, apps, and custom website development solutions throughout Uganda.',
+  keywords = 'website design Kampala, branding agency Uganda, custom website development Uganda, digital agency, web design, UX/UI design, brand identity, mobile apps',
   author = 'DrewVerse Design',
   ogImage = '/lovable-uploads/9d8eb58e-b3c8-4d28-afb4-0e85b24f49d9.png',
   ogUrl = 'https://drewverse.design/',
@@ -49,6 +49,10 @@ const SEO = ({
       <meta property="twitter:title" content={fullTitle} />
       <meta property="twitter:description" content={description} />
       <meta property="twitter:image" content={ogImage} />
+      
+      {/* Location-specific meta tags */}
+      <meta name="geo.region" content="UG" />
+      <meta name="geo.placename" content="Kampala" />
       
       {/* Additional meta tags from children */}
       {children}
