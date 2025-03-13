@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -135,7 +134,6 @@ export default {
 					'0%, 100%': { transform: 'scale(1)' },
 					'50%': { transform: 'scale(1.05)' }
 				},
-				// New futuristic animations
 				'glitch': {
 					'0%': { transform: 'translate(0)' },
 					'20%': { transform: 'translate(-2px, 2px)' },
@@ -156,13 +154,14 @@ export default {
 						boxShadow: '0 0 15px theme("colors.drew.purple"), 0 0 20px theme("colors.drew.purple")' 
 					}
 				},
-				'data-flow': {
-					'0%': { backgroundPosition: '0% 0%' },
-					'100%': { backgroundPosition: '100% 100%' }
+				'data-pulse': {
+					'0%': { transform: 'scale(1)', opacity: '0.5' },
+					'50%': { transform: 'scale(1.1)', opacity: '0.8' },
+					'100%': { transform: 'scale(1)', opacity: '0.5' }
 				},
-				'rotate-3d': {
-					'0%': { transform: 'perspective(1000px) rotateY(0deg)' },
-					'100%': { transform: 'perspective(1000px) rotateY(360deg)' }
+				'data-flow-horizontal': {
+					'0%': { transform: 'translateX(-100%)' },
+					'100%': { transform: 'translateX(100%)' }
 				}
 			},
 			animation: {
@@ -178,12 +177,11 @@ export default {
 				'exit': 'fade-out 0.6s ease-out, scale-out 0.4s ease-out',
 				'float': 'float 6s ease-in-out infinite',
 				'pulse-slow': 'pulse-slow 3s ease-in-out infinite',
-				// New futuristic animations
 				'glitch': 'glitch 0.5s ease-in-out infinite',
 				'scanning-line': 'scanning-line 2s linear infinite',
 				'cyber-pulse': 'cyber-pulse 2s ease-in-out infinite',
-				'data-flow': 'data-flow 15s linear infinite',
-				'rotate-3d': 'rotate-3d 15s linear infinite'
+				'data-pulse': 'data-pulse 3s ease-in-out infinite',
+				'data-flow': 'data-flow-horizontal 3s linear infinite'
 			}
 		}
 	},
