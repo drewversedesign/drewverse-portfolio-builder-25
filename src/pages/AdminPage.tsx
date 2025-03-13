@@ -9,6 +9,7 @@ const AdminPage = () => {
       <Helmet>
         <title>Admin Dashboard | Drew Creative Agency</title>
         <meta name="description" content="Admin dashboard for Drew Creative Agency" />
+        <meta name="robots" content="noindex, nofollow" />
       </Helmet>
       
       <AdminDashboard />
