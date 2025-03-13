@@ -1,4 +1,3 @@
-
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import ProjectCard from './cards/ProjectCard';
@@ -6,15 +5,15 @@ import { ProjectProps } from './cards/ProjectCard';
 import ProjectStats from './ProjectStats';
 import { Zap, Star, Users, Award, CheckCircle, BarChart3, Briefcase, Clock } from 'lucide-react';
 import { Link } from 'react-router-dom';
-
 interface PortfolioMasonryGridProps {
   projects: ProjectProps[];
 }
-
-const PortfolioMasonryGrid = ({ projects }: PortfolioMasonryGridProps) => {
+const PortfolioMasonryGrid = ({
+  projects
+}: PortfolioMasonryGridProps) => {
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
   const [visibleProjects, setVisibleProjects] = useState<ProjectProps[]>([]);
-  
+
   // Calculate project statistics
   const totalProjects = projects.length;
   const uniqueCategories = [...new Set(projects.map(p => p.category))].length;
@@ -30,80 +29,57 @@ const PortfolioMasonryGrid = ({ projects }: PortfolioMasonryGridProps) => {
           setVisibleProjects(prev => [...prev, projects[i]]);
         }
       };
-      
       loadProjectsSequentially();
     }, 300);
-    
     return () => clearTimeout(timer);
   }, [projects]);
-
-  return (
-    <div className="space-y-16">
+  return <div className="space-y-16">
       {/* Project Statistics */}
-      <ProjectStats 
-        stats={[
-          { icon: <Zap size={24} className="text-drew-purple" />, value: totalProjects, label: "Total Projects" },
-          { icon: <Star size={24} className="text-amber-500" />, value: uniqueCategories, label: "Categories" },
-          { icon: <Users size={24} className="text-blue-500" />, value: "98%", label: "Client Satisfaction" },
-          { icon: <Award size={24} className="text-rose-500" />, value: featuredProjects, label: "Featured Work" },
-        ]}
-      />
+      <ProjectStats stats={[{
+      icon: <Zap size={24} className="text-drew-purple" />,
+      value: totalProjects,
+      label: "Total Projects"
+    }, {
+      icon: <Star size={24} className="text-amber-500" />,
+      value: uniqueCategories,
+      label: "Categories"
+    }, {
+      icon: <Users size={24} className="text-blue-500" />,
+      value: "98%",
+      label: "Client Satisfaction"
+    }, {
+      icon: <Award size={24} className="text-rose-500" />,
+      value: featuredProjects,
+      label: "Featured Work"
+    }]} />
       
       {/* Projects Grid */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-        className="masonry-grid"
-      >
-        {visibleProjects.map((project) => (
-          <motion.div
-            key={project.id}
-            layout
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            transition={{ duration: 0.3 }}
-            className="masonry-item mb-6"
-          >
-            <ProjectCard
-              project={project}
-              isHovered={hoveredProject === project.id}
-              onMouseEnter={() => setHoveredProject(project.id)}
-              onMouseLeave={() => setHoveredProject(null)}
-            />
-          </motion.div>
-        ))}
+      <motion.div initial={{
+      opacity: 0
+    }} animate={{
+      opacity: 1
+    }} transition={{
+      duration: 0.5,
+      delay: 0.3
+    }} className="masonry-grid">
+        {visibleProjects.map(project => <motion.div key={project.id} layout initial={{
+        opacity: 0,
+        scale: 0.9
+      }} animate={{
+        opacity: 1,
+        scale: 1
+      }} exit={{
+        opacity: 0,
+        scale: 0.9
+      }} transition={{
+        duration: 0.3
+      }} className="masonry-item mb-6">
+            <ProjectCard project={project} isHovered={hoveredProject === project.id} onMouseEnter={() => setHoveredProject(project.id)} onMouseLeave={() => setHoveredProject(null)} />
+          </motion.div>)}
       </motion.div>
       
       {/* Client Logos Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="py-12 bg-drew-black/50 backdrop-blur-sm rounded-xl"
-      >
-        <div className="text-center mb-8">
-          <span className="text-sm uppercase tracking-wider text-gray-400">Trusted By Industry Leaders</span>
-          <h3 className="text-2xl font-bold mt-2">Our Clients & Partners</h3>
-        </div>
-        
-        <div className="flex flex-wrap items-center justify-center gap-8 md:gap-16 px-4 opacity-70">
-          {['Auth', 'Dropbox', 'Slack', 'Spotify', 'Webflow', 'Unity'].map((logo, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3, delay: index * 0.1 }}
-              className="grayscale hover:grayscale-0 transition-all duration-300"
-            >
-              <div className="h-6 md:h-8 flex items-center">
-                <span className="text-lg md:text-xl font-bold">{logo}</span>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
+      
       
       {/* Project Workflow Process */}
       <div className="my-16">
@@ -113,19 +89,32 @@ const PortfolioMasonryGrid = ({ projects }: PortfolioMasonryGridProps) => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          {[
-            { icon: <Briefcase />, title: "Discovery", desc: "We analyze requirements and research your industry landscape" },
-            { icon: <BarChart3 />, title: "Strategy", desc: "Planning the right approach to achieve your business goals" },
-            { icon: <Zap />, title: "Design & Develop", desc: "Creating engaging interfaces and robust functionality" },
-            { icon: <CheckCircle />, title: "Delivery", desc: "Testing, refinement and launching your perfect solution" }
-          ].map((step, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.1 }}
-              className="bg-drew-gray-dark/60 backdrop-blur-sm rounded-xl p-6 relative overflow-hidden group"
-            >
+          {[{
+          icon: <Briefcase />,
+          title: "Discovery",
+          desc: "We analyze requirements and research your industry landscape"
+        }, {
+          icon: <BarChart3 />,
+          title: "Strategy",
+          desc: "Planning the right approach to achieve your business goals"
+        }, {
+          icon: <Zap />,
+          title: "Design & Develop",
+          desc: "Creating engaging interfaces and robust functionality"
+        }, {
+          icon: <CheckCircle />,
+          title: "Delivery",
+          desc: "Testing, refinement and launching your perfect solution"
+        }].map((step, index) => <motion.div key={index} initial={{
+          opacity: 0,
+          y: 20
+        }} animate={{
+          opacity: 1,
+          y: 0
+        }} transition={{
+          duration: 0.3,
+          delay: index * 0.1
+        }} className="bg-drew-gray-dark/60 backdrop-blur-sm rounded-xl p-6 relative overflow-hidden group">
               <div className="absolute -right-4 -top-4 w-20 h-20 rounded-full bg-drew-purple/10 group-hover:bg-drew-purple/20 transition-all duration-300"></div>
               
               <div className="relative z-10">
@@ -140,8 +129,7 @@ const PortfolioMasonryGrid = ({ projects }: PortfolioMasonryGridProps) => {
                 
                 <p className="text-gray-400 text-sm">{step.desc}</p>
               </div>
-            </motion.div>
-          ))}
+            </motion.div>)}
         </div>
       </div>
       
@@ -151,13 +139,7 @@ const PortfolioMasonryGrid = ({ projects }: PortfolioMasonryGridProps) => {
           <h3 className="text-xl font-bold">Client Reviews</h3>
           <div className="flex items-center">
             <div className="flex">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <Star 
-                  key={star} 
-                  size={16} 
-                  className={star <= 4.7 ? "text-amber-400 fill-amber-400" : "text-gray-500"} 
-                />
-              ))}
+              {[1, 2, 3, 4, 5].map(star => <Star key={star} size={16} className={star <= 4.7 ? "text-amber-400 fill-amber-400" : "text-gray-500"} />)}
             </div>
             <span className="ml-2 text-amber-400 font-medium">4.7</span>
             <span className="ml-1 text-gray-400 text-sm">(128 reviews)</span>
@@ -185,18 +167,28 @@ const PortfolioMasonryGrid = ({ projects }: PortfolioMasonryGridProps) => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { title: "On-Time Delivery", value: "94%", icon: <Clock className="text-drew-purple" /> },
-              { title: "Client Return Rate", value: "87%", icon: <Users className="text-blue-500" /> },
-              { title: "Project Success Rate", value: "96%", icon: <CheckCircle className="text-green-500" /> }
-            ].map((metric, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.1 }}
-                className="bg-drew-black/30 backdrop-blur-sm rounded-xl p-6 border border-white/5 hover:border-drew-purple/30 transition-all duration-300"
-              >
+            {[{
+            title: "On-Time Delivery",
+            value: "94%",
+            icon: <Clock className="text-drew-purple" />
+          }, {
+            title: "Client Return Rate",
+            value: "87%",
+            icon: <Users className="text-blue-500" />
+          }, {
+            title: "Project Success Rate",
+            value: "96%",
+            icon: <CheckCircle className="text-green-500" />
+          }].map((metric, index) => <motion.div key={index} initial={{
+            opacity: 0,
+            y: 20
+          }} animate={{
+            opacity: 1,
+            y: 0
+          }} transition={{
+            duration: 0.3,
+            delay: index * 0.1
+          }} className="bg-drew-black/30 backdrop-blur-sm rounded-xl p-6 border border-white/5 hover:border-drew-purple/30 transition-all duration-300">
                 <div className="flex items-start justify-between">
                   <div>
                     <h3 className="text-lg font-medium text-gray-300">{metric.title}</h3>
@@ -208,13 +200,11 @@ const PortfolioMasonryGrid = ({ projects }: PortfolioMasonryGridProps) => {
                 </div>
                 
                 <div className="mt-4 bg-black/20 rounded-full h-2 overflow-hidden">
-                  <div 
-                    className="h-full bg-gradient-to-r from-drew-purple to-blue-500 rounded-full"
-                    style={{ width: metric.value }}
-                  ></div>
+                  <div className="h-full bg-gradient-to-r from-drew-purple to-blue-500 rounded-full" style={{
+                width: metric.value
+              }}></div>
                 </div>
-              </motion.div>
-            ))}
+              </motion.div>)}
           </div>
         </div>
       </div>
@@ -236,8 +226,6 @@ const PortfolioMasonryGrid = ({ projects }: PortfolioMasonryGridProps) => {
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default PortfolioMasonryGrid;
