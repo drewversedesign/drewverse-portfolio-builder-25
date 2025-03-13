@@ -1,7 +1,7 @@
 
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { useState } from 'react';
-import ProjectCardFront from './ProjectCardFront';
+import ProjectCardFront from '../ProjectCardFront';
 import ProjectCardBack from './ProjectCardBack';
 
 export interface ProjectProps {
@@ -52,8 +52,9 @@ const ProjectCard = ({ project, isHovered, onMouseEnter, onMouseLeave }: Project
     const mouseX = e.clientX - cardCenterX;
     const mouseY = e.clientY - cardCenterY;
     
-    const rotX = (mouseY / (rect.height / 2)) * -3;
-    const rotY = (mouseX / (rect.width / 2)) * 3;
+    // Reduced rotation effect for a more subtle, professional feel
+    const rotX = (mouseY / (rect.height / 2)) * -2;
+    const rotY = (mouseX / (rect.width / 2)) * 2;
     
     rotateX.set(rotX);
     rotateY.set(rotY);
@@ -84,9 +85,18 @@ const ProjectCard = ({ project, isHovered, onMouseEnter, onMouseLeave }: Project
       }}
       onMouseMove={handleMouseMove}
       onClick={() => !isFlipped && setIsFlipped(true)}
-      className="relative cursor-pointer transform-style-3d"
+      className="relative cursor-pointer transform-style-3d group"
       style={{ height: getRandomHeight() }}
     >
+      {/* Hover effect - subtle glow */}
+      <motion.div 
+        className="absolute -inset-0.5 bg-gradient-to-r from-drew-purple/0 via-drew-purple/30 to-drew-purple/0 rounded-xl opacity-0 group-hover:opacity-100 blur-sm"
+        animate={{ 
+          opacity: isHovered ? [0, 0.5, 0.2] : 0,
+        }}
+        transition={{ duration: 1.5, repeat: isHovered ? Infinity : 0, repeatType: "reverse" }}
+      />
+
       {/* Front card */}
       <motion.div 
         className="absolute w-full h-full rounded-xl backface-hidden"
@@ -114,7 +124,7 @@ const ProjectCard = ({ project, isHovered, onMouseEnter, onMouseLeave }: Project
 
       {/* Back of card */}
       <motion.div 
-        className="absolute w-full h-full rounded-xl backface-hidden bg-drew-black/90 p-6 flex flex-col justify-between border border-drew-purple/30"
+        className="absolute w-full h-full rounded-xl backface-hidden bg-drew-black/95 border border-drew-purple/30"
         animate={{ 
           rotateY: isFlipped ? 0 : -180,
         }}
