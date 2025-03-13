@@ -1,3 +1,4 @@
+
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
@@ -61,71 +62,69 @@ const TestimonialCard = ({ testimonial, direction }: TestimonialCardProps) => {
         </div>
       )}
       
-      <div className="md:w-1/3">
-        <motion.div 
-          className="relative w-32 h-32 rounded-full overflow-hidden mx-auto flex items-center justify-center bg-drew-purple/20 border-2 border-drew-purple"
-          style={{
-            perspective: "1000px",
-            transformStyle: "preserve-3d",
-          }}
-          animate={{
-            rotateY: isHovered ? 10 : 0,
-            z: isHovered ? 20 : 0
-          }}
-          transition={{ type: "spring", stiffness: 200, damping: 25 }}
-        >
-          {/* Tech overlay for initials */}
-          {isHovered && (
-            <motion.div 
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-drew-purple/20 to-transparent z-10"
-              animate={{ x: ['-100%', '200%'] }}
-              transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
-            />
-          )}
-          
-          {/* Display initials instead of avatar */}
-          <span className="text-4xl font-bold text-drew-purple">{initials}</span>
-          
+      <motion.div 
+        className="relative w-32 h-32 rounded-full overflow-hidden mx-auto flex items-center justify-center bg-drew-purple/20 border-2 border-drew-purple"
+        style={{
+          perspective: "1000px",
+          transformStyle: "preserve-3d",
+        }}
+        animate={{
+          rotateY: isHovered ? 10 : 0,
+          z: isHovered ? 20 : 0
+        }}
+        transition={{ type: "spring", stiffness: 200, damping: 25 }}
+      >
+        {/* Tech overlay for initials */}
+        {isHovered && (
           <motion.div 
-            className="absolute inset-0 border-2 border-drew-purple rounded-full"
-            animate={{
-              boxShadow: isHovered 
-                ? "0 0 15px rgba(249, 115, 22, 0.4)" 
-                : "0 0 0px rgba(249, 115, 22, 0)"
-            }}
-          ></motion.div>
-        </motion.div>
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-drew-purple/20 to-transparent z-10"
+            animate={{ x: ['-100%', '200%'] }}
+            transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
+          />
+        )}
         
-        <div className="text-center mt-4">
-          <motion.h4 
-            className="text-xl font-bold"
-            animate={{ 
-              y: isHovered ? -2 : 0,
-              z: isHovered ? 10 : 0,
-              textShadow: isHovered ? "0 0 8px rgba(249, 115, 22, 0.3)" : "none"
-            }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          >
-            {testimonial.name}
-          </motion.h4>
-          <motion.p 
-            className="text-drew-purple"
-            animate={{ 
-              y: isHovered ? -1 : 0,
-              z: isHovered ? 5 : 0 
-            }}
-            transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.05 }}
-          >
-            {testimonial.position}
-          </motion.p>
-          <motion.p 
-            className="text-gray-400 text-sm"
-            animate={{ z: isHovered ? 3 : 0 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.1 }}
-          >
-            {testimonial.company}
-          </motion.p>
-        </div>
+        {/* Display initials instead of avatar */}
+        <span className="text-4xl font-bold text-drew-purple">{initials}</span>
+        
+        <motion.div 
+          className="absolute inset-0 border-2 border-drew-purple rounded-full"
+          animate={{
+            boxShadow: isHovered 
+              ? "0 0 15px rgba(249, 115, 22, 0.4)" 
+              : "0 0 0px rgba(249, 115, 22, 0)"
+          }}
+        ></motion.div>
+      </motion.div>
+      
+      <div className="text-center mt-4">
+        <motion.h4 
+          className="text-xl font-bold"
+          animate={{ 
+            y: isHovered ? -2 : 0,
+            z: isHovered ? 10 : 0,
+            textShadow: isHovered ? "0 0 8px rgba(249, 115, 22, 0.3)" : "none"
+          }}
+          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+        >
+          {testimonial.name}
+        </motion.h4>
+        <motion.p 
+          className="text-drew-purple"
+          animate={{ 
+            y: isHovered ? -1 : 0,
+            z: isHovered ? 5 : 0 
+          }}
+          transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.05 }}
+        >
+          {testimonial.position}
+        </motion.p>
+        <motion.p 
+          className="text-gray-400 text-sm"
+          animate={{ z: isHovered ? 3 : 0 }}
+          transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.1 }}
+        >
+          {testimonial.company}
+        </motion.p>
       </div>
       
       <div className="md:w-2/3">
