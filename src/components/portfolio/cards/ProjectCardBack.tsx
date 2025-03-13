@@ -1,7 +1,7 @@
 
 import { motion } from 'framer-motion';
+import { ExternalLink, X, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Tag, Calendar, User, CheckSquare, ExternalLink } from 'lucide-react';
 import { ProjectProps } from './ProjectCard';
 
 interface ProjectCardBackProps {
@@ -10,119 +10,101 @@ interface ProjectCardBackProps {
 }
 
 const ProjectCardBack = ({ project, toggleFlip }: ProjectCardBackProps) => {
-  // Extract the project slug from the link
-  const projectSlug = project.link.split('/').pop();
-  
   return (
-    <div className="relative h-full flex flex-col p-6">
-      <button 
+    <div className="relative w-full h-full p-6 flex flex-col">
+      {/* Close button */}
+      <button
         onClick={toggleFlip}
-        className="absolute top-4 right-4 bg-drew-gray-dark/80 rounded-full p-1.5 hover:bg-drew-gray-dark z-10"
+        className="absolute top-3 right-3 w-8 h-8 rounded-full bg-drew-purple/20 flex items-center justify-center hover:bg-drew-purple/40 transition-colors"
       >
-        <ArrowLeft size={16} />
+        <X size={16} className="text-white" />
       </button>
       
-      <div className="space-y-5 h-full flex flex-col">
+      <div className="flex flex-col h-full justify-between">
+        {/* Header */}
         <div>
-          <span className="text-xs font-medium px-2 py-1 rounded-full bg-drew-purple/20 text-drew-purple">
+          <span className="service-chip mb-2">
             {project.category}
           </span>
-          <h3 className="text-xl font-bold mt-3 mb-1">{project.title}</h3>
-          
-          {/* Project description */}
-          <p className="text-sm text-gray-300 line-clamp-3 mb-4">{project.description}</p>
+          <h3 className="text-xl font-bold text-white mb-3">{project.title}</h3>
         </div>
         
-        <div className="flex-grow space-y-5">
-          {/* Client */}
-          <div className="flex items-start">
-            <User size={18} className="text-drew-purple mr-3 mt-0.5" />
-            <div>
-              <p className="text-xs text-gray-400 mb-1">Client</p>
-              <p className="text-sm font-medium">{project.clientName || 'Confidential'}</p>
-            </div>
-          </div>
-          
-          {/* Completion Date */}
-          <div className="flex items-start">
-            <Calendar size={18} className="text-drew-purple mr-3 mt-0.5" />
-            <div>
-              <p className="text-xs text-gray-400 mb-1">Completion Date</p>
-              <p className="text-sm font-medium">{project.completionDate || 'Ongoing'}</p>
-            </div>
-          </div>
+        {/* Content */}
+        <div className="py-4 flex-grow overflow-y-auto scrollbar-none">
+          <p className="text-sm text-gray-300 mb-4">
+            {project.description}
+          </p>
           
           {/* Technologies */}
-          <div>
-            <div className="flex items-center mb-2">
-              <Tag size={18} className="text-drew-purple mr-2" />
-              <p className="text-xs text-gray-400">Technologies</p>
-            </div>
-            <div className="flex flex-wrap gap-2 mt-2">
+          <div className="mb-4">
+            <h4 className="text-xs uppercase text-gray-400 mb-2">Technologies</h4>
+            <div className="flex flex-wrap gap-2">
               {project.technologies?.map((tech, index) => (
-                <motion.span 
+                <span 
                   key={index}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.2, delay: index * 0.05 }} 
-                  className="px-2 py-1 bg-drew-black/50 rounded-md text-xs border border-white/10 hover:border-drew-purple/30 transition-colors"
+                  className="px-2 py-1 text-xs bg-black/40 backdrop-blur-sm border border-drew-purple/30 rounded-md text-gray-300"
                 >
                   {tech}
-                </motion.span>
+                </span>
               ))}
             </div>
           </div>
           
           {/* Services */}
-          <div>
-            <div className="flex items-center mb-2">
-              <CheckSquare size={18} className="text-drew-purple mr-2" />
-              <p className="text-xs text-gray-400">Services</p>
+          {project.services && (
+            <div className="mb-4">
+              <h4 className="text-xs uppercase text-gray-400 mb-2">Services</h4>
+              <div className="flex flex-wrap gap-2">
+                {project.services.map((service, index) => (
+                  <span 
+                    key={index}
+                    className="px-2 py-1 text-xs bg-black/40 backdrop-blur-sm border border-drew-purple/30 rounded-md text-gray-300"
+                  >
+                    {service}
+                  </span>
+                ))}
+              </div>
             </div>
-            <div className="flex flex-wrap gap-2 mt-2">
-              {project.services?.map((service, index) => (
-                <motion.span 
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.2, delay: index * 0.05 }}
-                  className="px-2 py-1 bg-drew-black/50 rounded-md text-xs border border-white/10 hover:border-drew-purple/30 transition-colors"
-                >
-                  {service}
-                </motion.span>
-              ))}
-            </div>
+          )}
+          
+          {/* Client & Date */}
+          <div className="grid grid-cols-2 gap-2 mb-4">
+            {project.clientName && (
+              <div>
+                <h4 className="text-xs uppercase text-gray-400 mb-1">Client</h4>
+                <p className="text-sm text-white">{project.clientName}</p>
+              </div>
+            )}
+            {project.completionDate && (
+              <div>
+                <h4 className="text-xs uppercase text-gray-400 mb-1">Completed</h4>
+                <p className="text-sm text-white">{project.completionDate}</p>
+              </div>
+            )}
           </div>
         </div>
         
-        <div className="mt-4 grid grid-cols-2 gap-3">
-          <Link 
-            to={`/portfolio/${projectSlug}`}
-            className="px-4 py-2 bg-drew-purple hover:bg-drew-purple/90 text-white text-sm rounded-lg transition-colors flex justify-center items-center group"
-          >
-            View Details
-            <ArrowRight size={16} className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
-          </Link>
-          
-          {project.link.startsWith('http') ? (
+        {/* Footer with buttons */}
+        <div className="mt-4 flex flex-col gap-2">
+          {project.link && (
             <a 
-              href={project.link}
+              href={project.link} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="px-4 py-2 bg-black/30 border border-white/10 hover:border-drew-purple/30 text-white text-sm rounded-lg transition-colors flex justify-center items-center group"
+              className="inline-flex items-center justify-center px-4 py-2 bg-drew-purple/20 hover:bg-drew-purple/40 rounded-lg transition-colors text-white text-sm"
             >
-              Live Preview
-              <ExternalLink size={14} className="ml-2 transition-transform duration-300 group-hover:scale-110" />
+              View Live Project
+              <ExternalLink size={14} className="ml-2" />
             </a>
-          ) : (
-            <button 
-              onClick={toggleFlip}
-              className="px-4 py-2 bg-black/30 border border-white/10 hover:border-drew-purple/30 text-white text-sm rounded-lg transition-colors flex justify-center items-center"
-            >
-              Close Details
-              <ArrowLeft size={14} className="ml-2" />
-            </button>
           )}
+          
+          <Link 
+            to={project.link} 
+            className="inline-flex items-center justify-center px-4 py-2 bg-drew-purple hover:bg-drew-purple/90 rounded-lg transition-colors text-white text-sm group"
+          >
+            View Project Details
+            <ArrowRight size={14} className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+          </Link>
         </div>
       </div>
     </div>
