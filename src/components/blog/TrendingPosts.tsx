@@ -69,10 +69,18 @@ const TrendingPostCard = ({ post, index }: { post: BlogPostProps; index: number 
           <span>{post.author}</span>
           <Link 
             to={`/blog/${post.slug}`} 
-            className="text-drew-purple flex items-center"
-            aria-label={`Read ${post.title}`}
+            className="text-drew-purple flex items-center group"
+            aria-label={`Read the full article about ${post.title}`}
           >
-            Read <ArrowRight size={14} className="ml-1" />
+            <span className="relative">Read</span>
+            <motion.span 
+              initial={{ x: 0 }}
+              whileHover={{ x: 5 }}
+              transition={{ type: "spring", stiffness: 500, damping: 20 }}
+              className="ml-1"
+            >
+              <ArrowRight size={14} />
+            </motion.span>
           </Link>
         </div>
       </div>

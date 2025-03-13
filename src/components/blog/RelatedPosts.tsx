@@ -49,10 +49,21 @@ const RelatedPosts = ({ relatedPosts }: RelatedPostsProps) => {
                 </h3>
                 <Link 
                   to={`/blog/${relatedPost.slug}`} 
-                  className="inline-flex items-center text-drew-purple story-link mt-2"
-                  aria-label={`Read more about ${relatedPost.title}`}
+                  className="inline-flex items-center text-drew-purple group"
+                  aria-label={`Read the full article about ${relatedPost.title}`}
                 >
-                  Read More <ArrowRight size={16} className="ml-2" />
+                  <span className="relative">
+                    Read More
+                    <span className="absolute bottom-0 left-0 w-0 group-hover:w-full h-0.5 bg-drew-purple transition-all duration-300"></span>
+                  </span>
+                  <motion.span 
+                    initial={{ x: 0 }}
+                    whileHover={{ x: 5 }}
+                    transition={{ type: "spring", stiffness: 500, damping: 20 }}
+                    className="inline-block ml-2"
+                  >
+                    <ArrowRight size={16} />
+                  </motion.span>
                 </Link>
               </div>
             </div>

@@ -43,8 +43,19 @@ const FeaturedPost = ({ posts }: FeaturedPostProps) => {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="flex justify-end"
           >
-            <Link to="/blog" className="text-drew-purple flex items-center story-link">
-              View all featured <ArrowRight size={16} className="ml-2" />
+            <Link to="/blog" className="text-drew-purple flex items-center group">
+              <span className="relative">
+                View all featured
+                <span className="absolute bottom-0 left-0 w-0 group-hover:w-full h-0.5 bg-drew-purple transition-all duration-300"></span>
+              </span>
+              <motion.span 
+                initial={{ x: 0 }}
+                whileHover={{ x: 5 }}
+                transition={{ type: "spring", stiffness: 500, damping: 20 }}
+                className="ml-2"
+              >
+                <ArrowRight size={16} />
+              </motion.span>
             </Link>
           </motion.div>
         </div>
