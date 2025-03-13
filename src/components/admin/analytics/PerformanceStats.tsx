@@ -71,32 +71,41 @@ const PerformanceStats = () => {
         if (metric.name === 'Average Page Load') {
           const newValue = 0.7 + random * 0.5;
           const newProgress = 100 - (newValue * 50);
+          const newStatus: 'good' | 'warning' | 'bad' = 
+            newValue < 1 ? 'good' : newValue < 1.5 ? 'warning' : 'bad';
+          
           return {
             ...metric,
             value: `${newValue.toFixed(1)}s`,
             progress: Math.min(100, Math.max(0, newProgress)),
-            status: newValue < 1 ? 'good' : newValue < 1.5 ? 'warning' : 'bad'
+            status: newStatus
           };
         }
         
         if (metric.name === 'Server Response') {
           const newValue = 180 + random * 100;
           const newProgress = 100 - (newValue / 10);
+          const newStatus: 'good' | 'warning' | 'bad' = 
+            newValue < 250 ? 'good' : newValue < 500 ? 'warning' : 'bad';
+          
           return {
             ...metric,
             value: `${Math.round(newValue)}ms`,
             progress: Math.min(100, Math.max(0, newProgress)),
-            status: newValue < 250 ? 'good' : newValue < 500 ? 'warning' : 'bad'
+            status: newStatus
           };
         }
         
         if (metric.name === 'Global CDN') {
           const newValue = 99.5 + random * 0.5;
+          const newStatus: 'good' | 'warning' | 'bad' = 
+            newValue > 99.8 ? 'good' : newValue > 99.5 ? 'warning' : 'bad';
+          
           return {
             ...metric,
             value: `${newValue.toFixed(1)}%`,
             progress: newValue,
-            status: newValue > 99.8 ? 'good' : newValue > 99.5 ? 'warning' : 'bad'
+            status: newStatus
           };
         }
         
