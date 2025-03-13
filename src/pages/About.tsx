@@ -185,7 +185,7 @@ const About = () => {
             duration: 0.5,
             delay: 0.5
           }} className="text-center mt-16">
-              <h2 className="text-3xl font-bold mb-6">🚀 Let's build something extraordinary together!</h2>
+              <h2 className="text-3xl font-bold mb-6">Let's build something extraordinary together!</h2>
               <Link to="/contact" className="inline-block bg-gradient-to-r from-drew-purple to-blue-500 hover:from-purple-700 hover:to-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-glow transition-all duration-300 transform hover:scale-105">
                 Start Your Project
               </Link>
