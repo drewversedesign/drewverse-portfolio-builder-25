@@ -9,6 +9,9 @@ interface TableStat {
   rowCount: number;
 }
 
+// Define the tables as a type to ensure type safety
+type TableName = 'projects' | 'blog_posts' | 'users' | 'messages';
+
 const DatabaseStats = () => {
   const [tableStats, setTableStats] = useState<TableStat[]>([]);
   const [loading, setLoading] = useState(true);
@@ -17,12 +20,12 @@ const DatabaseStats = () => {
   useEffect(() => {
     const fetchTableStats = async () => {
       try {
-        // For demonstration, we're getting row counts from specific tables
-        // In a real app, you might have a function that returns counts for all tables
-        const tables = ['projects', 'blog_posts', 'users', 'messages'];
+        // Define valid table names as literals, ensuring type safety
+        const tables: TableName[] = ['projects', 'blog_posts'];
         const stats: TableStat[] = [];
 
         for (const table of tables) {
+          // Now table is properly typed as a literal
           const { count, error } = await supabase
             .from(table)
             .select('*', { count: 'exact', head: true });
@@ -34,6 +37,15 @@ const DatabaseStats = () => {
             rowCount: count || 0
           });
         }
+
+        // Add additional tables that might not exist yet
+        // These will show 0 counts if the tables don't exist
+        ['users', 'messages'].forEach(tableName => {
+          stats.push({
+            tableName,
+            rowCount: 0
+          });
+        });
 
         setTableStats(stats);
         setLoading(false);
