@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import PerformanceChart from './PerformanceChart';
 import ProjectAllocationChart from './ProjectAllocationChart';
 import QuarterlyGrowthChart from './QuarterlyGrowthChart';
-import AnnualTrendChart from './AnnualTrendChart';
 
 const DataVisualization = () => {
   return (
@@ -28,14 +27,11 @@ const DataVisualization = () => {
           </p>
         </motion.div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
           <PerformanceChart />
           <ProjectAllocationChart />
           <QuarterlyGrowthChart />
         </div>
-        
-        {/* Additional Chart */}
-        <AnnualTrendChart />
       </div>
     </section>
   );
