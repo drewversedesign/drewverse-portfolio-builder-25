@@ -15,14 +15,14 @@ const ProjectDetails = ({ project }: ProjectDetailsProps) => {
       transition={{ duration: 0.5, delay: 0.4 }}
       className="bg-drew-gray-dark/60 backdrop-blur-sm rounded-xl p-6"
     >
-      <h3 className="text-xl font-medium mb-6">Project Details</h3>
+      <h3 className="text-xl font-medium mb-6 text-white">Project Details</h3>
       
       <div className="space-y-6">
         <div className="flex items-start">
           <User size={20} className="text-drew-purple mt-1 mr-3" />
           <div>
             <p className="text-sm text-gray-400">Client</p>
-            <p className="font-medium">{project.clientName}</p>
+            <p className="font-medium text-white">{project.clientName}</p>
           </div>
         </div>
         
@@ -30,7 +30,7 @@ const ProjectDetails = ({ project }: ProjectDetailsProps) => {
           <Calendar size={20} className="text-drew-purple mt-1 mr-3" />
           <div>
             <p className="text-sm text-gray-400">Completion Date</p>
-            <p className="font-medium">{project.completionDate}</p>
+            <p className="font-medium text-white">{project.completionDate}</p>
           </div>
         </div>
         
@@ -38,7 +38,7 @@ const ProjectDetails = ({ project }: ProjectDetailsProps) => {
           <Tag size={20} className="text-drew-purple mt-1 mr-3" />
           <div>
             <p className="text-sm text-gray-400">Category</p>
-            <p className="font-medium">{project.category}</p>
+            <p className="font-medium text-white">{project.category}</p>
           </div>
         </div>
         
@@ -46,17 +46,17 @@ const ProjectDetails = ({ project }: ProjectDetailsProps) => {
           <Clock size={20} className="text-drew-purple mt-1 mr-3" />
           <div>
             <p className="text-sm text-gray-400">Project ID</p>
-            <p className="font-medium">#{project.id}</p>
+            <p className="font-medium text-white">#{project.id}</p>
           </div>
         </div>
         
         <div className="pt-4 border-t border-white/10">
-          <h4 className="font-medium mb-3">Technologies Used</h4>
+          <h4 className="font-medium mb-3 text-white">Technologies Used</h4>
           <div className="flex flex-wrap gap-2">
             {project.technologies?.map((tech, index) => (
               <span 
                 key={index} 
-                className="px-2 py-1 bg-black/30 rounded-md text-xs border border-white/5"
+                className="px-2 py-1 bg-black/30 rounded-md text-xs border border-white/5 text-gray-300"
               >
                 {tech}
               </span>
