@@ -9,8 +9,10 @@ interface TableStat {
   rowCount: number;
 }
 
-// Define the tables as a type to ensure type safety
-type TableName = 'projects' | 'blog_posts' | 'users' | 'messages';
+// Define only tables that exist in the Supabase schema
+type ExistingTableName = 'projects' | 'blog_posts' | 'services' | 'testimonials';
+// Define other tables that we want to show but might not be able to query directly
+type VirtualTableName = 'users' | 'messages';
 
 const DatabaseStats = () => {
   const [tableStats, setTableStats] = useState<TableStat[]>([]);
@@ -20,12 +22,12 @@ const DatabaseStats = () => {
   useEffect(() => {
     const fetchTableStats = async () => {
       try {
-        // Define valid table names as literals, ensuring type safety
-        const tables: TableName[] = ['projects', 'blog_posts'];
+        // Define valid table names that exist in Supabase
+        const existingTables: ExistingTableName[] = ['projects', 'blog_posts', 'services', 'testimonials'];
         const stats: TableStat[] = [];
 
-        for (const table of tables) {
-          // Now table is properly typed as a literal
+        for (const table of existingTables) {
+          // Now table is properly typed as a literal of existing tables
           const { count, error } = await supabase
             .from(table)
             .select('*', { count: 'exact', head: true });
@@ -38,9 +40,9 @@ const DatabaseStats = () => {
           });
         }
 
-        // Add additional tables that might not exist yet
-        // These will show 0 counts if the tables don't exist
-        ['users', 'messages'].forEach(tableName => {
+        // Add additional virtual tables with zero counts
+        const virtualTables: VirtualTableName[] = ['users', 'messages'];
+        virtualTables.forEach(tableName => {
           stats.push({
             tableName,
             rowCount: 0
