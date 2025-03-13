@@ -1,6 +1,6 @@
 
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ProjectCard from './cards/ProjectCard';
 import { ProjectProps } from './cards/ProjectCard';
 import ProjectStats from './ProjectStats';
@@ -12,11 +12,29 @@ interface PortfolioMasonryGridProps {
 
 const PortfolioMasonryGrid = ({ projects }: PortfolioMasonryGridProps) => {
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+  const [visibleProjects, setVisibleProjects] = useState<ProjectProps[]>([]);
   
   // Calculate project statistics
   const totalProjects = projects.length;
   const uniqueCategories = [...new Set(projects.map(p => p.category))].length;
   const featuredProjects = projects.filter(p => p.id <= 5).length;
+
+  // Animate projects entering one by one
+  useEffect(() => {
+    setVisibleProjects([]);
+    const timer = setTimeout(() => {
+      const loadProjectsSequentially = async () => {
+        for (let i = 0; i < projects.length; i++) {
+          await new Promise(resolve => setTimeout(resolve, 100));
+          setVisibleProjects(prev => [...prev, projects[i]]);
+        }
+      };
+      
+      loadProjectsSequentially();
+    }, 300);
+    
+    return () => clearTimeout(timer);
+  }, [projects]);
 
   return (
     <div className="space-y-12">
@@ -37,7 +55,7 @@ const PortfolioMasonryGrid = ({ projects }: PortfolioMasonryGridProps) => {
         transition={{ duration: 0.5, delay: 0.3 }}
         className="masonry-grid"
       >
-        {projects.map((project) => (
+        {visibleProjects.map((project) => (
           <motion.div
             key={project.id}
             layout

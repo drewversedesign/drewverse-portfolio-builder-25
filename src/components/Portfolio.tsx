@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Plus, Star, Users, Award, Zap } from 'lucide-react';
@@ -8,11 +8,13 @@ import CategoryFilter from './portfolio/CategoryFilter';
 import ProjectsGrid from './portfolio/ProjectsGrid';
 import ProjectStats from './portfolio/ProjectStats';
 import { projectsData, portfolioCategories } from '../data/portfolioData';
+import { toast } from 'sonner';
 
 export default function Portfolio() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
   const [displayCount, setDisplayCount] = useState(4);
+  const [isLoading, setIsLoading] = useState(false);
 
   const filteredProjects = activeCategory === 'All' 
     ? projectsData 
@@ -26,8 +28,45 @@ export default function Portfolio() {
   const uniqueCategories = [...new Set(projectsData.map(p => p.category))].length;
   const featuredProjects = projectsData.filter(p => p.id <= 5).length;
 
+  useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
+    
+    return () => clearTimeout(timer);
+  }, [activeCategory]);
+
   const loadMore = () => {
-    setDisplayCount(prev => Math.min(prev + 2, filteredProjects.length));
+    setIsLoading(true);
+    setTimeout(() => {
+      setDisplayCount(prev => Math.min(prev + 2, filteredProjects.length));
+      setIsLoading(false);
+      
+      if (displayCount + 2 >= filteredProjects.length) {
+        toast.success("All projects loaded", {
+          description: "You've reached the end of the project list",
+          duration: 3000,
+        });
+      } else {
+        toast.info("Loading more projects", {
+          description: `Showing ${Math.min(displayCount + 2, filteredProjects.length)} of ${filteredProjects.length} projects`,
+          duration: 2000,
+        });
+      }
+    }, 500);
+  };
+
+  const handleCategoryChange = (category: string) => {
+    setActiveCategory(category);
+    setDisplayCount(4); // Reset display count when changing categories
+    
+    toast.info(`Category: ${category}`, {
+      description: category === 'All' 
+        ? "Showing all projects" 
+        : `Showing ${projectsData.filter(p => p.category === category).length} projects in this category`,
+      duration: 2000,
+    });
   };
 
   return (
@@ -60,14 +99,20 @@ export default function Portfolio() {
         <CategoryFilter 
           categories={portfolioCategories}
           activeCategory={activeCategory}
-          setActiveCategory={setActiveCategory}
+          setActiveCategory={handleCategoryChange}
         />
         
-        <ProjectsGrid 
-          projects={visibleProjects}
-          hoveredProject={hoveredProject}
-          setHoveredProject={setHoveredProject}
-        />
+        {isLoading ? (
+          <div className="flex justify-center items-center py-20">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-drew-purple"></div>
+          </div>
+        ) : (
+          <ProjectsGrid 
+            projects={visibleProjects}
+            hoveredProject={hoveredProject}
+            setHoveredProject={setHoveredProject}
+          />
+        )}
 
         {/* Client Reviews Section */}
         <div className="my-12 bg-drew-gray-dark/60 backdrop-blur-sm rounded-xl p-6 md:p-8">
@@ -103,8 +148,13 @@ export default function Portfolio() {
               whileTap={{ scale: 0.98 }}
               className="bg-drew-black border border-drew-purple/50 hover:border-drew-purple text-white font-medium px-6 py-2 rounded-lg transition-all duration-300 flex items-center mx-auto"
               onClick={loadMore}
+              disabled={isLoading}
             >
-              <Plus size={16} className="mr-2 text-drew-purple" />
+              {isLoading ? (
+                <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-drew-purple mr-2"></div>
+              ) : (
+                <Plus size={16} className="mr-2 text-drew-purple" />
+              )}
               Load More Projects
             </motion.button>
           </div>
