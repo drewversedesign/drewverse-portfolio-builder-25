@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import Portfolio from '../components/Portfolio';
 
 const PortfolioPage = () => {
   useEffect(() => {
@@ -34,8 +33,6 @@ const PortfolioPage = () => {
             </p>
           </motion.div>
         </div>
-        
-        <Portfolio />
         
         <div className="container mx-auto px-4 md:px-6 mt-16">
           <motion.div
