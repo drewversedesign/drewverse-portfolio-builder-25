@@ -50,10 +50,10 @@ export const generateBlogPostSchema = (post: BlogPostProps) => {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": post.title,
-    "description": post.excerpt || post.description,
-    "image": post.coverImage || post.image,
+    "description": post.excerpt,
+    "image": post.image,
     "datePublished": post.date,
-    "dateModified": post.updatedAt || post.date,
+    "dateModified": post.date, // Since updatedAt doesn't exist, use date instead
     "author": {
       "@type": "Person",
       "name": post.author || "DrewVerse Design"
