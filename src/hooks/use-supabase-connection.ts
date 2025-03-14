@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import { REALTIME_SUBSCRIBE_STATES } from '@supabase/supabase-js';
 
 export function useSupabaseConnection() {
   const [supportsRealtime, setSupportsRealtime] = useState(true);
@@ -61,7 +62,11 @@ export function useSupabaseConnection() {
                 event: 'connection_test',
                 payload: { timestamp: new Date().toISOString() }
               });
-            } else if (status === 'SUBSCRIPTION_ERROR' || status === 'CHANNEL_ERROR') {
+            } else if (
+              status === REALTIME_SUBSCRIBE_STATES.CHANNEL_ERROR || 
+              status === REALTIME_SUBSCRIBE_STATES.CLOSED || 
+              status === REALTIME_SUBSCRIBE_STATES.TIMED_OUT
+            ) {
               clearTimeout(connectionTimeout);
               console.error('Subscription error:', status);
               setSupportsRealtime(false);
