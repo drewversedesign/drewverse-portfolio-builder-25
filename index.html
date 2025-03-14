@@ -16,34 +16,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <!-- Primary Meta Tags -->
-    <title>DrewVerse Design - Premium Digital Agency in Uganda</title>
-    <meta name="title" content="DrewVerse Design - Premium Digital Agency in Uganda">
+    <title>DrewVerse Design | Website Design in Kampala | Uganda's Premier Digital Agency</title>
+    <meta name="title" content="DrewVerse Design | Website Design in Kampala | Uganda's Premier Digital Agency">
     <meta name="description" content="Top website design in Kampala & branding agency in Uganda. We create stunning websites, apps, and custom website development solutions throughout Uganda. Affordable website design in Kampala and SEO-optimized solutions.">
-    <meta name="keywords" content="website design Kampala, branding agency Uganda, custom website development Uganda, affordable website design in Kampala, best branding services in Uganda 2025, SEO-optimized website design near me, website designer near me, build website, digital agency, web design, UX/UI design, brand identity, mobile apps">
+    <meta name="keywords" content="website design Kampala, branding agency Uganda, custom website development Uganda, affordable website design in Kampala, best branding services in Uganda 2025, SEO-optimized website design near me, website designer near me, build website, digital agency, web design, UX/UI design, brand identity, mobile apps, DrewVerse Design, Drew Verse Design">
     <meta name="author" content="DrewVerse Design">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://drewverse.design/">
-    <meta property="og:title" content="DrewVerse Design - Premium Digital Agency in Uganda">
+    <meta property="og:url" content="https://drewversedesign.online/">
+    <meta property="og:title" content="DrewVerse Design | Website Design in Kampala | Uganda's Premier Digital Agency">
     <meta property="og:description" content="Top website design in Kampala & branding agency in Uganda. We create stunning websites, apps, and custom website development solutions throughout Uganda. Affordable website design in Kampala and SEO-optimized solutions.">
-    <meta property="og:image" content="/lovable-uploads/9d8eb58e-b3c8-4d28-afb4-0e85b24f49d9.png">
+    <meta property="og:image" content="https://drewversedesign.online/lovable-uploads/9d8eb58e-b3c8-4d28-afb4-0e85b24f49d9.png">
     <meta property="og:site_name" content="DrewVerse Design">
+    <meta property="og:locale" content="en_UG">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://drewverse.design/">
-    <meta property="twitter:title" content="DrewVerse Design - Premium Digital Agency in Uganda">
+    <meta property="twitter:url" content="https://drewversedesign.online/">
+    <meta property="twitter:title" content="DrewVerse Design | Website Design in Kampala | Uganda's Premier Digital Agency">
     <meta property="twitter:description" content="Top website design in Kampala & branding agency in Uganda. We create stunning websites, apps, and custom website development solutions throughout Uganda. Affordable website design in Kampala and SEO-optimized solutions.">
-    <meta property="twitter:image" content="/lovable-uploads/9d8eb58e-b3c8-4d28-afb4-0e85b24f49d9.png">
+    <meta property="twitter:image" content="https://drewversedesign.online/lovable-uploads/9d8eb58e-b3c8-4d28-afb4-0e85b24f49d9.png">
+    <meta property="twitter:creator" content="@drewversedesign">
     
     <!-- Location Specific Meta Tags -->
     <meta name="geo.region" content="UG" />
     <meta name="geo.placename" content="Kampala" />
+    <meta name="geo.position" content="0.3476;32.5825" />
+    <meta name="ICBM" content="0.3476, 32.5825" />
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://drewverse.design/">
+    <link rel="canonical" href="https://drewversedesign.online/">
     
     <!-- Preload critical assets -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,7 +61,10 @@
     <link rel="preload" href="/src/index.css" as="style">
     
     <!-- Language tag for localization -->
-    <link rel="alternate" hreflang="en-ug" href="https://drewverse.design/" />
+    <link rel="alternate" hreflang="en-ug" href="https://drewversedesign.online/" />
+    
+    <!-- Google Search Console Verification -->
+    <meta name="google-site-verification" content="ADD_YOUR_VERIFICATION_CODE_HERE" />
     
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -65,9 +72,10 @@
       "@context": "https://schema.org",
       "@type": "ProfessionalService",
       "name": "DrewVerse Design",
-      "url": "https://drewverse.design",
-      "logo": "https://drewverse.design/lovable-uploads/9d8eb58e-b3c8-4d28-afb4-0e85b24f49d9.png",
-      "image": "https://drewverse.design/lovable-uploads/9d8eb58e-b3c8-4d28-afb4-0e85b24f49d9.png",
+      "alternateName": ["Drew Verse Design", "Drewverse", "Drew Verse"],
+      "url": "https://drewversedesign.online",
+      "logo": "https://drewversedesign.online/lovable-uploads/9d8eb58e-b3c8-4d28-afb4-0e85b24f49d9.png",
+      "image": "https://drewversedesign.online/lovable-uploads/9d8eb58e-b3c8-4d28-afb4-0e85b24f49d9.png",
       "description": "Top website design in Kampala & branding agency in Uganda. We create stunning websites, apps, and custom website development solutions throughout Uganda.",
       "address": {
         "@type": "PostalAddress",
@@ -138,6 +146,17 @@
   </head>
   <body>
     <div id="root"></div>
+    <!-- 404 redirect script for SPA routing -->
+    <script>
+      // This is a simple SPA redirect script for handling 404s
+      (function(){
+        var redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect != location.href) {
+          history.replaceState(null, null, redirect);
+        }
+      })();
+    </script>
     <!-- Lovable script tag for enabling new features -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>

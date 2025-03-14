@@ -1,83 +1,110 @@
 
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
+        xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+                            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  <!-- Main pages -->                          
   <url>
-    <loc>https://drewverse.design/</loc>
+    <loc>https://drewversedesign.online/</loc>
     <lastmod>2025-03-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://drewversedesign.online/lovable-uploads/9d8eb58e-b3c8-4d28-afb4-0e85b24f49d9.png</image:loc>
+      <image:title>DrewVerse Design Logo</image:title>
+      <image:caption>Professional Web Design and Development Agency in Uganda</image:caption>
+    </image:image>
+    <xhtml:link rel="alternate" hreflang="en" href="https://drewversedesign.online/"/>
   </url>
   <url>
-    <loc>https://drewverse.design/about</loc>
+    <loc>https://drewversedesign.online/about</loc>
     <lastmod>2025-03-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://drewversedesign.online/about"/>
   </url>
   <url>
-    <loc>https://drewverse.design/services</loc>
+    <loc>https://drewversedesign.online/services</loc>
     <lastmod>2025-03-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://drewversedesign.online/services"/>
   </url>
   <url>
-    <loc>https://drewverse.design/portfolio</loc>
+    <loc>https://drewversedesign.online/portfolio</loc>
     <lastmod>2025-03-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://drewversedesign.online/portfolio"/>
   </url>
   <url>
-    <loc>https://drewverse.design/blog</loc>
+    <loc>https://drewversedesign.online/blog</loc>
     <lastmod>2025-03-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://drewversedesign.online/blog"/>
   </url>
   <url>
-    <loc>https://drewverse.design/contact</loc>
+    <loc>https://drewversedesign.online/contact</loc>
     <lastmod>2025-03-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://drewversedesign.online/contact"/>
   </url>
   <url>
-    <loc>https://drewverse.design/faq</loc>
+    <loc>https://drewversedesign.online/faq</loc>
     <lastmod>2025-03-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://drewversedesign.online/faq"/>
   </url>
   <url>
-    <loc>https://drewverse.design/sitemap</loc>
+    <loc>https://drewversedesign.online/sitemap</loc>
     <lastmod>2025-03-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://drewversedesign.online/sitemap"/>
   </url>
   <!-- Services pages -->
   <url>
-    <loc>https://drewverse.design/services/website-design</loc>
+    <loc>https://drewversedesign.online/services/website-design</loc>
     <lastmod>2025-03-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://drewversedesign.online/services/website-design"/>
   </url>
   <url>
-    <loc>https://drewverse.design/services/mobile-app-development</loc>
+    <loc>https://drewversedesign.online/services/mobile-app-development</loc>
     <lastmod>2025-03-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://drewversedesign.online/services/mobile-app-development"/>
   </url>
   <url>
-    <loc>https://drewverse.design/services/ui-ux-design</loc>
+    <loc>https://drewversedesign.online/services/ui-ux-design</loc>
     <lastmod>2025-03-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://drewversedesign.online/services/ui-ux-design"/>
   </url>
   <url>
-    <loc>https://drewverse.design/services/brand-identity</loc>
+    <loc>https://drewversedesign.online/services/brand-identity</loc>
     <lastmod>2025-03-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://drewversedesign.online/services/brand-identity"/>
   </url>
   <url>
-    <loc>https://drewverse.design/services/seo-services</loc>
+    <loc>https://drewversedesign.online/services/seo-services</loc>
     <lastmod>2025-03-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://drewversedesign.online/services/seo-services"/>
   </url>
 </urlset>

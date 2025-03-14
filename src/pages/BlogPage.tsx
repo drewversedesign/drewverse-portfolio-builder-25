@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -54,13 +55,35 @@ const BlogPage = () => {
     setShowFilters(false);
   };
 
+  // Blog archive structured data
+  const blogListingSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "DrewVerse Design Blog",
+    "description": "Discover insights, tips, and trends in design, development, and digital marketing on the DrewVerse Design blog.",
+    "url": "https://drewversedesign.online/blog",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "DrewVerse Design",
+      "url": "https://drewversedesign.online"
+    },
+    "about": {
+      "@type": "Thing",
+      "name": "Web Design and Development"
+    },
+    "keywords": "web design blog, development tips, UI/UX trends, digital marketing insights, DrewVerse Design blog, Drew Verse Design"
+  };
+
   return (
     <div className="min-h-screen bg-drew-black text-white">
       <SEO 
-        title="Blog"
-        description="Discover insights, tips, and trends in design, development, and digital marketing on the DrewVerse Design blog."
-        keywords="design blog, web development tips, UI/UX trends, digital marketing insights"
-        ogType="article"
+        title="Blog | DrewVerse Design - Web Design & Development Insights"
+        description="Discover insights, tips, and trends in design, development, and digital marketing on the DrewVerse Design blog. Expert advice from Uganda's top web designers."
+        keywords="design blog, web development tips, UI/UX trends, digital marketing insights, DrewVerse Design blog, Drew Verse Design, Uganda web design blog"
+        ogType="website"
+        ogUrl="https://drewversedesign.online/blog"
+        canonicalUrl="https://drewversedesign.online/blog"
+        structuredData={blogListingSchema}
       />
       <Navbar />
       

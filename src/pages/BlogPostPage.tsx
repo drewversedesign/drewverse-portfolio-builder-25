@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
@@ -9,7 +10,7 @@ import RelatedPosts from '../components/blog/RelatedPosts';
 import BlogNotFound from '../components/blog/BlogNotFound';
 import SocialShare from '../components/blog/SocialShare';
 import SEO from '../components/SEO';
-import { blogPosts, calculateReadingTime, findRelatedPosts } from '../utils/blog';
+import { blogPosts, calculateReadingTime, findRelatedPosts, generateBlogPostSchema, generateBreadcrumbSchema } from '../utils/blog';
 
 const BlogPostPage = () => {
   const { slug } = useParams();
@@ -43,15 +44,38 @@ const BlogPostPage = () => {
   // Get the current URL for sharing
   const currentUrl = window.location.href;
   
+  // Generate structured data for the blog post
+  const postSchema = generateBlogPostSchema(post);
+  
+  // Generate breadcrumb structured data
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { label: 'Home', path: '/' },
+    { label: 'Blog', path: '/blog' },
+    { label: post.title, path: `/blog/${post.slug}` }
+  ]);
+  
+  // Combined structured data
+  const structuredData = [postSchema, breadcrumbSchema];
+  
+  // Custom metadata for blog post
+  const blogMetadata = [
+    { name: 'article:published_time', content: post.date },
+    { name: 'article:author', content: post.author || 'DrewVerse Design' },
+    { name: 'article:section', content: post.category },
+    { name: 'article:tag', content: post.tags?.join(', ') || post.category }
+  ];
+  
   return (
     <div className="min-h-screen bg-drew-black text-white">
       <SEO 
-        title={post.title}
+        title={`${post.title} | DrewVerse Design Blog`}
         description={post.excerpt}
-        keywords={`${post.category}, blog, article, drewverse, design`}
+        keywords={`${post.category}, ${post.tags?.join(', ') || ''}, blog, article, drewverse design, drew verse design, uganda web design`}
         ogType="article"
         ogImage={post.image}
-        ogUrl={`https://drewverse.design/blog/${post.slug}`}
+        ogUrl={`https://drewversedesign.online/blog/${post.slug}`}
+        structuredData={postSchema}
+        metadata={blogMetadata}
       />
       <Navbar />
       

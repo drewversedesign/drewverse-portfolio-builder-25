@@ -44,7 +44,7 @@ export const findRelatedPosts = (
   return sameCategoryPosts.slice(0, limit);
 };
 
-// Add a function to generate structured data for blog posts
+// Generate structured data for blog posts with enhanced SEO
 export const generateBlogPostSchema = (post: any) => {
   return {
     "@context": "https://schema.org",
@@ -63,18 +63,27 @@ export const generateBlogPostSchema = (post: any) => {
       "name": "DrewVerse Design",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://drewverse.design/lovable-uploads/9d8eb58e-b3c8-4d28-afb4-0e85b24f49d9.png"
+        "url": "https://drewversedesign.online/lovable-uploads/9d8eb58e-b3c8-4d28-afb4-0e85b24f49d9.png"
       }
     },
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://drewverse.design/blog/${post.slug}`
+      "@id": `https://drewversedesign.online/blog/${post.slug}`
     },
-    "keywords": post.tags?.join(", ") || post.category || "website design, branding"
+    "keywords": post.tags?.join(", ") || post.category || "website design, branding",
+    "articleSection": post.category,
+    "wordCount": post.content ? post.content.split(/\s+/).length : 0,
+    "inLanguage": "en-UG",
+    "isAccessibleForFree": "True",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "DrewVerse Design",
+      "url": "https://drewversedesign.online"
+    }
   };
 };
 
-// Generate breadcrumb structured data
+// Generate breadcrumb structured data with improved SEO
 export const generateBreadcrumbSchema = (items: Array<{label: string, path: string}>) => {
   return {
     "@context": "https://schema.org",
@@ -83,7 +92,55 @@ export const generateBreadcrumbSchema = (items: Array<{label: string, path: stri
       "@type": "ListItem",
       "position": index + 1,
       "name": item.label,
-      "item": `https://drewverse.design${item.path}`
+      "item": `https://drewversedesign.online${item.path}`
     }))
+  };
+};
+
+// Generate FAQ structured data for improved SEO
+export const generateFAQSchema = (faqs: Array<{question: string, answer: string}>) => {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  };
+};
+
+// Generate service structured data
+export const generateServiceSchema = (service: {
+  name: string;
+  description: string;
+  url: string;
+  image?: string;
+}) => {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": service.name,
+    "description": service.description,
+    "provider": {
+      "@type": "Organization",
+      "name": "DrewVerse Design",
+      "url": "https://drewversedesign.online"
+    },
+    "url": `https://drewversedesign.online${service.url}`,
+    "image": service.image || "https://drewversedesign.online/lovable-uploads/9d8eb58e-b3c8-4d28-afb4-0e85b24f49d9.png",
+    "areaServed": {
+      "@type": "GeoCircle",
+      "geoMidpoint": {
+        "@type": "GeoCoordinates",
+        "latitude": "0.3476",
+        "longitude": "32.5825"
+      },
+      "geoRadius": "100000"
+    },
+    "serviceType": service.name
   };
 };

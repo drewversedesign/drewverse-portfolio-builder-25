@@ -1,7 +1,7 @@
 
+# DrewVerse Design - Search Engine Crawling Instructions
 User-agent: *
 Allow: /
-Disallow: /admin/
 
 # Prevent crawling of sensitive or admin areas
 Disallow: /admin/*
@@ -18,5 +18,16 @@ Allow: /*.gif$
 Allow: /*.svg$
 Allow: /*.webp$
 
+# Google-specific crawl rules
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+# Bing-specific crawl rules
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
 # Location of sitemap file
-Sitemap: https://drewverse.design/sitemap.xml
+Sitemap: https://drewversedesign.online/sitemap.xml
+

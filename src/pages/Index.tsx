@@ -1,3 +1,4 @@
+
 import { useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
@@ -44,23 +45,40 @@ const Index = () => {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "DrewVerse Design",
-    "url": "https://drewverse.design",
+    "alternateName": ["Drew Verse Design", "Drewverse", "Drew Verse"],
+    "url": "https://drewversedesign.online",
+    "description": "Top-rated website design in Kampala & branding agency in Uganda. We create stunning websites, mobile apps, and custom website development solutions throughout Uganda.",
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://drewverse.design/search?q={search_term_string}",
+      "target": "https://drewversedesign.online/search?q={search_term_string}",
       "query-input": "required name=search_term_string"
-    }
+    },
+    "sameAs": [
+      "https://www.facebook.com/drewversedesign",
+      "https://twitter.com/drewversedesign",
+      "https://www.instagram.com/drewversedesign",
+      "https://www.linkedin.com/company/drewversedesign"
+    ]
   };
+
+  // Custom metadata
+  const customMetadata = [
+    { name: "google-site-verification", content: "verification-code-here" },
+    { name: "msvalidate.01", content: "bing-verification-code-here" },
+    { name: "theme-color", content: "#FF6600" }
+  ];
 
   return (
     <div className="min-h-screen bg-drew-black text-white">
       <SEO 
         title="DrewVerse Design - Premium Digital Agency in Uganda"
-        description="Top-rated website design in Kampala & branding agency in Uganda. We create stunning websites, mobile apps, and custom website development solutions throughout Uganda."
-        keywords="website design Kampala, branding agency Uganda, custom website development Uganda, affordable website design in Kampala, best branding services in Uganda 2025"
-        ogUrl="https://drewverse.design/"
-        canonicalUrl="https://drewverse.design/"
+        description="Top-rated website design in Kampala & branding agency in Uganda. We create stunning websites, mobile apps, and custom website development solutions throughout Uganda. Affordable web design in Kampala."
+        keywords="website design Kampala, branding agency Uganda, custom website development Uganda, affordable website design in Kampala, best branding services in Uganda 2025, DrewVerse Design, Drew Verse Design"
+        ogUrl="https://drewversedesign.online/"
+        canonicalUrl="https://drewversedesign.online/"
         structuredData={homePageSchema}
+        metadata={customMetadata}
+        localBusiness={true}
       />
       <Navbar />
       

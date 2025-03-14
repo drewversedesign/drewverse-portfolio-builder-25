@@ -2,34 +2,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Page Not Found - DrewVerse Design</title>
-  <script>
-    // Single Page Apps for GitHub Pages/Netlify
-    // https://github.com/rafgraph/spa-github-pages
-    // Modified for any hosting provider
-    (function() {
-      // Make sure we're in a browser context
-      if(!window.location) return;
-      
-      var pathSegmentsToKeep = 0;
-      var l = window.location;
-      
-      l.replace(
-        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-        l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
-        l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
-        (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-        l.hash
-      );
-    })();
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found - DrewVerse Design</title>
+    <script>
+        // Store the URL to redirect to after we return to index.html
+        sessionStorage.redirect = location.href;
+        
+        // Redirect to the homepage
+        window.location.href = "/";
+    </script>
+    <meta http-equiv="refresh" content="0;URL='/'">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #0a0a0a;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 600px;
+            padding: 2rem;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #9333ea, #4f46e5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        p {
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+        
+        a {
+            display: inline-block;
+            background: linear-gradient(90deg, #9333ea, #4f46e5);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            transition: opacity 0.3s;
+        }
+        
+        a:hover {
+            opacity: 0.9;
+        }
+    </style>
 </head>
 <body>
-  <script>
-    // Fallback redirect to index if the JavaScript above doesn't execute
-    window.location.href = '/';
-  </script>
+    <div class="container">
+        <h1>Redirecting to DrewVerse Design</h1>
+        <p>If you are not redirected automatically, please click the button below to go to the homepage.</p>
+        <a href="/">Go to Homepage</a>
+    </div>
 </body>
 </html>

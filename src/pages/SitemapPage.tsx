@@ -59,6 +59,16 @@ const SitemapPage = () => {
         { name: "Marketing", path: "/blog/category/marketing" },
       ]
     },
+    {
+      title: "Locations Served",
+      links: [
+        { name: "Kampala", path: "/locations/kampala" },
+        { name: "Entebbe", path: "/locations/entebbe" },
+        { name: "Jinja", path: "/locations/jinja" },
+        { name: "Mbarara", path: "/locations/mbarara" },
+        { name: "East Africa", path: "/locations/east-africa" },
+      ]
+    },
   ];
 
   // Breadcrumb items
@@ -72,8 +82,9 @@ const SitemapPage = () => {
     "@context": "https://schema.org",
     "@type": "WebPage",
     "name": "Sitemap - DrewVerse Design",
-    "description": "Complete sitemap for DrewVerse Design website, showing all pages and sections.",
-    "url": "https://drewverse.design/sitemap",
+    "description": "Complete sitemap for DrewVerse Design website, showing all pages and sections for website design services in Uganda.",
+    "url": "https://drewversedesign.online/sitemap",
+    "keywords": ["sitemap", "website navigation", "DrewVerse Design pages", "website design Kampala", "Drew Verse Design"],
     "breadcrumb": {
       "@type": "BreadcrumbList",
       "itemListElement": [
@@ -81,26 +92,31 @@ const SitemapPage = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://drewverse.design/"
+          "item": "https://drewversedesign.online/"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Sitemap",
-          "item": "https://drewverse.design/sitemap"
+          "item": "https://drewversedesign.online/sitemap"
         }
       ]
+    },
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "DrewVerse Design",
+      "url": "https://drewversedesign.online"
     }
   };
 
   return (
     <div className="min-h-screen bg-drew-black text-white">
       <SEO 
-        title="Sitemap - Website Navigation" 
-        description="Explore the full DrewVerse Design website structure. Find all pages including our services, portfolio, blog, and contact information for website design in Kampala."
-        keywords="sitemap, website navigation, DrewVerse Design pages, website design Kampala, branding agency Uganda"
-        ogUrl="https://drewverse.design/sitemap"
-        canonicalUrl="https://drewverse.design/sitemap"
+        title="Sitemap - DrewVerse Design Website Navigation" 
+        description="Explore the full DrewVerse Design website structure. Find all pages including our services, portfolio, blog, and contact information for website design in Kampala and throughout Uganda."
+        keywords="sitemap, website navigation, DrewVerse Design pages, website design Kampala, branding agency Uganda, Drew Verse Design"
+        ogUrl="https://drewversedesign.online/sitemap"
+        canonicalUrl="https://drewversedesign.online/sitemap"
         ogType="website"
         structuredData={sitemapSchema}
       />
