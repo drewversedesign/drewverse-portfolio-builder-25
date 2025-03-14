@@ -1,4 +1,3 @@
-
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Calendar, User, Star, TrendingUp } from 'lucide-react';
@@ -17,6 +16,7 @@ export interface BlogPostProps {
   slug: string;
   featured?: boolean;
   trending?: boolean;
+  tags?: string[]; // Added tags property
 }
 
 interface BlogPostCardProps {

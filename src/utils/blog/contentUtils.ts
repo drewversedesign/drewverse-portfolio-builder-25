@@ -45,7 +45,7 @@ export const findRelatedPosts = (
 };
 
 // Generate structured data for blog posts with enhanced SEO
-export const generateBlogPostSchema = (post: any) => {
+export const generateBlogPostSchema = (post: BlogPostProps) => {
   return {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
