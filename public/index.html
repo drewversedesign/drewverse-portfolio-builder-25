@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DrewVerse Design - Creative Digital Agency</title>
+    <meta name="description" content="DrewVerse Design is a creative digital agency specializing in web design, development, branding and UI/UX services.">
+    <script>
+      // Handle SPA routing when redirected from 404.html
+      (function() {
+        var redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect != location.href) {
+          history.replaceState(null, null, redirect);
+        }
+        
+        // Handle redirects with the format /?/path
+        var l = window.location;
+        if(l.search && l.search.includes('?/')) {
+          var path = l.search.substring(2);
+          var cleanPath = path.split('&')[0].replace(/~and~/g, '&');
+          history.replaceState(null, null, l.pathname.split('?')[0] + cleanPath + (l.hash || ''));
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
