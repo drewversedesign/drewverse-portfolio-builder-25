@@ -1,3 +1,4 @@
+
 import { BlogPostProps } from "./types";
 
 // Helper function to calculate reading time in minutes

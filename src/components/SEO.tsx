@@ -21,8 +21,8 @@ interface SEOProps {
 }
 
 const SEO: React.FC<SEOProps> = ({
-  title = 'Drew Creative Agency - Professional Web Development & Design',
-  description = 'Drew Creative Agency specializes in modern web development, design, and digital marketing strategies that elevate your brand and drive results.',
+  title = 'DrewVerse Design - Professional Web Development & Design',
+  description = 'DrewVerse Design specializes in modern web development, design, and digital marketing strategies that elevate your brand and drive results.',
   keywords = 'web development, web design, UI/UX, branding, digital marketing, Drew Creative',
   canonical = 'https://www.drewcreative.com',
   canonicalUrl,
@@ -40,13 +40,13 @@ const SEO: React.FC<SEOProps> = ({
     : JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'WebSite',
-        name: 'Drew Creative Agency',
-        url: 'https://www.drewcreative.com',
+        name: 'DrewVerse Design',
+        url: 'https://drewverse.design',
         description:
           'Professional web development, design, and digital marketing services for businesses of all sizes.',
         potentialAction: {
           '@type': 'SearchAction',
-          target: 'https://www.drewcreative.com/search?q={search_term_string}',
+          target: 'https://drewverse.design/search?q={search_term_string}',
           'query-input': 'required name=search_term_string',
         },
       });
@@ -57,12 +57,12 @@ const SEO: React.FC<SEOProps> = ({
     ? canonicalUrl 
     : (canonical.startsWith('http')
       ? canonical
-      : `https://www.drewcreative.com${canonical}`);
+      : `https://drewverse.design${canonical}`);
 
   // Get full OG image URL
   const fullOgImageUrl = ogImage.startsWith('http')
     ? ogImage
-    : `https://www.drewcreative.com${ogImage}`;
+    : `https://drewverse.design${ogImage}`;
 
   // Get full OG URL
   const fullOgUrl = ogUrl || fullCanonicalUrl;
@@ -81,7 +81,7 @@ const SEO: React.FC<SEOProps> = ({
       <meta property="og:type" content={ogType} />
       <meta property="og:url" content={fullOgUrl} />
       <meta property="og:image" content={fullOgImageUrl} />
-      <meta property="og:site_name" content="Drew Creative Agency" />
+      <meta property="og:site_name" content="DrewVerse Design" />
 
       {/* Twitter Card Tags */}
       <meta name="twitter:card" content={twitterCard} />
