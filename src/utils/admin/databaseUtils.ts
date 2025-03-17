@@ -7,33 +7,37 @@ import { toast } from 'sonner';
  */
 export const fetchDatabaseTables = async () => {
   try {
-    // Use raw SQL query instead of direct query to pg_tables
-    const { data, error } = await supabase
-      .rpc('get_tables_info')
-      .select('*');
-      
-    if (error) {
-      // Fallback to use a direct query with rpc if the function doesn't exist
-      const { data: fallbackData, error: fallbackError } = await supabase
-        .from('blog_posts')
-        .select('id')
-        .limit(1);
-      
-      if (fallbackError) throw fallbackError;
-      
-      // Return a minimal set of tables we know exist
-      return { 
-        data: [
-          { tablename: 'blog_posts', schemaname: 'public' },
-          { tablename: 'projects', schemaname: 'public' },
-          { tablename: 'services', schemaname: 'public' },
-          { tablename: 'testimonials', schemaname: 'public' }
-        ], 
-        error: null 
-      };
-    }
+    // Since we can't directly query pg_tables or use an RPC function,
+    // we'll check for the existence of our known tables
+    const knownTables = [
+      { tablename: 'blog_posts', schemaname: 'public' },
+      { tablename: 'projects', schemaname: 'public' },
+      { tablename: 'services', schemaname: 'public' },
+      { tablename: 'testimonials', schemaname: 'public' }
+    ];
     
-    return { data, error: null };
+    // Verify tables exist by attempting to query them
+    const existingTables = await Promise.all(
+      knownTables.map(async (table) => {
+        const { error } = await supabase
+          .from(table.tablename as 'blog_posts' | 'projects' | 'services' | 'testimonials')
+          .select('id')
+          .limit(1);
+        
+        return {
+          ...table,
+          exists: !error
+        };
+      })
+    );
+    
+    // Filter to only include tables that exist
+    const availableTables = existingTables.filter(table => table.exists);
+    
+    return { 
+      data: availableTables, 
+      error: null 
+    };
   } catch (error: any) {
     console.error('Error fetching database tables:', error);
     toast.error('Failed to fetch database tables');

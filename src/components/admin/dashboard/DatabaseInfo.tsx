@@ -10,6 +10,7 @@ type TableInfo = {
   tablename: string;
   schemaname: string;
   recordCount: number | null;
+  exists?: boolean;
 };
 
 const DatabaseInfo = () => {
@@ -40,6 +41,14 @@ const DatabaseInfo = () => {
       // Fetch record count for each table
       const tablesWithCounts = await Promise.all(
         data.map(async (table) => {
+          // Skip tables that don't exist
+          if (table.exists === false) {
+            return {
+              ...table,
+              recordCount: null
+            };
+          }
+          
           const { count } = await fetchTableRecordCount(table.tablename);
           return {
             ...table,
