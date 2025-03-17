@@ -32,7 +32,10 @@ const DatabaseInfo = () => {
       
       // Fetch tables
       const { data, error } = await fetchDatabaseTables();
-      if (error || !data) return;
+      if (error || !data) {
+        setLoading(false);
+        return;
+      }
       
       // Fetch record count for each table
       const tablesWithCounts = await Promise.all(
