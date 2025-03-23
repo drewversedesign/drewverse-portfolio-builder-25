@@ -81,7 +81,7 @@ const AdminSEO = () => {
       title: 'Portfolio',
       path: '/portfolio',
       metaTitle: 'Our Work | Drew Creative Agency Portfolio',
-      metaDescription: 'Browse our portfolio of successful projects across various industries. See how we've helped businesses transform their digital presence.',
+      metaDescription: 'Browse our portfolio of successful projects across various industries. See how we have helped businesses transform their digital presence.',
       metaKeywords: 'portfolio, creative work, design examples, case studies, projects',
       score: 90
     },
