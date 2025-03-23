@@ -66,20 +66,20 @@ const Footer = () => {
             <ul className="space-y-3">
               <li>
                 <a 
-                  href="mailto:info@drewverse.design" 
+                  href="mailto:drewversedesign@gmail.com" 
                   className="flex items-center gap-2 text-gray-400 hover:text-drew-purple transition-colors duration-200"
                 >
                   <Mail size={16} />
-                  <span>info@drewverse.design</span>
+                  <span>drewversedesign@gmail.com</span>
                 </a>
               </li>
               <li>
                 <a 
-                  href="tel:+256700000000" 
+                  href="tel:+256772653789" 
                   className="flex items-center gap-2 text-gray-400 hover:text-drew-purple transition-colors duration-200"
                 >
                   <Phone size={16} />
-                  <span>+256 700 000 000</span>
+                  <span>+256 772 653 789</span>
                 </a>
               </li>
             </ul>
