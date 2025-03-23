@@ -21,10 +21,10 @@ const ContactInfo = () => {
           <div>
             <h4 className="font-medium text-white mb-1">Email Us</h4>
             <a 
-              href="mailto:hello@drewverse.design"
+              href="mailto:drewversedesign@gmail.com"
               className="text-gray-400 hover:text-drew-purple transition-colors duration-300"
             >
-              hello@drewverse.design
+              drewversedesign@gmail.com
             </a>
           </div>
         </div>
@@ -36,10 +36,10 @@ const ContactInfo = () => {
           <div>
             <h4 className="font-medium text-white mb-1">Call Us</h4>
             <a 
-              href="tel:+1234567890"
+              href="tel:+256772653789"
               className="text-gray-400 hover:text-drew-purple transition-colors duration-300"
             >
-              +1 (234) 567-890
+              +256 772 653 789
             </a>
           </div>
         </div>
