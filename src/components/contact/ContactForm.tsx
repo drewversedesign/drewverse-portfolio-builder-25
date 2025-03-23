@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Check } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +13,7 @@ const ContactForm = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const { toast } = useToast();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -22,22 +24,37 @@ const ContactForm = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
+    // Format message for WhatsApp
+    const formattedMessage = encodeURIComponent(
+      `New message from DrewVerse Design website:\n\nName: ${formData.name}\nEmail: ${formData.email}\nSubject: ${formData.subject}\n\nMessage:\n${formData.message}`
+    );
+    
+    // WhatsApp URL with phone number
+    const whatsappUrl = `https://wa.me/256772653789?text=${formattedMessage}`;
+
+    // Open WhatsApp in a new tab
+    window.open(whatsappUrl, '_blank');
+    
+    // Show success state in UI
+    setIsSubmitting(false);
+    setIsSubmitted(true);
+    
+    // Show toast notification
+    toast({
+      title: "Message sent",
+      description: "Your message has been forwarded to WhatsApp.",
+    });
+    
+    // Reset form after submission
     setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-      
-      // Reset form after submission
-      setTimeout(() => {
-        setIsSubmitted(false);
-        setFormData({
-          name: '',
-          email: '',
-          subject: '',
-          message: '',
-        });
-      }, 3000);
-    }, 1500);
+      setIsSubmitted(false);
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: '',
+      });
+    }, 3000);
   };
 
   return (
