@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '../ui/table';
@@ -37,7 +36,7 @@ const AdminMessages = () => {
       name: 'Sarah Smith', 
       email: 'sarah@example.com', 
       subject: 'Collaboration Opportunity',
-      message: 'Hi there, I'm Sarah from DesignHub. We\'re looking for creative agencies to collaborate with on some upcoming projects. Would love to discuss potential partnerships.',
+      message: 'Hi there, I\'m Sarah from DesignHub. We\'re looking for creative agencies to collaborate with on some upcoming projects. Would love to discuss potential partnerships.',
       date: '2023-07-18', 
       read: true 
     },
@@ -98,7 +97,6 @@ const AdminMessages = () => {
   const handleViewMessage = (message: Message) => {
     setViewMessage(message);
     
-    // If message is unread, mark it as read
     if (!message.read) {
       handleMarkAsRead(message.id);
     }
@@ -278,7 +276,6 @@ const AdminMessages = () => {
           </TableBody>
         </Table>
         
-        {/* View Message Dialog */}
         <Dialog open={Boolean(viewMessage)} onOpenChange={(open) => !open && setViewMessage(null)}>
           <DialogContent className="sm:max-w-[600px]">
             <DialogHeader>
@@ -338,7 +335,6 @@ const AdminMessages = () => {
           </DialogContent>
         </Dialog>
         
-        {/* Delete Confirmation Dialog */}
         <Dialog open={Boolean(deleteConfirmId)} onOpenChange={() => setDeleteConfirmId(null)}>
           <DialogContent className="sm:max-w-[400px]">
             <DialogHeader>

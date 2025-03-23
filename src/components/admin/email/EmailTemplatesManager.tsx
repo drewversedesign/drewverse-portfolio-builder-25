@@ -1,366 +1,331 @@
 
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../../ui/card';
-import { Button } from '../../ui/button';
-import { Input } from '../../ui/input';
-import { Label } from '../../ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../ui/tabs';
-import { Switch } from '../../ui/switch';
+import { Button } from '../../ui/button';
 import { Textarea } from '../../ui/textarea';
-import { Edit, Eye, Copy, Save, PlayCircle, Check, X } from 'lucide-react';
+import { Input } from '../../ui/input';
+import { 
+  Mail, 
+  Calendar, 
+  UserPlus, 
+  Bell, 
+  ShoppingCart, 
+  Award,
+  Save,
+  AlertTriangle,
+  CheckCircle
+} from 'lucide-react';
 import { toast } from 'sonner';
 
 interface EmailTemplate {
   id: string;
   name: string;
   subject: string;
-  description: string;
   body: string;
-  isActive: boolean;
-  lastModified: string;
-  category: 'transactional' | 'marketing' | 'notification';
+  variables: string[];
+  category: string;
 }
 
 const EmailTemplatesManager = () => {
   const [templates, setTemplates] = useState<EmailTemplate[]>([
     {
-      id: 'welcome-email',
+      id: 'welcome',
       name: 'Welcome Email',
-      subject: 'Welcome to Drew Creative Agency',
-      description: 'Sent to new users after registration',
-      body: '<h1>Welcome to Drew Creative Agency!</h1><p>We\'re excited to have you on board.</p><p>Here are some next steps to get started:</p><ul><li>Complete your profile</li><li>Explore our services</li><li>Contact us if you have questions</li></ul>',
-      isActive: true,
-      lastModified: '2023-08-15',
-      category: 'transactional'
+      subject: 'Welcome to Drew Creative Agency!',
+      body: `Hello {{name}},\n\nWelcome to Drew Creative Agency! We're thrilled to have you as part of our creative community.\n\nYour account has been successfully created, and you're now ready to explore our services.\n\nIf you have any questions, please don't hesitate to reach out.\n\nBest regards,\nThe Drew Creative Team`,
+      variables: ['name'],
+      category: 'account'
     },
     {
-      id: 'appointment-confirmation',
+      id: 'appointment',
       name: 'Appointment Confirmation',
-      subject: 'Your appointment has been confirmed',
-      description: 'Sent after a client books an appointment',
-      body: '<h1>Appointment Confirmed</h1><p>Your appointment has been scheduled for {{appointment_date}} at {{appointment_time}}.</p><p>If you need to reschedule, please contact us at least 24 hours in advance.</p>',
-      isActive: true,
-      lastModified: '2023-09-20',
-      category: 'transactional'
+      subject: 'Your Appointment with Drew Creative Agency',
+      body: `Hello {{name}},\n\nThis is a confirmation that your appointment has been scheduled for {{date}} at {{time}}.\n\nWe look forward to discussing your project.\n\nBest regards,\nThe Drew Creative Team`,
+      variables: ['name', 'date', 'time'],
+      category: 'appointments'
     },
     {
-      id: 'project-update',
+      id: 'project',
       name: 'Project Update',
-      subject: 'Update on your project',
-      description: 'Sent to clients when their project status changes',
-      body: '<h1>Project Update</h1><p>There\'s been an update to your project "{{project_name}}":</p><p><strong>Status:</strong> {{project_status}}</p><p><strong>Next steps:</strong> {{next_steps}}</p>',
-      isActive: true,
-      lastModified: '2023-10-05',
-      category: 'notification'
+      subject: 'Update on Your Project: {{project_name}}',
+      body: `Hello {{name}},\n\nWe're pleased to inform you that there has been progress on your project "{{project_name}}".\n\nCurrent Status: {{status}}\n\nNext Steps: {{next_steps}}\n\nExpected Completion: {{completion_date}}\n\nIf you have any questions about this update, please let us know.\n\nBest regards,\nThe Drew Creative Team`,
+      variables: ['name', 'project_name', 'status', 'next_steps', 'completion_date'],
+      category: 'projects'
     },
     {
-      id: 'monthly-newsletter',
-      name: 'Monthly Newsletter',
-      subject: 'Drew Creative - Monthly Design Insights',
-      description: 'Monthly newsletter with design tips and agency news',
-      body: '<h1>Monthly Design Insights</h1><p>Here\'s what\'s new this month:</p><ul><li>Featured project: {{featured_project}}</li><li>Design tip of the month: {{design_tip}}</li><li>Industry news: {{industry_news}}</li></ul>',
-      isActive: false,
-      lastModified: '2023-11-10',
-      category: 'marketing'
+      id: 'invoice',
+      name: 'Invoice',
+      subject: 'Invoice #{{invoice_number}} from Drew Creative Agency',
+      body: `Hello {{name}},\n\nPlease find below the details of your invoice:\n\nInvoice Number: {{invoice_number}}\nAmount Due: {{amount}}\nDue Date: {{due_date}}\n\nYou can pay this invoice through your client portal or by contacting our finance department.\n\nThank you for your business!\n\nBest regards,\nThe Drew Creative Team`,
+      variables: ['name', 'invoice_number', 'amount', 'due_date'],
+      category: 'billing'
+    },
+    {
+      id: 'feedback',
+      name: 'Feedback Request',
+      subject: 'We Value Your Feedback!',
+      body: `Hello {{name}},\n\nThank you for working with Drew Creative Agency on your project "{{project_name}}".\n\nWe would love to hear your thoughts on our services. Please take a moment to complete our feedback form: {{feedback_link}}\n\nYour input helps us improve our services for you and future clients.\n\nBest regards,\nThe Drew Creative Team`,
+      variables: ['name', 'project_name', 'feedback_link'],
+      category: 'feedback'
     }
   ]);
 
-  const [activeTemplate, setActiveTemplate] = useState<EmailTemplate | null>(null);
-  const [isEditing, setIsEditing] = useState(false);
-  const [editedTemplate, setEditedTemplate] = useState<EmailTemplate | null>(null);
-  const [activeTab, setActiveTab] = useState('all');
+  const [activeTemplate, setActiveTemplate] = useState<EmailTemplate>(templates[0]);
+  const [editedTemplate, setEditedTemplate] = useState<EmailTemplate>(templates[0]);
+  const [isSaving, setIsSaving] = useState(false);
+  const [testEmailAddress, setTestEmailAddress] = useState('');
+  const [isSendingTest, setIsSendingTest] = useState(false);
 
-  const handleViewTemplate = (id: string) => {
-    const template = templates.find(t => t.id === id);
+  const handleTemplateChange = (templateId: string) => {
+    const template = templates.find(t => t.id === templateId);
     if (template) {
       setActiveTemplate(template);
-      setIsEditing(false);
+      setEditedTemplate(template);
     }
   };
 
-  const handleEditTemplate = (id: string) => {
-    const template = templates.find(t => t.id === id);
-    if (template) {
-      setActiveTemplate(template);
-      setEditedTemplate({...template});
-      setIsEditing(true);
-    }
+  const handleEditTemplate = (field: keyof EmailTemplate, value: string) => {
+    setEditedTemplate({
+      ...editedTemplate,
+      [field]: value
+    });
   };
 
   const handleSaveTemplate = () => {
-    if (!editedTemplate) return;
+    setIsSaving(true);
     
-    setTemplates(prevTemplates => 
-      prevTemplates.map(template => 
-        template.id === editedTemplate.id 
-          ? {...editedTemplate, lastModified: new Date().toISOString().split('T')[0]} 
-          : template
-      )
-    );
-    
-    setActiveTemplate(editedTemplate);
-    setIsEditing(false);
-    toast.success('Email template saved successfully');
-  };
-
-  const handleToggleActive = (id: string) => {
-    setTemplates(prevTemplates => 
-      prevTemplates.map(template => 
-        template.id === id 
-          ? {...template, isActive: !template.isActive} 
-          : template
-      )
-    );
-    
-    const template = templates.find(t => t.id === id);
-    const status = template?.isActive ? 'deactivated' : 'activated';
-    toast.success(`Template ${status} successfully`);
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    if (!editedTemplate) return;
-    
-    const { name, value } = e.target;
-    setEditedTemplate(prev => prev ? {...prev, [name]: value} : null);
-  };
-
-  const handleCloseTemplate = () => {
-    setActiveTemplate(null);
-    setEditedTemplate(null);
-    setIsEditing(false);
-  };
-
-  const handleSendTest = (id: string) => {
-    toast.success('Sending test email...');
+    // Simulate API call/save operation
     setTimeout(() => {
-      toast.success('Test email sent successfully');
+      setTemplates(templates.map(template => 
+        template.id === editedTemplate.id ? editedTemplate : template
+      ));
+      setActiveTemplate(editedTemplate);
+      setIsSaving(false);
+      toast.success('Email template saved successfully');
+    }, 1000);
+  };
+
+  const handleSendTestEmail = () => {
+    if (!testEmailAddress) {
+      toast.error('Please enter a test email address');
+      return;
+    }
+    
+    setIsSendingTest(true);
+    
+    // Simulate sending test email
+    setTimeout(() => {
+      setIsSendingTest(false);
+      toast.success(`Test email sent to ${testEmailAddress}`);
+      setTestEmailAddress('');
     }, 1500);
   };
 
-  const filterTemplates = () => {
-    if (activeTab === 'all') return templates;
-    return templates.filter(template => template.category === activeTab);
+  const getVariableString = (variable: string) => {
+    return `{{${variable}}}`;
+  };
+
+  const handleInsertVariable = (variable: string) => {
+    const textarea = document.getElementById('emailBody') as HTMLTextAreaElement;
+    if (textarea) {
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      const currentValue = editedTemplate.body;
+      const variableString = getVariableString(variable);
+      
+      const newValue = currentValue.substring(0, start) + variableString + currentValue.substring(end);
+      handleEditTemplate('body', newValue);
+      
+      // Set focus back to textarea after state update
+      setTimeout(() => {
+        textarea.focus();
+        textarea.setSelectionRange(start + variableString.length, start + variableString.length);
+      }, 0);
+    }
   };
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h2 className="text-2xl font-bold mb-4">Email Templates</h2>
-        <p className="text-gray-500 dark:text-gray-400 mb-6">
-          Manage your email communication templates
-        </p>
-      </div>
+    <div className="space-y-6">
+      <Card>
+        <CardHeader>
+          <CardTitle>Email Templates</CardTitle>
+          <CardDescription>Manage and customize email templates for different purposes</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Tabs defaultValue="account">
+            <TabsList className="mb-6">
+              <TabsTrigger value="account">Account</TabsTrigger>
+              <TabsTrigger value="appointments">Appointments</TabsTrigger>
+              <TabsTrigger value="projects">Projects</TabsTrigger>
+              <TabsTrigger value="billing">Billing</TabsTrigger>
+              <TabsTrigger value="feedback">Feedback</TabsTrigger>
+            </TabsList>
+            
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              <div className="md:col-span-1">
+                <div className="space-y-3">
+                  {templates
+                    .filter(template => template.category === (document.querySelector('[aria-selected="true"]')?.getAttribute('value') || 'account'))
+                    .map(template => (
+                      <div 
+                        key={template.id}
+                        className={`p-3 border rounded-md cursor-pointer hover:bg-gray-50 ${activeTemplate.id === template.id ? 'border-blue-500 bg-blue-50' : ''}`}
+                        onClick={() => handleTemplateChange(template.id)}
+                      >
+                        <div className="flex items-center space-x-3">
+                          <Mail className="h-5 w-5 text-gray-500" />
+                          <div>
+                            <h3 className="font-medium">{template.name}</h3>
+                          </div>
+                        </div>
+                      </div>
+                    ))
+                  }
+                </div>
+              </div>
+              
+              <div className="md:col-span-3">
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <label htmlFor="templateName" className="block text-sm font-medium">Template Name</label>
+                    <Input 
+                      id="templateName"
+                      value={editedTemplate.name}
+                      onChange={(e) => handleEditTemplate('name', e.target.value)}
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <label htmlFor="emailSubject" className="block text-sm font-medium">Email Subject</label>
+                    <Input 
+                      id="emailSubject"
+                      value={editedTemplate.subject}
+                      onChange={(e) => handleEditTemplate('subject', e.target.value)}
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <label htmlFor="emailBody" className="block text-sm font-medium">Email Body</label>
+                      <div className="flex space-x-2">
+                        {editedTemplate.variables.map(variable => (
+                          <Button 
+                            key={variable} 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => handleInsertVariable(variable)}
+                          >
+                            {getVariableString(variable)}
+                          </Button>
+                        ))}
+                      </div>
+                    </div>
+                    <Textarea 
+                      id="emailBody"
+                      value={editedTemplate.body}
+                      onChange={(e) => handleEditTemplate('body', e.target.value)}
+                      rows={10}
+                    />
+                  </div>
+                  
+                  <div className="pt-4 border-t flex flex-col sm:flex-row justify-between space-y-3 sm:space-y-0">
+                    <div className="flex space-x-2">
+                      <Button 
+                        onClick={handleSaveTemplate}
+                        disabled={isSaving}
+                      >
+                        {isSaving ? (
+                          <>
+                            <span className="animate-spin mr-2">◌</span>
+                            Saving...
+                          </>
+                        ) : (
+                          <>
+                            <Save className="mr-2 h-4 w-4" />
+                            Save Template
+                          </>
+                        )}
+                      </Button>
+                    </div>
+                    
+                    <div className="flex space-x-2">
+                      <Input 
+                        placeholder="Enter email for test"
+                        value={testEmailAddress}
+                        onChange={(e) => setTestEmailAddress(e.target.value)}
+                        className="max-w-[200px]"
+                      />
+                      <Button 
+                        variant="outline"
+                        onClick={handleSendTestEmail}
+                        disabled={isSendingTest}
+                      >
+                        {isSendingTest ? 'Sending...' : 'Send Test'}
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Tabs>
+        </CardContent>
+      </Card>
       
-      <div className="flex flex-col md:flex-row gap-6">
-        <div className="md:w-1/2 lg:w-2/5 space-y-6">
-          <Card>
-            <CardHeader className="pb-3">
-              <CardTitle>Email Templates</CardTitle>
-              <CardDescription>
-                Edit and manage your email templates
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Tabs defaultValue="all" value={activeTab} onValueChange={setActiveTab}>
-                <TabsList className="mb-4">
-                  <TabsTrigger value="all">All</TabsTrigger>
-                  <TabsTrigger value="transactional">Transactional</TabsTrigger>
-                  <TabsTrigger value="marketing">Marketing</TabsTrigger>
-                  <TabsTrigger value="notification">Notification</TabsTrigger>
-                </TabsList>
+      <Card>
+        <CardHeader>
+          <CardTitle>Email Settings</CardTitle>
+          <CardDescription>Configure global email settings and delivery options</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <label htmlFor="senderName" className="block text-sm font-medium">Default Sender Name</label>
+                  <Input id="senderName" defaultValue="Drew Creative Agency" />
+                </div>
                 
                 <div className="space-y-2">
-                  <div className="flex justify-between items-center">
-                    <h3 className="text-sm font-medium">Template Name</h3>
-                    <h3 className="text-sm font-medium">Status</h3>
-                  </div>
-                  {filterTemplates().map((template) => (
-                    <div 
-                      key={template.id}
-                      className={`p-3 border rounded-md flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer ${activeTemplate?.id === template.id ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20' : ''}`}
-                      onClick={() => handleViewTemplate(template.id)}
-                    >
-                      <div>
-                        <h4 className="font-medium">{template.name}</h4>
-                        <p className="text-xs text-gray-500">Last updated: {template.lastModified}</p>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${template.isActive ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>
-                          {template.isActive ? 'Active' : 'Inactive'}
-                        </span>
-                        <div className="flex">
-                          <Button variant="ghost" size="sm" onClick={(e) => { e.stopPropagation(); handleEditTemplate(template.id); }}>
-                            <Edit className="h-4 w-4" />
-                          </Button>
-                          <Button variant="ghost" size="sm" onClick={(e) => { e.stopPropagation(); handleSendTest(template.id); }}>
-                            <PlayCircle className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+                  <label htmlFor="senderEmail" className="block text-sm font-medium">Default Sender Email</label>
+                  <Input id="senderEmail" defaultValue="hello@drewcreative.agency" />
                 </div>
-
-                <Button className="w-full mt-4">
-                  Create New Template
-                </Button>
-              </Tabs>
-            </CardContent>
-          </Card>
-        </div>
-        
-        <div className="md:w-1/2 lg:w-3/5">
-          {activeTemplate ? (
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between pb-3">
-                <div>
-                  <CardTitle>{isEditing ? 'Edit Template' : activeTemplate.name}</CardTitle>
-                  <CardDescription>{activeTemplate.description}</CardDescription>
+                
+                <div className="space-y-2">
+                  <label htmlFor="replyToEmail" className="block text-sm font-medium">Reply-To Email</label>
+                  <Input id="replyToEmail" defaultValue="support@drewcreative.agency" />
                 </div>
-                <div className="flex space-x-2">
-                  {isEditing ? (
-                    <>
-                      <Button variant="outline" size="sm" onClick={handleCloseTemplate}>
-                        <X className="h-4 w-4 mr-2" />
-                        Cancel
-                      </Button>
-                      <Button size="sm" onClick={handleSaveTemplate}>
-                        <Save className="h-4 w-4 mr-2" />
-                        Save
-                      </Button>
-                    </>
-                  ) : (
-                    <>
-                      <Button variant="outline" size="sm" onClick={() => handleEditTemplate(activeTemplate.id)}>
-                        <Edit className="h-4 w-4 mr-2" />
-                        Edit
-                      </Button>
-                      <Button variant="outline" size="sm" onClick={() => handleSendTest(activeTemplate.id)}>
-                        <PlayCircle className="h-4 w-4 mr-2" />
-                        Send Test
-                      </Button>
-                      <Button variant="outline" size="sm" onClick={handleCloseTemplate}>
-                        <X className="h-4 w-4" />
-                      </Button>
-                    </>
-                  )}
-                </div>
-              </CardHeader>
-              <CardContent>
-                {isEditing ? (
-                  <div className="space-y-4">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="name">Template Name</Label>
-                        <Input 
-                          id="name" 
-                          name="name"
-                          value={editedTemplate?.name} 
-                          onChange={handleInputChange}
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="subject">Email Subject</Label>
-                        <Input 
-                          id="subject" 
-                          name="subject"
-                          value={editedTemplate?.subject} 
-                          onChange={handleInputChange}
-                        />
-                      </div>
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <Label htmlFor="description">Description</Label>
-                      <Input 
-                        id="description" 
-                        name="description"
-                        value={editedTemplate?.description} 
-                        onChange={handleInputChange}
-                      />
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <Label htmlFor="body">Email Body</Label>
-                      <Textarea 
-                        id="body" 
-                        name="body"
-                        value={editedTemplate?.body} 
-                        onChange={handleInputChange}
-                        rows={10}
-                        className="font-mono text-sm"
-                      />
-                    </div>
-                    
-                    <div className="flex items-center space-x-2">
-                      <Switch 
-                        id="isActive"
-                        checked={editedTemplate?.isActive} 
-                        onCheckedChange={() => setEditedTemplate(prev => prev ? {...prev, isActive: !prev.isActive} : null)} 
-                      />
-                      <Label htmlFor="isActive">Template is active</Label>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="space-y-4">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <p className="text-sm text-gray-500">Email Subject</p>
-                        <p className="font-medium">{activeTemplate.subject}</p>
-                      </div>
-                      <div>
-                        <p className="text-sm text-gray-500">Status</p>
-                        <div className="flex items-center space-x-2">
-                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${activeTemplate.isActive ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>
-                            {activeTemplate.isActive ? 'Active' : 'Inactive'}
-                          </span>
-                          <Button 
-                            variant="ghost" 
-                            size="sm" 
-                            onClick={() => handleToggleActive(activeTemplate.id)}
-                          >
-                            {activeTemplate.isActive ? <X className="h-4 w-4" /> : <Check className="h-4 w-4" />}
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                    
+              </div>
+            </div>
+            
+            <div>
+              <div className="space-y-4">
+                <div className="rounded-md border p-4">
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5" />
                     <div>
-                      <p className="text-sm text-gray-500">Email Preview</p>
-                      <div className="mt-2 p-4 border rounded-md bg-white dark:bg-gray-950 min-h-[300px]">
-                        <div 
-                          className="prose dark:prose-invert max-w-none" 
-                          dangerouslySetInnerHTML={{ __html: activeTemplate.body }}
-                        />
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <p className="text-sm text-gray-500">Template Variables</p>
-                      <div className="mt-2 flex flex-wrap gap-2">
-                        {activeTemplate.body.match(/{{([^}]+)}}/g)?.map((variable, index) => (
-                          <div key={index} className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs">
-                            {variable}
-                          </div>
-                        )) || <p className="text-sm text-gray-400">No variables found in this template</p>}
-                      </div>
+                      <h3 className="font-medium">Email Delivery</h3>
+                      <p className="text-sm text-gray-500 mt-1">Your email service is properly configured and active</p>
                     </div>
                   </div>
-                )}
-              </CardContent>
-            </Card>
-          ) : (
-            <Card className="h-full flex items-center justify-center">
-              <CardContent className="py-12 text-center">
-                <p className="text-gray-500 mb-4">Select a template to view or edit</p>
-                <Button onClick={() => handleEditTemplate('welcome-email')}>
-                  Open Welcome Email Template
-                </Button>
-              </CardContent>
-            </Card>
-          )}
-        </div>
-      </div>
+                </div>
+                
+                <div className="rounded-md border p-4">
+                  <div className="flex items-start space-x-3">
+                    <AlertTriangle className="h-5 w-5 text-amber-500 mt-0.5" />
+                    <div>
+                      <h3 className="font-medium">Bounce Rate</h3>
+                      <p className="text-sm text-gray-500 mt-1">1.2% of emails are bouncing. Consider cleaning your email list.</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <Button variant="outline" className="mt-2">View Email Analytics</Button>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };
