@@ -20,12 +20,13 @@ export const saveSEOSettings = async (generalSettings: SEOSetting, pageSettings:
     // Try to store in Supabase if available
     try {
       const { error } = await supabase
-        .from('site_settings' as any)
+        .from('site_settings')
         .upsert({ 
           key: 'seo_settings',
           value: seoData,
           updated_at: new Date().toISOString()
-        } as any);
+        })
+        .select();
       
       if (error) throw error;
       
@@ -47,15 +48,29 @@ export const loadSEOSettings = async (): Promise<SEOStorageData | null> => {
     // Try to load from Supabase first
     try {
       const { data, error } = await supabase
-        .from('site_settings' as any)
+        .from('site_settings')
         .select('*')
         .eq('key', 'seo_settings')
         .single();
       
       if (error) throw error;
       
-      if (data && data.value) {
-        return data.value as SEOStorageData;
+      if (data) {
+        // Handle the JSONB value from Supabase
+        const valueData = data.value;
+        
+        // Check if the value is a string (needs parsing) or already an object
+        const parsedValue = typeof valueData === 'string' 
+          ? JSON.parse(valueData) 
+          : valueData;
+        
+        // Validate the structure of the parsed data
+        if (parsedValue && 
+            typeof parsedValue === 'object' && 
+            'generalSettings' in parsedValue && 
+            'pageSettings' in parsedValue) {
+          return parsedValue as SEOStorageData;
+        }
       }
     } catch (dbError) {
       console.error('Database load failed, trying localStorage:', dbError);

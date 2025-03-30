@@ -32,15 +32,27 @@ const SEOReports = () => {
         // Try to load from Supabase first
         let pages: PageSEO[] = [];
         try {
-          // Using the generic type to fix the TypeScript error
           const { data, error } = await supabase
             .from('site_settings')
             .select('*')
             .eq('key', 'seo_settings')
             .single();
             
-          if (data && data.value && data.value.pageSettings) {
-            pages = data.value.pageSettings;
+          if (error) throw error;
+            
+          if (data && data.value) {
+            // Parse the JSONB value and ensure it has the expected structure
+            const valueData = data.value;
+            
+            // Check if the value is a string (needs parsing) or already an object
+            const parsedValue = typeof valueData === 'string' 
+              ? JSON.parse(valueData) 
+              : valueData;
+            
+            // Type guard to check if the data has the pageSettings property
+            if (parsedValue && typeof parsedValue === 'object' && 'pageSettings' in parsedValue) {
+              pages = parsedValue.pageSettings as PageSEO[];
+            }
           }
         } catch (error) {
           console.error('Failed to load from Supabase:', error);
