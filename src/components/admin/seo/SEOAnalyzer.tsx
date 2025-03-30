@@ -8,20 +8,15 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../ui/tabs';
 import { Loader2, Save, ArrowRight, FileText } from 'lucide-react';
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
-
-interface SEOReport {
-  url: string;
-  analysis: string;
-  created_at: string;
-}
+import { SEOAnalysisReport } from './types';
 
 const SEOAnalyzer = () => {
   const [url, setUrl] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisResult, setAnalysisResult] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState('analyze');
-  const [pastReports, setPastReports] = useState<SEOReport[]>([]);
-  const [selectedReport, setSelectedReport] = useState<SEOReport | null>(null);
+  const [pastReports, setPastReports] = useState<SEOAnalysisReport[]>([]);
+  const [selectedReport, setSelectedReport] = useState<SEOAnalysisReport | null>(null);
   const [isLoadingReports, setIsLoadingReports] = useState(false);
 
   const analyzeURL = async () => {
@@ -72,7 +67,7 @@ const SEOAnalyzer = () => {
     try {
       const { error } = await supabase
         .from('seo_reports')
-        .insert([{ url, analysis: JSON.stringify(analysis) }]);
+        .insert([{ url, analysis }]);
         
       if (error) throw error;
     } catch (error) {
@@ -91,7 +86,15 @@ const SEOAnalyzer = () => {
         
       if (error) throw error;
       
-      setPastReports(data || []);
+      // Convert any JSON analysis to string if needed
+      const formattedReports = data?.map(report => ({
+        ...report,
+        analysis: typeof report.analysis === 'string' 
+          ? report.analysis 
+          : JSON.stringify(report.analysis)
+      })) || [];
+      
+      setPastReports(formattedReports);
     } catch (error) {
       console.error('Error loading reports:', error);
       toast.error('Failed to load past reports');
@@ -100,7 +103,7 @@ const SEOAnalyzer = () => {
     }
   };
 
-  const viewReport = (report: SEOReport) => {
+  const viewReport = (report: SEOAnalysisReport) => {
     setSelectedReport(report);
   };
 

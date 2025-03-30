@@ -29,9 +29,25 @@ export const getScoreText = (score: number) => {
   return 'Poor';
 };
 
-// New interfaces for SEO data storage
+export interface SEOReport {
+  id: string;
+  title: string;
+  path: string;
+  metaTitle: string;
+  metaDescription: string;
+  metaKeywords: string;
+  score: number;
+}
+
 export interface SEOStorageData {
   generalSettings: SEOSetting;
   pageSettings: PageSEO[];
   lastUpdated: string;
+}
+
+export interface SEOAnalysisReport {
+  id: string;
+  url: string;
+  analysis: string | any; // Support both string and JSON data
+  created_at: string;
 }
