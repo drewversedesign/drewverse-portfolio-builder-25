@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 import { toast } from 'sonner';
@@ -8,6 +7,7 @@ import PageSEO from './seo/PageSEO';
 import SEOTools from './seo/SEOTools';
 import SEOReports from './seo/SEOReports';
 import SEOAnalyzer from './seo/SEOAnalyzer';
+import AIContentSuite from './seo/AIContentSuite';
 import { initialSEOSettings, initialPageSEO } from './seo/mockData';
 import { SEOSetting, PageSEO as PageSEOType } from './seo/types';
 import { saveSEOSettings, loadSEOSettings, analyzePage, generateSitemap } from '@/utils/admin/seoUtils';
@@ -21,7 +21,6 @@ const AdminSEO = () => {
   const [isGeneratingSitemap, setIsGeneratingSitemap] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Load saved SEO settings on initial render
   useEffect(() => {
     const loadSavedSettings = async () => {
       try {
@@ -84,14 +83,12 @@ const AdminSEO = () => {
     setIsSaving(true);
     
     try {
-      // Update the page in the pages array
       const updatedPages = pages.map(page => 
         page.id === selectedPage.id ? selectedPage : page
       );
       
       setPages(updatedPages);
       
-      // Save all settings
       const success = await saveSEOSettings(generalSEO, updatedPages);
       
       if (success) {
@@ -118,7 +115,6 @@ const AdminSEO = () => {
     setIsRunningAnalysis(true);
     
     try {
-      // Analyze each page and update scores
       const analyzedPages = await Promise.all(
         pages.map(async (page) => ({
           ...page,
@@ -128,13 +124,11 @@ const AdminSEO = () => {
       
       setPages(analyzedPages);
       
-      // Update the selected page if its score changed
       const updatedSelectedPage = analyzedPages.find(p => p.id === selectedPage.id);
       if (updatedSelectedPage) {
         setSelectedPage(updatedSelectedPage);
       }
       
-      // Save the updated pages
       await saveSEOSettings(generalSEO, analyzedPages);
       
       toast.success('Keyword analysis completed successfully');
@@ -152,24 +146,20 @@ const AdminSEO = () => {
     try {
       const sitemapXml = await generateSitemap(pages);
       
-      // Create a blob and download link
       const blob = new Blob([sitemapXml], { type: 'application/xml' });
       const url = URL.createObjectURL(blob);
       
-      // Create download link
       const a = document.createElement('a');
       a.href = url;
       a.download = 'sitemap.xml';
       document.body.appendChild(a);
       a.click();
       
-      // Clean up
       setTimeout(() => {
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
       }, 100);
       
-      // Update the sitemap URL in general settings
       const newGeneralSEO = {
         ...generalSEO,
         sitemap: `${window.location.origin}/sitemap.xml`
@@ -204,6 +194,7 @@ const AdminSEO = () => {
           <TabsTrigger value="pages">Page-Specific SEO</TabsTrigger>
           <TabsTrigger value="tools">SEO Tools</TabsTrigger>
           <TabsTrigger value="analyzer">AI Analyzer</TabsTrigger>
+          <TabsTrigger value="content">AI Content</TabsTrigger>
           <TabsTrigger value="reports">Reports</TabsTrigger>
         </TabsList>
         
@@ -244,6 +235,10 @@ const AdminSEO = () => {
         
         <TabsContent value="analyzer">
           <SEOAnalyzer />
+        </TabsContent>
+        
+        <TabsContent value="content">
+          <AIContentSuite />
         </TabsContent>
         
         <TabsContent value="reports">
