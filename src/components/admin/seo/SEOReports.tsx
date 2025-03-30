@@ -55,12 +55,20 @@ const SEOReports = () => {
             const valueData = data.value;
             
             // Check if the value is a string (needs parsing) or already an object
-            const parsedValue = typeof valueData === 'string' 
-              ? JSON.parse(valueData) 
-              : valueData;
+            let parsedValue;
+            try {
+              parsedValue = typeof valueData === 'string' 
+                ? JSON.parse(valueData) 
+                : valueData;
+            } catch (e) {
+              console.error('Failed to parse JSON data:', e);
+              throw e;
+            }
             
             // Type guard to check if the data has the pageSettings property
-            if (parsedValue && typeof parsedValue === 'object' && 'pageSettings' in parsedValue) {
+            if (parsedValue && 
+                typeof parsedValue === 'object' && 
+                'pageSettings' in parsedValue) {
               pages = parsedValue.pageSettings as PageSEO[];
             }
           }
@@ -283,6 +291,7 @@ const SEOReports = () => {
           </div>
           
           <div className="flex flex-col md:flex-row gap-4">
+            {/* Fix: Properly nest DialogTrigger inside Dialog component */}
             <Dialog>
               <DialogTrigger asChild>
                 <Button className="md:w-auto">
@@ -350,6 +359,7 @@ const SEOReports = () => {
               </DialogContent>
             </Dialog>
             
+            {/* Fix: Properly nest DialogTrigger inside Dialog component */}
             <Dialog>
               <DialogTrigger asChild>
                 <Button variant="outline" className="md:w-auto">
