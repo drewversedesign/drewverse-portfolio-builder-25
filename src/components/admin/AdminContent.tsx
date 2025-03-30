@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../ui/tabs';
 import ProjectsTable from './content/ProjectsTable';
@@ -10,12 +9,12 @@ import { Edit, Eye, Trash, Plus } from 'lucide-react';
 import { Dialog, DialogContent } from '../ui/dialog';
 import ProjectEditor from './content/ProjectEditor';
 import BlogPostEditor from './content/BlogPostEditor';
+import { toast } from 'sonner';
 
 const AdminContent = () => {
   const [activeTab, setActiveTab] = useState('projects');
   const [showSectionEditor, setShowSectionEditor] = useState(false);
   
-  // Sample sections data - in a real app, this would come from your database
   const sections = [
     { id: 1, title: 'Homepage Hero', type: 'Section', status: 'Published', lastUpdated: '2023-07-15' },
     { id: 2, title: 'About Us Page', type: 'Page', status: 'Published', lastUpdated: '2023-06-22' },

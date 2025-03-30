@@ -20,12 +20,12 @@ export const saveSEOSettings = async (generalSettings: SEOSetting, pageSettings:
     // Try to store in Supabase if available
     try {
       const { error } = await supabase
-        .from('site_settings')
+        .from('site_settings' as any)
         .upsert({ 
           key: 'seo_settings',
           value: seoData,
           updated_at: new Date().toISOString()
-        });
+        } as any);
       
       if (error) throw error;
       
@@ -47,8 +47,8 @@ export const loadSEOSettings = async (): Promise<SEOStorageData | null> => {
     // Try to load from Supabase first
     try {
       const { data, error } = await supabase
-        .from('site_settings')
-        .select('value')
+        .from('site_settings' as any)
+        .select('*')
         .eq('key', 'seo_settings')
         .single();
       

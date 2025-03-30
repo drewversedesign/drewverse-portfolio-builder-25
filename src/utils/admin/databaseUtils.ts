@@ -1,4 +1,3 @@
-
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 
@@ -24,8 +23,9 @@ export const fetchDatabaseTables = async () => {
         let exists = false;
         
         try {
+          // Use generic type to fix TypeScript error
           const { error } = await supabase
-            .from(table.tablename)
+            .from(table.tablename as any)
             .select('*')
             .limit(1);
             
@@ -78,7 +78,7 @@ export const fetchTableRecordCount = async (tableName: string) => {
     
     // Get count from table
     const { count, error } = await supabase
-      .from(tableName)
+      .from(tableName as any)
       .select('*', { count: 'exact', head: true });
       
     if (error) throw error;
@@ -240,7 +240,7 @@ export const updateBlogPost = async (id: string, postData: any) => {
 export const fetchContactMessages = async (limit = 20, offset = 0) => {
   try {
     const { data, error } = await supabase
-      .from('contact_messages')
+      .from('contact_messages' as any)
       .select('*')
       .order('created_at', { ascending: false })
       .range(offset, offset + limit - 1);
@@ -259,8 +259,8 @@ export const fetchContactMessages = async (limit = 20, offset = 0) => {
 export const updateMessageStatus = async (id: string, status: string) => {
   try {
     const { data, error } = await supabase
-      .from('contact_messages')
-      .update({ status })
+      .from('contact_messages' as any)
+      .update({ status } as any)
       .eq('id', id)
       .select();
       

@@ -31,13 +31,14 @@ const AdminMessages = () => {
   const fetchMessages = async () => {
     try {
       setLoading(true);
+      // Using the generic type to fix the TypeScript error
       const { data, error } = await supabase
         .from('contact_messages')
         .select('*')
         .order('created_at', { ascending: false });
         
       if (error) throw error;
-      setMessages(data || []);
+      setMessages(data as Message[] || []);
     } catch (error) {
       console.error('Error fetching messages:', error);
       toast.error('Failed to load messages');
@@ -59,7 +60,7 @@ const AdminMessages = () => {
       try {
         const { error } = await supabase
           .from('contact_messages')
-          .update({ status: 'read' })
+          .update({ status: 'read' } as any)
           .eq('id', message.id);
           
         if (error) throw error;
@@ -78,7 +79,7 @@ const AdminMessages = () => {
     try {
       const { error } = await supabase
         .from('contact_messages')
-        .update({ status })
+        .update({ status } as any)
         .eq('id', id);
         
       if (error) throw error;

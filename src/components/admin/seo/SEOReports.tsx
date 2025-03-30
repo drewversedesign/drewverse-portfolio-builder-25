@@ -32,9 +32,10 @@ const SEOReports = () => {
         // Try to load from Supabase first
         let pages: PageSEO[] = [];
         try {
+          // Using the generic type to fix the TypeScript error
           const { data, error } = await supabase
             .from('site_settings')
-            .select('value')
+            .select('*')
             .eq('key', 'seo_settings')
             .single();
             
