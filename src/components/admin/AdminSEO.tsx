@@ -7,6 +7,7 @@ import PagesList from './seo/PagesList';
 import PageSEO from './seo/PageSEO';
 import SEOTools from './seo/SEOTools';
 import SEOReports from './seo/SEOReports';
+import SEOAnalyzer from './seo/SEOAnalyzer';
 import { initialSEOSettings, initialPageSEO } from './seo/mockData';
 import { SEOSetting, PageSEO as PageSEOType } from './seo/types';
 import { saveSEOSettings, loadSEOSettings, analyzePage, generateSitemap } from '@/utils/admin/seoUtils';
@@ -202,6 +203,7 @@ const AdminSEO = () => {
           <TabsTrigger value="general">General SEO</TabsTrigger>
           <TabsTrigger value="pages">Page-Specific SEO</TabsTrigger>
           <TabsTrigger value="tools">SEO Tools</TabsTrigger>
+          <TabsTrigger value="analyzer">AI Analyzer</TabsTrigger>
           <TabsTrigger value="reports">Reports</TabsTrigger>
         </TabsList>
         
@@ -238,6 +240,10 @@ const AdminSEO = () => {
             isRunningAnalysis={isRunningAnalysis}
             isGeneratingSitemap={isGeneratingSitemap}
           />
+        </TabsContent>
+        
+        <TabsContent value="analyzer">
+          <SEOAnalyzer />
         </TabsContent>
         
         <TabsContent value="reports">
