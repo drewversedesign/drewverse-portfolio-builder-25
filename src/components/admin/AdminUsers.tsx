@@ -273,12 +273,82 @@ const AdminUsers = () => {
                     <DropdownMenuContent align="end">
                       <DropdownMenuLabel>Actions</DropdownMenuLabel>
                       <DropdownMenuSeparator />
-                      <DialogTrigger asChild>
-                        <DropdownMenuItem onClick={() => handleEditUser(user)}>
-                          <Edit className="h-4 w-4 mr-2" />
-                          Edit
-                        </DropdownMenuItem>
-                      </DialogTrigger>
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <DropdownMenuItem onClick={() => handleEditUser(user)}>
+                            <Edit className="h-4 w-4 mr-2" />
+                            Edit
+                          </DropdownMenuItem>
+                        </DialogTrigger>
+                        <DialogContent>
+                          <DialogHeader>
+                            <DialogTitle>Edit User</DialogTitle>
+                          </DialogHeader>
+                          <div className="space-y-4 py-4">
+                            <div className="space-y-2">
+                              <Label htmlFor="edit-name">Name</Label>
+                              <Input
+                                id="edit-name"
+                                name="name"
+                                value={formData.name}
+                                onChange={handleInputChange}
+                                placeholder="Enter full name"
+                              />
+                            </div>
+                            <div className="space-y-2">
+                              <Label htmlFor="edit-email">Email</Label>
+                              <Input
+                                id="edit-email"
+                                name="email"
+                                type="email"
+                                value={formData.email}
+                                onChange={handleInputChange}
+                                placeholder="Enter email address"
+                              />
+                            </div>
+                            <div className="space-y-2">
+                              <Label htmlFor="edit-role">Role</Label>
+                              <Select
+                                value={formData.role}
+                                onValueChange={(value) => handleSelectChange(value, 'role')}
+                              >
+                                <SelectTrigger id="edit-role">
+                                  <SelectValue placeholder="Select role" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="Admin">Admin</SelectItem>
+                                  <SelectItem value="Editor">Editor</SelectItem>
+                                  <SelectItem value="User">User</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            </div>
+                            <div className="space-y-2">
+                              <Label htmlFor="edit-status">Status</Label>
+                              <Select
+                                value={formData.status}
+                                onValueChange={(value) => handleSelectChange(value, 'status')}
+                              >
+                                <SelectTrigger id="edit-status">
+                                  <SelectValue placeholder="Select status" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="Active">Active</SelectItem>
+                                  <SelectItem value="Inactive">Inactive</SelectItem>
+                                  <SelectItem value="Pending">Pending</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            </div>
+                          </div>
+                          <DialogFooter>
+                            <DialogClose asChild>
+                              <Button variant="outline">Cancel</Button>
+                            </DialogClose>
+                            <DialogClose asChild>
+                              <Button onClick={handleSubmit}>Save Changes</Button>
+                            </DialogClose>
+                          </DialogFooter>
+                        </DialogContent>
+                      </Dialog>
                       <DropdownMenuItem 
                         onClick={() => handleDeleteUser(user.id)}
                         className="text-red-600 focus:text-red-600"

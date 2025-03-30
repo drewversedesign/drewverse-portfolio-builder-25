@@ -7,7 +7,7 @@ import { Edit, Eye, Trash, Plus } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import BlogPostEditor from './BlogPostEditor';
-import { Dialog, DialogContent } from '../../ui/dialog';
+import { Dialog, DialogContent, DialogTrigger } from '../../ui/dialog';
 import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover';
 import { Link } from 'react-router-dom';
 

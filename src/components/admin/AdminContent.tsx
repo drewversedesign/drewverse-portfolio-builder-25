@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../ui/tabs';
 import ProjectsTable from './content/ProjectsTable';
@@ -6,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '../ui/table';
 import { Button } from '../ui/button';
 import { Edit, Eye, Trash, Plus } from 'lucide-react';
-import { Dialog, DialogContent } from '../ui/dialog';
+import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog';
 import ProjectEditor from './content/ProjectEditor';
 import BlogPostEditor from './content/BlogPostEditor';
 import { toast } from 'sonner';

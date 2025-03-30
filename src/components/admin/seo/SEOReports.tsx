@@ -291,7 +291,6 @@ const SEOReports = () => {
           </div>
           
           <div className="flex flex-col md:flex-row gap-4">
-            {/* Fix: Properly nest DialogTrigger inside Dialog component */}
             <Dialog>
               <DialogTrigger asChild>
                 <Button className="md:w-auto">
@@ -359,7 +358,6 @@ const SEOReports = () => {
               </DialogContent>
             </Dialog>
             
-            {/* Fix: Properly nest DialogTrigger inside Dialog component */}
             <Dialog>
               <DialogTrigger asChild>
                 <Button variant="outline" className="md:w-auto">
