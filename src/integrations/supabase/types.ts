@@ -147,6 +147,27 @@ export type Database = {
         }
         Relationships: []
       }
+      seo_reports: {
+        Row: {
+          analysis: Json | null
+          created_at: string | null
+          id: string
+          url: string
+        }
+        Insert: {
+          analysis?: Json | null
+          created_at?: string | null
+          id?: string
+          url: string
+        }
+        Update: {
+          analysis?: Json | null
+          created_at?: string | null
+          id?: string
+          url?: string
+        }
+        Relationships: []
+      }
       services: {
         Row: {
           content: string

@@ -26,9 +26,8 @@ serve(async (req) => {
 
     console.log(`Analyzing SEO for URL: ${url || 'Not provided'}`);
     
-    // Call AI API (DeepSeek or OpenAI depending on the key format)
-    const apiUrl = 'https://api.deepseek.com/v1/chat/completions';
-    const response = await fetch(apiUrl, {
+    // Call DeepSeek AI API
+    const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
