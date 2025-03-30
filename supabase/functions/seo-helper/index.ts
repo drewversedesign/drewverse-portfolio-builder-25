@@ -17,7 +17,7 @@ serve(async (req) => {
   try {
     const { prompt, url, action, content, keywords } = await req.json();
     
-    if (!prompt && !content && !keywords) {
+    if (!prompt && !content && !keywords && action !== 'generate_content') {
       return new Response(
         JSON.stringify({ error: "Missing required parameters" }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }

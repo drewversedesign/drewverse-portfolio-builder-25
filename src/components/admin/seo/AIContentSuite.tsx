@@ -8,6 +8,7 @@ import { Input } from '../../ui/input';
 import { Loader2, Download, Copy, Save } from 'lucide-react';
 import { toast } from 'sonner';
 import { callAiFunction, saveContent } from './utils/aiContentService';
+import ContentHistory from './components/ContentHistory';
 
 const AIContentSuite = () => {
   const [isProcessing, setIsProcessing] = useState(false);
@@ -141,6 +142,7 @@ const AIContentSuite = () => {
             <TabsTrigger value="content">Content Generator</TabsTrigger>
             <TabsTrigger value="summarize">Text Summarizer</TabsTrigger>
             <TabsTrigger value="keywords">Keyword Analysis</TabsTrigger>
+            <TabsTrigger value="history">Content History</TabsTrigger>
           </TabsList>
           
           <TabsContent value="content">
@@ -248,6 +250,14 @@ const AIContentSuite = () => {
                         <Download className="h-4 w-4 mr-2" />
                         Download
                       </Button>
+                      <Button variant="outline" size="sm" onClick={() => {
+                        const title = `Summary - ${new Date().toLocaleString()}`;
+                        setContentTitle(title);
+                        saveToDatabase(summarizedText, 'summary');
+                      }}>
+                        <Save className="h-4 w-4 mr-2" />
+                        Save
+                      </Button>
                     </div>
                   </div>
                   <div className="bg-gray-50 p-4 rounded-md border">
@@ -293,6 +303,14 @@ const AIContentSuite = () => {
                         <Download className="h-4 w-4 mr-2" />
                         Download
                       </Button>
+                      <Button variant="outline" size="sm" onClick={() => {
+                        const title = `Keywords for ${keywordTopic}`;
+                        setContentTitle(title);
+                        saveToDatabase(keywordAnalysis, 'keywords');
+                      }}>
+                        <Save className="h-4 w-4 mr-2" />
+                        Save
+                      </Button>
                     </div>
                   </div>
                   <div className="bg-gray-50 p-4 rounded-md border">
@@ -301,6 +319,10 @@ const AIContentSuite = () => {
                 </div>
               )}
             </div>
+          </TabsContent>
+          
+          <TabsContent value="history">
+            <ContentHistory />
           </TabsContent>
         </Tabs>
       </CardContent>
