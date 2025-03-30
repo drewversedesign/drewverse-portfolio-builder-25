@@ -1,11 +1,13 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../../ui/card';
 import { Button } from '../../ui/button';
 import { Input } from '../../ui/input';
 import { Textarea } from '../../ui/textarea';
 import { Save } from 'lucide-react';
 import { SEOSetting } from './types';
+import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
 
 interface GeneralSEOProps {
   generalSEO: SEOSetting;

@@ -7,16 +7,19 @@ import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '../ui/table';
 import { Button } from '../ui/button';
 import { Edit, Eye, Trash, Plus } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
+import { Dialog, DialogContent } from '../ui/dialog';
+import ProjectEditor from './content/ProjectEditor';
+import BlogPostEditor from './content/BlogPostEditor';
 
 const AdminContent = () => {
   const [activeTab, setActiveTab] = useState('projects');
+  const [showSectionEditor, setShowSectionEditor] = useState(false);
   
-  // This is the sample content data from the original file
-  const contents = [
+  // Sample sections data - in a real app, this would come from your database
+  const sections = [
     { id: 1, title: 'Homepage Hero', type: 'Section', status: 'Published', lastUpdated: '2023-07-15' },
     { id: 2, title: 'About Us Page', type: 'Page', status: 'Published', lastUpdated: '2023-06-22' },
-    { id: 3, title: 'Summer Campaign', type: 'Blog Post', status: 'Draft', lastUpdated: '2023-07-10' },
+    { id: 3, title: 'Summer Campaign', type: 'Section', status: 'Draft', lastUpdated: '2023-07-10' },
     { id: 4, title: 'Services Overview', type: 'Section', status: 'Published', lastUpdated: '2023-05-18' },
     { id: 5, title: 'Client Testimonials', type: 'Section', status: 'Published', lastUpdated: '2023-07-01' },
   ];
@@ -42,7 +45,7 @@ const AdminContent = () => {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>Site Sections</CardTitle>
-              <Button>
+              <Button onClick={() => setShowSectionEditor(true)}>
                 <Plus className="mr-2 h-4 w-4" />
                 Add New Section
               </Button>
@@ -60,19 +63,19 @@ const AdminContent = () => {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {contents.map((content) => (
-                    <TableRow key={content.id}>
-                      <TableCell>{content.id}</TableCell>
-                      <TableCell>{content.title}</TableCell>
-                      <TableCell>{content.type}</TableCell>
+                  {sections.map((section) => (
+                    <TableRow key={section.id}>
+                      <TableCell>{section.id}</TableCell>
+                      <TableCell>{section.title}</TableCell>
+                      <TableCell>{section.type}</TableCell>
                       <TableCell>
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          content.status === 'Published' ? 'bg-green-100 text-green-800' : 'bg-amber-100 text-amber-800'
+                          section.status === 'Published' ? 'bg-green-100 text-green-800' : 'bg-amber-100 text-amber-800'
                         }`}>
-                          {content.status}
+                          {section.status}
                         </span>
                       </TableCell>
-                      <TableCell>{content.lastUpdated}</TableCell>
+                      <TableCell>{section.lastUpdated}</TableCell>
                       <TableCell>
                         <div className="flex items-center space-x-2">
                           <Button variant="ghost" size="sm">
@@ -92,6 +95,73 @@ const AdminContent = () => {
               </Table>
             </CardContent>
           </Card>
+          
+          <Dialog open={showSectionEditor} onOpenChange={setShowSectionEditor}>
+            <DialogContent className="max-w-3xl">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Add New Section</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <form className="space-y-4">
+                    <div className="space-y-2">
+                      <label htmlFor="section-title" className="text-sm font-medium">Section Title</label>
+                      <input 
+                        id="section-title" 
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                        placeholder="Enter section title"
+                      />
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <label htmlFor="section-type" className="text-sm font-medium">Section Type</label>
+                      <select 
+                        id="section-type" 
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      >
+                        <option value="Section">Section</option>
+                        <option value="Page">Page</option>
+                        <option value="Header">Header</option>
+                        <option value="Footer">Footer</option>
+                      </select>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <label htmlFor="section-content" className="text-sm font-medium">Content</label>
+                      <textarea 
+                        id="section-content" 
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md h-32" 
+                        placeholder="Enter section content"
+                      ></textarea>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <label htmlFor="section-status" className="text-sm font-medium">Status</label>
+                      <select 
+                        id="section-status" 
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      >
+                        <option value="Draft">Draft</option>
+                        <option value="Published">Published</option>
+                      </select>
+                    </div>
+                    
+                    <div className="flex justify-end space-x-2 pt-4">
+                      <Button type="button" variant="outline" onClick={() => setShowSectionEditor(false)}>
+                        Cancel
+                      </Button>
+                      <Button type="button" onClick={() => {
+                        toast.success('Section created successfully');
+                        setShowSectionEditor(false);
+                      }}>
+                        Save Section
+                      </Button>
+                    </div>
+                  </form>
+                </CardContent>
+              </Card>
+            </DialogContent>
+          </Dialog>
         </TabsContent>
       </Tabs>
     </div>

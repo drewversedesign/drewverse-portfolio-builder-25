@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 import { toast } from 'sonner';
 import GeneralSEO from './seo/GeneralSEO';
@@ -9,14 +9,40 @@ import SEOTools from './seo/SEOTools';
 import SEOReports from './seo/SEOReports';
 import { initialSEOSettings, initialPageSEO } from './seo/mockData';
 import { SEOSetting, PageSEO as PageSEOType } from './seo/types';
+import { saveSEOSettings, loadSEOSettings, analyzePage, generateSitemap } from '@/utils/admin/seoUtils';
 
 const AdminSEO = () => {
   const [generalSEO, setGeneralSEO] = useState<SEOSetting>(initialSEOSettings);
   const [pages, setPages] = useState<PageSEOType[]>(initialPageSEO);
-  const [selectedPage, setSelectedPage] = useState(pages[0]);
+  const [selectedPage, setSelectedPage] = useState(initialPageSEO[0]);
   const [isRunningAnalysis, setIsRunningAnalysis] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [isGeneratingSitemap, setIsGeneratingSitemap] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Load saved SEO settings on initial render
+  useEffect(() => {
+    const loadSavedSettings = async () => {
+      try {
+        setIsLoading(true);
+        const savedData = await loadSEOSettings();
+        
+        if (savedData) {
+          setGeneralSEO(savedData.generalSettings);
+          setPages(savedData.pageSettings);
+          setSelectedPage(savedData.pageSettings[0]);
+          toast.success('SEO settings loaded');
+        }
+      } catch (error) {
+        console.error('Error loading settings:', error);
+        toast.error('Failed to load SEO settings');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    loadSavedSettings();
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
@@ -34,25 +60,50 @@ const AdminSEO = () => {
     });
   };
 
-  const handleSaveGeneral = () => {
+  const handleSaveGeneral = async () => {
     setIsSaving(true);
     
-    setTimeout(() => {
+    try {
+      const success = await saveSEOSettings(generalSEO, pages);
+      
+      if (success) {
+        toast.success('SEO settings saved successfully');
+      } else {
+        toast.error('Failed to save SEO settings');
+      }
+    } catch (error) {
+      console.error('Error saving settings:', error);
+      toast.error('An error occurred while saving');
+    } finally {
       setIsSaving(false);
-      toast.success('SEO settings saved successfully');
-    }, 1000);
+    }
   };
 
-  const handleUpdatePage = () => {
+  const handleUpdatePage = async () => {
     setIsSaving(true);
     
-    setTimeout(() => {
-      setPages(pages.map(page => 
+    try {
+      // Update the page in the pages array
+      const updatedPages = pages.map(page => 
         page.id === selectedPage.id ? selectedPage : page
-      ));
+      );
+      
+      setPages(updatedPages);
+      
+      // Save all settings
+      const success = await saveSEOSettings(generalSEO, updatedPages);
+      
+      if (success) {
+        toast.success('Page SEO updated successfully');
+      } else {
+        toast.error('Failed to update page SEO');
+      }
+    } catch (error) {
+      console.error('Error updating page:', error);
+      toast.error('An error occurred while updating');
+    } finally {
       setIsSaving(false);
-      toast.success('Page SEO updated successfully');
-    }, 1000);
+    }
   };
 
   const handleSelectPage = (pageId: string) => {
@@ -62,30 +113,87 @@ const AdminSEO = () => {
     }
   };
 
-  const runAnalysis = () => {
+  const runAnalysis = async () => {
     setIsRunningAnalysis(true);
     
-    setTimeout(() => {
-      setIsRunningAnalysis(false);
+    try {
+      // Analyze each page and update scores
+      const analyzedPages = await Promise.all(
+        pages.map(async (page) => ({
+          ...page,
+          score: await analyzePage(page)
+        }))
+      );
       
-      // Update scores with random improvements
-      setPages(pages.map(page => ({
-        ...page,
-        score: Math.min(100, page.score + Math.floor(Math.random() * 10))
-      })));
+      setPages(analyzedPages);
+      
+      // Update the selected page if its score changed
+      const updatedSelectedPage = analyzedPages.find(p => p.id === selectedPage.id);
+      if (updatedSelectedPage) {
+        setSelectedPage(updatedSelectedPage);
+      }
+      
+      // Save the updated pages
+      await saveSEOSettings(generalSEO, analyzedPages);
       
       toast.success('Keyword analysis completed successfully');
-    }, 2500);
+    } catch (error) {
+      console.error('Analysis error:', error);
+      toast.error('An error occurred during analysis');
+    } finally {
+      setIsRunningAnalysis(false);
+    }
   };
 
-  const generateSitemap = () => {
+  const generateSitemapFile = async () => {
     setIsGeneratingSitemap(true);
     
-    setTimeout(() => {
-      setIsGeneratingSitemap(false);
+    try {
+      const sitemapXml = await generateSitemap(pages);
+      
+      // Create a blob and download link
+      const blob = new Blob([sitemapXml], { type: 'application/xml' });
+      const url = URL.createObjectURL(blob);
+      
+      // Create download link
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'sitemap.xml';
+      document.body.appendChild(a);
+      a.click();
+      
+      // Clean up
+      setTimeout(() => {
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }, 100);
+      
+      // Update the sitemap URL in general settings
+      const newGeneralSEO = {
+        ...generalSEO,
+        sitemap: `${window.location.origin}/sitemap.xml`
+      };
+      
+      setGeneralSEO(newGeneralSEO);
+      await saveSEOSettings(newGeneralSEO, pages);
+      
       toast.success('Sitemap generated successfully');
-    }, 2000);
+    } catch (error) {
+      console.error('Sitemap generation error:', error);
+      toast.error('Failed to generate sitemap');
+    } finally {
+      setIsGeneratingSitemap(false);
+    }
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center p-12">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+        <span className="ml-3">Loading SEO settings...</span>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -126,7 +234,7 @@ const AdminSEO = () => {
         <TabsContent value="tools">
           <SEOTools 
             runAnalysis={runAnalysis}
-            generateSitemap={generateSitemap}
+            generateSitemap={generateSitemapFile}
             isRunningAnalysis={isRunningAnalysis}
             isGeneratingSitemap={isGeneratingSitemap}
           />

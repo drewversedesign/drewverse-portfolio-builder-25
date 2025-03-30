@@ -1,4 +1,3 @@
-
 export interface SEOSetting {
   title: string;
   metaDescription: string;
@@ -29,3 +28,10 @@ export const getScoreText = (score: number) => {
   if (score >= 50) return 'Needs Improvement';
   return 'Poor';
 };
+
+// New interfaces for SEO data storage
+export interface SEOStorageData {
+  generalSettings: SEOSetting;
+  pageSettings: PageSEO[];
+  lastUpdated: string;
+}
