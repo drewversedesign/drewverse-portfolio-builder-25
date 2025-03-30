@@ -3,16 +3,26 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../../ui/card';
 import { Button } from '../../ui/button';
 import { Progress } from '../../ui/progress';
-import { AlertTriangle, CheckCircle, XCircle, Download, RefreshCw } from 'lucide-react';
+import { AlertTriangle, CheckCircle, XCircle, Download, RefreshCw, BarChart } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { PageSEO } from './types';
+import { 
+  Dialog, 
+  DialogContent, 
+  DialogHeader, 
+  DialogTitle, 
+  DialogDescription,
+  DialogFooter,
+  DialogTrigger 
+} from '../../ui/dialog';
 
 const SEOReports = () => {
   const [overallScore, setOverallScore] = useState(0);
   const [pagesIndexed, setPagesIndexed] = useState(0);
   const [mobileScore, setMobileScore] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [showDetailedReport, setShowDetailedReport] = useState(false);
   const [pageIssues, setPageIssues] = useState<{
     missingMeta: number;
     slowPages: number;
@@ -273,13 +283,98 @@ const SEOReports = () => {
           </div>
           
           <div className="flex flex-col md:flex-row gap-4">
-            <Button className="md:w-auto" onClick={generateReport}>
-              <Download className="mr-2 h-4 w-4" />
-              Generate Full Report
-            </Button>
-            <Button variant="outline" className="md:w-auto">
-              Schedule Weekly Reports
-            </Button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button className="md:w-auto">
+                  <Download className="mr-2 h-4 w-4" />
+                  Generate Full Report
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>SEO Report</DialogTitle>
+                  <DialogDescription>
+                    Your SEO report is ready for download.
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="py-4">
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="border p-3 rounded-md">
+                        <h3 className="text-sm font-medium text-gray-500">Overall Score</h3>
+                        <p className="text-2xl font-bold">{overallScore}%</p>
+                      </div>
+                      <div className="border p-3 rounded-md">
+                        <h3 className="text-sm font-medium text-gray-500">Mobile Score</h3>
+                        <p className="text-2xl font-bold">{mobileScore}%</p>
+                      </div>
+                    </div>
+                    
+                    <div className="border p-3 rounded-md">
+                      <h3 className="text-sm font-medium text-gray-500">Issues Found</h3>
+                      <ul className="mt-2 space-y-1 text-sm">
+                        {pageIssues.missingMeta > 0 && (
+                          <li className="flex items-center">
+                            <AlertTriangle className="h-3 w-3 text-amber-500 mr-2" />
+                            {pageIssues.missingMeta} missing meta descriptions
+                          </li>
+                        )}
+                        {pageIssues.slowPages > 0 && (
+                          <li className="flex items-center">
+                            <AlertTriangle className="h-3 w-3 text-amber-500 mr-2" />
+                            {pageIssues.slowPages} slow loading pages
+                          </li>
+                        )}
+                        {pageIssues.brokenLinks > 0 && (
+                          <li className="flex items-center">
+                            <XCircle className="h-3 w-3 text-red-500 mr-2" />
+                            {pageIssues.brokenLinks} broken links
+                          </li>
+                        )}
+                        {pageIssues.missingMeta === 0 && pageIssues.slowPages === 0 && pageIssues.brokenLinks === 0 && (
+                          <li className="flex items-center">
+                            <CheckCircle className="h-3 w-3 text-green-500 mr-2" />
+                            No issues detected
+                          </li>
+                        )}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <DialogFooter>
+                  <Button onClick={generateReport}>
+                    <Download className="mr-2 h-4 w-4" />
+                    Download Report
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+            
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="outline" className="md:w-auto">
+                  <BarChart className="mr-2 h-4 w-4" />
+                  Schedule Weekly Reports
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Schedule SEO Reports</DialogTitle>
+                  <DialogDescription>
+                    Setup automated SEO reports that will be sent to your email.
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="py-4">
+                  <p className="mb-4 text-sm text-gray-500">
+                    This feature will be available in the next update. 
+                    Stay tuned for automated SEO reporting capabilities.
+                  </p>
+                </div>
+                <DialogFooter>
+                  <Button variant="outline">Close</Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </CardContent>
