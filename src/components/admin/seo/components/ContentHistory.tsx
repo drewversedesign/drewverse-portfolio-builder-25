@@ -4,8 +4,9 @@ import { Button } from '../../../ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../ui/tabs';
 import { Download, Copy, FileText } from 'lucide-react';
 import { toast } from 'sonner';
-import { getContentHistory } from '../utils/aiContentService';
+import { getContentHistory, AIGeneratedContent } from '../utils/aiContentService';
 
+// Define a type that matches the expected structure of our content items
 interface ContentItem {
   id: string;
   title: string;
@@ -28,8 +29,8 @@ const ContentHistory = () => {
     try {
       setIsLoading(true);
       const data = await getContentHistory(type);
-      // Use type assertion to ensure the data matches ContentItem[]
-      setContents(data as unknown as ContentItem[]);
+      // The getContentHistory function now returns AIGeneratedContent[], which we can safely cast to ContentItem[]
+      setContents(data as ContentItem[]);
     } catch (error) {
       console.error('Error loading content history:', error);
     } finally {

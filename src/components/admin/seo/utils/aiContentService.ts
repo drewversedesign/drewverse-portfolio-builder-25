@@ -77,8 +77,9 @@ export const getContentHistory = async (type?: string): Promise<AIGeneratedConte
     const { data, error } = await query;
     
     if (error) throw error;
-    // Use type assertion to ensure the correct return type
-    return (data || []) as AIGeneratedContent[];
+    
+    // First convert to unknown, then to our expected type to avoid TypeScript errors
+    return ((data || []) as unknown) as AIGeneratedContent[];
   } catch (error) {
     console.error('Error fetching content history:', error);
     toast.error('Failed to load content history');
