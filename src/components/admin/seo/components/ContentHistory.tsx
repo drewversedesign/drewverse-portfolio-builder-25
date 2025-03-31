@@ -28,7 +28,8 @@ const ContentHistory = () => {
     try {
       setIsLoading(true);
       const data = await getContentHistory(type);
-      setContents(data);
+      // Use type assertion to ensure the data matches ContentItem[]
+      setContents(data as unknown as ContentItem[]);
     } catch (error) {
       console.error('Error loading content history:', error);
     } finally {

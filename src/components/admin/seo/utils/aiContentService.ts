@@ -3,7 +3,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 
 // Define the AI content type to handle type safety
-interface AIGeneratedContent {
+export interface AIGeneratedContent {
   id?: string;
   title: string;
   content: string;
@@ -45,7 +45,7 @@ export const callAiFunction = async (params: {
 };
 
 // Save content to Supabase
-export const saveContent = async (title: string, content: string, type: string) => {
+export const saveContent = async (title: string, content: string, type: string): Promise<boolean> => {
   try {
     // Use type assertion to bypass the TypeScript error
     const { error } = await (supabase
@@ -62,7 +62,7 @@ export const saveContent = async (title: string, content: string, type: string) 
 };
 
 // Get saved content from Supabase
-export const getContentHistory = async (type?: string) => {
+export const getContentHistory = async (type?: string): Promise<AIGeneratedContent[]> => {
   try {
     // Use type assertion to bypass the TypeScript error
     let query = supabase
@@ -77,7 +77,8 @@ export const getContentHistory = async (type?: string) => {
     const { data, error } = await query;
     
     if (error) throw error;
-    return data || [];
+    // Use type assertion to ensure the correct return type
+    return (data || []) as AIGeneratedContent[];
   } catch (error) {
     console.error('Error fetching content history:', error);
     toast.error('Failed to load content history');
