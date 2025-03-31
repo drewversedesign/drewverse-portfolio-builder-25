@@ -2,7 +2,7 @@
 import * as React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { DayPicker } from "react-day-picker";
-import { format as formatDate, Locale } from "date-fns";
+import { format as formatDate, type Locale } from "date-fns";
 
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
@@ -15,7 +15,7 @@ function Calendar({
   showOutsideDays = true,
   ...props
 }: CalendarProps) {
-  // Custom formatter to ensure compatibility with date-fns v4
+  // Custom formatter to ensure compatibility with date-fns
   const formatCaption = (date: Date, options: { locale?: Locale }) => {
     return formatDate(date, 'LLLL yyyy', { locale: options.locale });
   };
@@ -23,7 +23,7 @@ function Calendar({
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
-      className={cn("p-3", className)}
+      className={cn("p-3 pointer-events-auto", className)}
       classNames={{
         months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
         month: "space-y-4",

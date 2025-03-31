@@ -19,11 +19,29 @@ export default defineConfig(({ mode }) => ({
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
-    // Add dedupe to prevent duplicate packages
-    dedupe: ['react', 'react-dom', 'date-fns']
+    // Enhanced dedupe configuration to prevent duplicate packages
+    dedupe: ['react', 'react-dom', 'date-fns', 'react-day-picker']
   },
-  // Add optimizeDeps to ensure proper dependency resolution
+  // Improved optimizeDeps configuration
   optimizeDeps: {
-    include: ['react-day-picker', 'date-fns']
+    include: ['react-day-picker', 'date-fns'],
+    esbuildOptions: {
+      // Force a specific resolution for problematic packages
+      define: {
+        global: 'globalThis',
+      },
+    }
+  },
+  // Add build options to handle dependency conflicts
+  build: {
+    rollupOptions: {
+      onwarn(warning, warn) {
+        // Suppress circular dependency warnings from date-fns
+        if (warning.code === 'CIRCULAR_DEPENDENCY' && warning.message.includes('date-fns')) {
+          return;
+        }
+        warn(warning);
+      }
+    }
   }
 }));
