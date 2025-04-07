@@ -15,7 +15,7 @@ function Calendar({
   showOutsideDays = true,
   ...props
 }: CalendarProps) {
-  // Custom formatter to ensure compatibility with date-fns
+  // Ensure compatibility with date-fns v3/v4
   const formatCaption = (date: Date, options: { locale?: Locale }) => {
     return formatDate(date, 'LLLL yyyy', { locale: options.locale });
   };
@@ -59,8 +59,8 @@ function Calendar({
         ...classNames,
       }}
       components={{
-        IconLeft: ({ ..._props }) => <ChevronLeft className="h-4 w-4" />,
-        IconRight: ({ ..._props }) => <ChevronRight className="h-4 w-4" />,
+        IconLeft: ({ ...props }) => <ChevronLeft className="h-4 w-4" />,
+        IconRight: ({ ...props }) => <ChevronRight className="h-4 w-4" />,
       }}
       formatters={{ formatCaption }}
       {...props}

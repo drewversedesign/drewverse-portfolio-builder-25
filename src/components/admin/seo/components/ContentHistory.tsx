@@ -59,7 +59,12 @@ const ContentHistory = () => {
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleString();
+    try {
+      return new Date(dateString).toLocaleString();
+    } catch (error) {
+      console.error('Date formatting error:', error);
+      return dateString || 'N/A';
+    }
   };
 
   const getContentTypeLabel = (type: string) => {
