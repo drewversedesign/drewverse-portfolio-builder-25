@@ -76,6 +76,7 @@ const Index = () => {
         keywords="website design Kampala, branding agency Uganda, custom website development Uganda, affordable website design in Kampala, best branding services in Uganda 2025, DrewVerse Design, Drew Verse Design"
         ogUrl="https://drewversedesign.online/"
         canonicalUrl="https://drewversedesign.online/"
+        ogImage="/lovable-uploads/7ffe5de1-8359-47de-94b6-f05851a6e354.png"
         structuredData={homePageSchema}
         metadata={customMetadata}
         localBusiness={true}

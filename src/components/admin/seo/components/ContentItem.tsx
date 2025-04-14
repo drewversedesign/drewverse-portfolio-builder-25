@@ -48,3 +48,5 @@ export const ContentItem: React.FC<ContentItemProps> = ({
     </div>
   );
 };
+
+export default ContentItem;

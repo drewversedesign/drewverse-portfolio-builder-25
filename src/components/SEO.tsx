@@ -31,7 +31,7 @@ const SEO: React.FC<SEOProps> = ({
   keywords = 'web development, web design, UI/UX, branding, digital marketing, DrewVerse Design, Uganda website design, Kampala web development',
   canonical = 'https://drewversedesign.online',
   canonicalUrl,
-  ogImage = '/og-image.png',
+  ogImage = '/lovable-uploads/7ffe5de1-8359-47de-94b6-f05851a6e354.png',
   ogType = 'website',
   ogUrl,
   twitterHandle = '@drewverse',

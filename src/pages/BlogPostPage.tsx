@@ -72,7 +72,7 @@ const BlogPostPage = () => {
         description={post.excerpt}
         keywords={`${post.category}, ${post.tags?.join(', ') || ''}, blog, article, drewverse design, drew verse design, uganda web design`}
         ogType="article"
-        ogImage={post.image}
+        ogImage={post.image || "/lovable-uploads/7ffe5de1-8359-47de-94b6-f05851a6e354.png"}
         ogUrl={`https://drewversedesign.online/blog/${post.slug}`}
         structuredData={postSchema}
         metadata={blogMetadata}
