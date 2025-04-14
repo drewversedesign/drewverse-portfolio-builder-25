@@ -24,7 +24,7 @@ export const ContentItem: React.FC<ContentItemProps> = ({
   formatDate
 }) => {
   const handleClick = () => {
-    onView({ id, title, content, type, created_at });
+    onView({ id, title, content, type, created_at, onView, getContentTypeLabel, formatDate });
   };
   
   return (
