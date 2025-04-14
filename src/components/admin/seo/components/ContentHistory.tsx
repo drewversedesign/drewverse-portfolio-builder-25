@@ -15,7 +15,7 @@ interface ContentItem {
   created_at: string;
 }
 
-const ContentHistory = () => {
+export const ContentHistory = () => {
   const [contents, setContents] = useState<ContentItem[]>([]);
   const [selectedContent, setSelectedContent] = useState<ContentItem | null>(null);
   const [isLoading, setIsLoading] = useState(false);
