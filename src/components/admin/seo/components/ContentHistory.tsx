@@ -76,6 +76,39 @@ const ContentHistory = () => {
     }
   };
 
+  // Export functionality for user data
+  const exportAllContent = () => {
+    try {
+      // Create a data blob with all content
+      const contentData = contents.map(item => ({
+        id: item.id,
+        title: item.title,
+        type: item.type,
+        created_at: formatDate(item.created_at),
+        content: item.content
+      }));
+      
+      const dataStr = JSON.stringify(contentData, null, 2);
+      const dataBlob = new Blob([dataStr], { type: 'application/json' });
+      
+      // Create download link
+      const url = URL.createObjectURL(dataBlob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'content-export.json';
+      
+      // Trigger download
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      toast.success('All content exported successfully');
+    } catch (error) {
+      console.error('Error exporting content:', error);
+      toast.error('Failed to export content');
+    }
+  };
+
   if (selectedContent) {
     return (
       <div className="space-y-4">
@@ -112,14 +145,23 @@ const ContentHistory = () => {
 
   return (
     <div className="space-y-4">
-      <Tabs defaultValue="all" value={activeTab} onValueChange={setActiveTab}>
-        <TabsList>
-          <TabsTrigger value="all">All</TabsTrigger>
-          <TabsTrigger value="content">Content</TabsTrigger>
-          <TabsTrigger value="summary">Summaries</TabsTrigger>
-          <TabsTrigger value="keywords">Keywords</TabsTrigger>
-        </TabsList>
-      </Tabs>
+      <div className="flex justify-between items-center">
+        <Tabs defaultValue="all" value={activeTab} onValueChange={setActiveTab}>
+          <TabsList>
+            <TabsTrigger value="all">All</TabsTrigger>
+            <TabsTrigger value="content">Content</TabsTrigger>
+            <TabsTrigger value="summary">Summaries</TabsTrigger>
+            <TabsTrigger value="keywords">Keywords</TabsTrigger>
+          </TabsList>
+        </Tabs>
+        
+        {contents.length > 0 && (
+          <Button variant="outline" size="sm" onClick={exportAllContent}>
+            <Download className="h-4 w-4 mr-2" />
+            Export All
+          </Button>
+        )}
+      </div>
 
       {isLoading ? (
         <div className="flex justify-center py-8">

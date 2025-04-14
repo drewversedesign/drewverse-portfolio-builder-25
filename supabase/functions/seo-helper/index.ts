@@ -1,6 +1,7 @@
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
+// Get the API key from environment variable
 const AI_API_KEY = Deno.env.get("AI_API_KEY");
 
 const corsHeaders = {
@@ -21,6 +22,13 @@ serve(async (req) => {
       return new Response(
         JSON.stringify({ error: "Missing required parameters" }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    if (!AI_API_KEY) {
+      return new Response(
+        JSON.stringify({ error: "AI API key not configured" }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 

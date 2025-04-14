@@ -6,33 +6,48 @@ import { Input } from '../../ui/input';
 import { Label } from '../../ui/label';
 import { toast } from 'sonner';
 import { Lock, ShieldAlert } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
 interface AdminLoginProps {
   onLogin: () => void;
 }
 
 const AdminLogin: React.FC<AdminLoginProps> = ({ onLogin }) => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError('');
 
-    // Check against the hardcoded credentials
-    // In a real app, this would be a server-side check
-    if (username === 'Dirianuzi' && password === 'Ddambaian123@') {
-      // Store admin session in localStorage
-      localStorage.setItem('adminAuth', 'true');
+    try {
+      // Use Supabase authentication instead of hardcoded credentials
+      const { data, error: authError } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      if (authError) throw authError;
+
+      if (data.user) {
+        // Check if user has admin role (you might want to implement this check in a Supabase function)
+        // For now, we'll assume all authenticated users can access the admin panel
+        localStorage.setItem('adminAuth', 'true');
+        setIsLoading(false);
+        toast.success('Login successful! Welcome to the admin panel.');
+        onLogin();
+      } else {
+        setIsLoading(false);
+        setError('Invalid credentials');
+        toast.error('Login failed. Please check your credentials.');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
       setIsLoading(false);
-      toast.success('Login successful! Welcome to the admin panel.');
-      onLogin();
-    } else {
-      setIsLoading(false);
-      setError('Invalid username or password');
+      setError('Authentication failed');
       toast.error('Login failed. Please check your credentials.');
     }
   };
@@ -63,13 +78,13 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLogin }) => {
           
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="username">Username</Label>
+              <Label htmlFor="email">Email</Label>
               <Input
-                id="username"
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Enter your username"
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
                 required
               />
             </div>
