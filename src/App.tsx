@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
@@ -17,6 +16,7 @@ import SitemapPage from './pages/SitemapPage';
 import NotFound from './pages/NotFound';
 import ServiceDetailPage from './pages/ServiceDetailPage';
 import AdminPage from './pages/AdminPage';
+import CookieConsent from './components/CookieConsent';
 
 const App = () => {
   const location = useLocation();
@@ -43,6 +43,7 @@ const App = () => {
         <Route path="/admin" element={<AdminPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <CookieConsent />
     </AnimatePresence>
   );
 };
