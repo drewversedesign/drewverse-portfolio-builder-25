@@ -1,8 +1,5 @@
-
 import { BlogPostProps } from "../types";
-import { placeholderImages } from "../../imageUtils";
 
-// Design-related blog posts
 export const designPosts: BlogPostProps[] = [
   {
     id: 1,
@@ -203,4 +200,73 @@ export const designPosts: BlogPostProps[] = [
     featured: false,
     trending: true,
   },
+  {
+    id: 100,
+    title: "What is SEO Blogging? A Complete Guide for 2025",
+    slug: "seo-blogging-complete-guide-2025",
+    author: "DrewVerse Design Team",
+    date: "2025-04-15",
+    category: "Design",
+    tags: ["SEO", "Blogging", "Content Strategy", "Digital Marketing"],
+    excerpt: "Discover how SEO blogging boosts visibility, attracts traffic, and positions your brand for success online.",
+    image: "/lovable-uploads/7ffe5de1-8359-47de-94b6-f05851a6e354.png",
+    content: `
+<h1>What is SEO Blogging? A Complete Guide for 2025</h1>
+
+<p>SEO blogging is more than writing blog posts—it's about creating content that ranks high in search engine results, attracts your ideal audience, and delivers value that keeps readers coming back. At DrewVerse Design, we specialize in content that not only looks great but also performs exceptionally in search rankings.</p>
+
+<h2>What is SEO?</h2>
+
+<p>SEO (Search Engine Optimization) is the practice of improving your website so that it appears in search results when users look for topics relevant to your business. SEO blogging is one of the most powerful tools in this arsenal.</p>
+
+<h3>Types of SEO:</h3>
+
+<ul>
+  <li><strong>On-Page SEO:</strong> Keywords, meta descriptions, headings, and internal linking.</li>
+  <li><strong>Off-Page SEO:</strong> Backlinks from other authoritative websites.</li>
+  <li><strong>Technical SEO:</strong> Site speed, mobile-friendliness, and proper indexing.</li>
+</ul>
+
+<h2>How SEO Blogging Works:</h2>
+
+<ol>
+  <li><strong>Keyword Research:</strong> We use tools to identify terms your audience is searching for.</li>
+  <li><strong>Content Creation:</strong> Each post is structured with clear headings, relevant keywords, and internal links.</li>
+  <li><strong>Optimization:</strong> Using plugins like Yoast SEO, we fine-tune every post.</li>
+  <li><strong>Promotion:</strong> Content is shared across channels and linked internally.</li>
+</ol>
+
+<h2>Benefits for Your Brand:</h2>
+
+<ul>
+  <li>More website traffic</li>
+  <li>Higher ranking in search results</li>
+  <li>Authority in your niche</li>
+  <li>Better conversion rates</li>
+</ul>
+
+<h2>Tools We Use:</h2>
+
+<ul>
+  <li>Yoast SEO Plugin</li>
+  <li>Google Analytics</li>
+  <li>Social Listening Platforms</li>
+  <li>Market Research Tools</li>
+</ul>
+
+<h2>Integrations That Help:</h2>
+
+<ul>
+  <li>CMS Integration (WordPress)</li>
+  <li>Responsive Design for mobile</li>
+  <li>Web Development tools like HTML5/CSS3, React, and TailwindCSS</li>
+</ul>
+
+<blockquote>"We create beautiful, functional design to elevate your brand and engage your audience." — DrewVerse Design Team</blockquote>
+
+<h2>Ready to Start Blogging?</h2>
+
+<p>Check out our SEO Services or Contact Us to get your content strategy rolling.</p>
+    `
+  }
 ];
