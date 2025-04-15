@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
 import { projectsData } from '../data/portfolioData';
 import { ProjectProps } from '../components/portfolio/cards/ProjectCard';
+import { generateProjectSEO, projectSEOMetadata } from '../utils/portfolio/seoMetadata';
 import { toast } from 'sonner';
 
 // Import our refactored components
@@ -98,6 +100,27 @@ const PortfolioDetail = () => {
 
   return (
     <div className="min-h-screen bg-drew-black text-white">
+      {project && (
+        <SEO 
+          {...generateProjectSEO(project)}
+          ogType="article"
+          ogImage={project.image}
+          structuredData={{
+            "@context": "https://schema.org",
+            "@type": "CreativeWork",
+            "name": project.title,
+            "description": project.description,
+            "image": project.image,
+            "author": {
+              "@type": "Organization",
+              "name": "DrewVerse Design"
+            },
+            "category": project.category,
+            "datePublished": project.completionDate
+          }}
+        />
+      )}
+      
       <Navbar />
       
       <main className="pt-32 pb-24">

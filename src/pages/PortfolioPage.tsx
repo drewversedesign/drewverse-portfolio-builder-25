@@ -8,7 +8,9 @@ import PortfolioCTA from '../components/portfolio/PortfolioCTA';
 import CategoryGrid from '../components/portfolio/CategoryGrid';
 import PortfolioSearch from '../components/portfolio/search/PortfolioSearch';
 import PortfolioGrid from '../components/portfolio/PortfolioGrid';
+import SEO from '../components/SEO';
 import { projectsData, portfolioCategories } from '../data/portfolioData';
+import { projectSEOMetadata } from '../utils/portfolio/seoMetadata';
 
 const PortfolioPage = () => {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -106,6 +108,14 @@ const PortfolioPage = () => {
 
   return (
     <div className="min-h-screen bg-drew-black text-white">
+      <SEO 
+        title={projectSEOMetadata.portfolio.title}
+        description={projectSEOMetadata.portfolio.description}
+        keywords={projectSEOMetadata.portfolio.keywords}
+        ogType="website"
+        ogImage="/lovable-uploads/7ffe5de1-8359-47de-94b6-f05851a6e354.png"
+      />
+      
       <Navbar />
       
       <main className="pt-32 pb-24">
