@@ -1,4 +1,5 @@
 import { BlogPostProps } from "../types";
+import { placeholderImages } from "../../imageUtils";
 
 export const designPosts: BlogPostProps[] = [
   {
