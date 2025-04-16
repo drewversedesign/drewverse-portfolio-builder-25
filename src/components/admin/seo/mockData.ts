@@ -17,6 +17,7 @@ export const initialPageSEO: PageSEO[] = [
     metaTitle: 'Drew Creative Agency | Digital Design Excellence',
     metaDescription: 'Award-winning creative agency specializing in web design, branding, and digital marketing solutions for businesses of all sizes.',
     metaKeywords: 'home, drew creative, design agency, web design',
+    focusKeyword: 'digital design agency',
     score: 92
   },
   {
@@ -26,6 +27,7 @@ export const initialPageSEO: PageSEO[] = [
     metaTitle: 'About Drew Creative Agency | Our Story & Mission',
     metaDescription: 'Learn about our journey, mission and the team behind Drew Creative Agency. Discover how we help brands achieve digital excellence.',
     metaKeywords: 'about us, drew creative team, agency mission, creative professionals',
+    focusKeyword: 'creative agency mission',
     score: 85
   },
   {
@@ -35,6 +37,7 @@ export const initialPageSEO: PageSEO[] = [
     metaTitle: 'Professional Design Services | Drew Creative Agency',
     metaDescription: 'Explore our comprehensive range of design services including web design, branding, UI/UX design, and digital marketing.',
     metaKeywords: 'services, web design, branding, digital marketing, UI/UX design',
+    focusKeyword: 'professional design services',
     score: 78
   },
   {
@@ -44,6 +47,7 @@ export const initialPageSEO: PageSEO[] = [
     metaTitle: 'Our Work | Drew Creative Agency Portfolio',
     metaDescription: 'Browse our portfolio of successful projects across various industries. See how we have helped businesses transform their digital presence.',
     metaKeywords: 'portfolio, creative work, design examples, case studies, projects',
+    focusKeyword: 'creative agency portfolio',
     score: 90
   },
   {
@@ -53,6 +57,7 @@ export const initialPageSEO: PageSEO[] = [
     metaTitle: 'Contact Drew Creative Agency | Get In Touch',
     metaDescription: 'Ready to start your project? Contact our team for a free consultation and quote on your next digital venture.',
     metaKeywords: 'contact, get in touch, project quote, consultation',
+    focusKeyword: 'contact creative agency',
     score: 88
   },
   {
@@ -62,6 +67,8 @@ export const initialPageSEO: PageSEO[] = [
     metaTitle: 'Design Insights & Tips | Drew Creative Blog',
     metaDescription: 'Get the latest insights, tips and trends in web design, branding and digital marketing from our expert team.',
     metaKeywords: 'blog, design tips, web design trends, creative insights',
+    focusKeyword: 'design insights and tips',
     score: 75
   }
 ];
+
