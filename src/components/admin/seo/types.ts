@@ -13,6 +13,7 @@ export interface PageSEO {
   metaTitle: string;
   metaDescription: string;
   metaKeywords: string;
+  focusKeyword: string;
   score: number;
 }
 
