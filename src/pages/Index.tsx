@@ -1,6 +1,8 @@
-
 import { useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import SEOOptimizer from '@/components/seo/SEOOptimizer';
+import { seoConfig } from '@/utils/seo/config';
+import SEOImage from '@/components/common/SEOImage';
 
 // Components
 import Navbar from '../components/Navbar';
@@ -70,17 +72,11 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-drew-black text-white">
-      <SEO 
-        title="DrewVerse Design - Premium Digital Agency in Uganda"
-        description="Top-rated website design in Kampala & branding agency in Uganda. We create stunning websites, mobile apps, and custom website development solutions throughout Uganda. Affordable web design in Kampala."
-        keywords="website design Kampala, branding agency Uganda, custom website development Uganda, affordable website design in Kampala, best branding services in Uganda 2025, DrewVerse Design, Drew Verse Design"
-        ogUrl="https://drewversedesign.online/"
-        canonicalUrl="https://drewversedesign.online/"
-        ogImage="/lovable-uploads/7ffe5de1-8359-47de-94b6-f05851a6e354.png"
-        structuredData={homePageSchema}
-        metadata={customMetadata}
-        localBusiness={true}
+      <SEOOptimizer
+        {...seoConfig.home}
+        path="/"
       />
+      
       <Navbar />
       
       <main>
