@@ -6,30 +6,30 @@ export const mainPagesSEO: PageSEO[] = [
     id: 'home',
     title: 'Home',
     path: '/',
-    metaTitle: 'Drew Creative Agency | Digital Design Excellence',
-    metaDescription: 'Award-winning creative agency specializing in web design, branding, and digital marketing solutions for businesses of all sizes.',
-    metaKeywords: 'home, drew creative, design agency, web design',
-    focusKeyword: 'digital design agency',
+    metaTitle: 'DrewVerse Design | Premier Web Design Agency in Uganda',
+    metaDescription: 'Leading web design and development agency in Kampala, Uganda. Custom websites, branding, and digital solutions that transform businesses. Starting from 400k UGX.',
+    metaKeywords: 'web design uganda, website development kampala, digital agency uganda, drewverse design, web development company uganda',
+    focusKeyword: 'web design uganda',
     score: 92
   },
   {
     id: 'about',
     title: 'About Us',
     path: '/about',
-    metaTitle: 'About Drew Creative Agency | Our Story & Mission',
-    metaDescription: 'Learn about our journey, mission and the team behind Drew Creative Agency. Discover how we help brands achieve digital excellence.',
-    metaKeywords: 'about us, drew creative team, agency mission, creative professionals',
-    focusKeyword: 'creative agency mission',
+    metaTitle: 'About DrewVerse Design | Top Web Design Agency in Kampala',
+    metaDescription: 'Founded in 2023, DrewVerse Design is a creative web design studio in Uganda delivering innovative digital solutions. Meet our team of expert designers and developers.',
+    metaKeywords: 'web design company uganda, kampala web designers, about drewverse design, ugandan tech company',
+    focusKeyword: 'web design company uganda',
     score: 85
   },
   {
     id: 'services',
     title: 'Services',
     path: '/services',
-    metaTitle: 'Professional Design Services | Drew Creative Agency',
-    metaDescription: 'Explore our comprehensive range of design services including web design, branding, UI/UX design, and digital marketing.',
-    metaKeywords: 'services, web design, branding, digital marketing, UI/UX design',
-    focusKeyword: 'professional design services',
+    metaTitle: 'Web Design & Development Services in Uganda | DrewVerse Design',
+    metaDescription: 'Professional website design, e-commerce development, and digital branding services in Uganda. Custom web solutions starting from 400k UGX. Get a free quote today!',
+    metaKeywords: 'web design services uganda, website development kampala, ecommerce website uganda, professional web services',
+    focusKeyword: 'web design services uganda',
     score: 78
   }
 ];

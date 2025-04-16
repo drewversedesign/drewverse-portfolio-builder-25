@@ -30,4 +30,3 @@ Crawl-delay: 1
 
 # Location of sitemap file
 Sitemap: https://drewversedesign.online/sitemap.xml
-

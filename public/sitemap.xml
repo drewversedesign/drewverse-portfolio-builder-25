@@ -22,6 +22,7 @@
     </image:image>
     <xhtml:link rel="alternate" hreflang="en" href="https://drewversedesign.online/"/>
   </url>
+  
   <url>
     <loc>https://drewversedesign.online/about</loc>
     <lastmod>2025-03-14</lastmod>
@@ -29,6 +30,7 @@
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://drewversedesign.online/about"/>
   </url>
+  
   <url>
     <loc>https://drewversedesign.online/services</loc>
     <lastmod>2025-03-14</lastmod>
@@ -36,6 +38,7 @@
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://drewversedesign.online/services"/>
   </url>
+  
   <url>
     <loc>https://drewversedesign.online/portfolio</loc>
     <lastmod>2025-03-14</lastmod>
@@ -43,6 +46,7 @@
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://drewversedesign.online/portfolio"/>
   </url>
+  
   <url>
     <loc>https://drewversedesign.online/blog</loc>
     <lastmod>2025-03-14</lastmod>
@@ -50,6 +54,7 @@
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://drewversedesign.online/blog"/>
   </url>
+  
   <url>
     <loc>https://drewversedesign.online/contact</loc>
     <lastmod>2025-03-14</lastmod>
@@ -57,20 +62,7 @@
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://drewversedesign.online/contact"/>
   </url>
-  <url>
-    <loc>https://drewversedesign.online/faq</loc>
-    <lastmod>2025-03-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://drewversedesign.online/faq"/>
-  </url>
-  <url>
-    <loc>https://drewversedesign.online/sitemap</loc>
-    <lastmod>2025-03-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://drewversedesign.online/sitemap"/>
-  </url>
+  
   <!-- Services pages -->
   <url>
     <loc>https://drewversedesign.online/services/website-design</loc>
@@ -79,6 +71,7 @@
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://drewversedesign.online/services/website-design"/>
   </url>
+  
   <url>
     <loc>https://drewversedesign.online/services/mobile-app-development</loc>
     <lastmod>2025-03-14</lastmod>
@@ -86,6 +79,7 @@
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://drewversedesign.online/services/mobile-app-development"/>
   </url>
+  
   <url>
     <loc>https://drewversedesign.online/services/ui-ux-design</loc>
     <lastmod>2025-03-14</lastmod>
@@ -93,6 +87,7 @@
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://drewversedesign.online/services/ui-ux-design"/>
   </url>
+  
   <url>
     <loc>https://drewversedesign.online/services/brand-identity</loc>
     <lastmod>2025-03-14</lastmod>
@@ -100,6 +95,7 @@
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://drewversedesign.online/services/brand-identity"/>
   </url>
+  
   <url>
     <loc>https://drewversedesign.online/services/seo-services</loc>
     <lastmod>2025-03-14</lastmod>
