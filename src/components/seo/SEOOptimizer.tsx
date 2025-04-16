@@ -16,7 +16,6 @@ const SEOOptimizer: React.FC<SEOOptimizerProps> = ({
   canonicalUrl,
   ogImage,
   ogType = 'website',
-  authorityLinks,
   path,
   children
 }) => {
@@ -66,28 +65,6 @@ const SEOOptimizer: React.FC<SEOOptimizerProps> = ({
           {JSON.stringify(structuredData)}
         </script>
       </Helmet>
-
-      {/* Authority Links Section */}
-      {authorityLinks && authorityLinks.length > 0 && (
-        <div className="authority-links mt-8 text-sm text-gray-600">
-          <h2 className="text-lg font-semibold mb-4">Additional Resources</h2>
-          <ul className="space-y-2">
-            {authorityLinks.map((link, index) => (
-              <li key={index}>
-                <a
-                  href={link.url}
-                  title={link.title}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-drew-purple hover:underline"
-                >
-                  {link.text}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
 
       {children}
     </>

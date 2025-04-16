@@ -1,4 +1,3 @@
-
 import { PageSEOConfig } from './types';
 
 export const seoConfig: PageSEOConfig = {
@@ -8,13 +7,7 @@ export const seoConfig: PageSEOConfig = {
     keywords: ["web design Uganda", "website development Kampala", "digital agency Uganda", "DrewVerse Design", "professional web services Kampala"],
     focusKeyword: "web design Uganda",
     ogImage: "/lovable-uploads/7ffe5de1-8359-47de-94b6-f05851a6e354.png",
-    authorityLinks: [
-      {
-        text: "Learn more about web design best practices",
-        url: "https://www.smashingmagazine.com/category/web-design",
-        title: "Web Design Resources - Smashing Magazine"
-      }
-    ]
+    // Removed authorityLinks entirely
   },
   about: {
     title: "About DrewVerse Design | Leading Web Design Agency in Kampala",
