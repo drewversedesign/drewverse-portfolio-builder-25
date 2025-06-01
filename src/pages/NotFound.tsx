@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { ArrowLeft, Home } from "lucide-react";
+import SEO from "../components/SEO";
 
 const NotFound = () => {
   const location = useLocation();
@@ -18,6 +19,7 @@ const NotFound = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-drew-black text-white">
+      <SEO title="404 Not Found | DrewVerse Design" description="The page you are looking for does not exist on DrewVerse Design. Return to the homepage or use the navigation menu." keywords="404, not found, DrewVerse Design, error page" ogType="website" ogImage="/lovable-uploads/7ffe5de1-8359-47de-94b6-f05851a6e354.png" />
       <Navbar />
       
       <div className="flex-grow flex items-center justify-center py-32">

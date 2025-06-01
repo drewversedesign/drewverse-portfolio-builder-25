@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import AdminDashboard from '../components/admin/AdminDashboard';
 import AdminLogin from '../components/admin/auth/AdminLogin';
+import SEO from '../components/SEO';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 
@@ -68,10 +69,7 @@ const AdminPage = () => {
   if (!isAuthenticated) {
     return (
       <>
-        <Helmet>
-          <title>Admin Login | Drew Creative Agency</title>
-          <meta name="robots" content="noindex, nofollow" />
-        </Helmet>
+        <SEO title="Admin Login | DrewVerse Design" description="Admin login page for DrewVerse Design. Restricted access." keywords="admin, login, DrewVerse Design" ogType="website" ogImage="/lovable-uploads/7ffe5de1-8359-47de-94b6-f05851a6e354.png" metadata={[{name: 'robots', content: 'noindex, nofollow'}]} />
         <AdminLogin onLogin={handleLogin} />
       </>
     );
@@ -80,12 +78,7 @@ const AdminPage = () => {
   // If authenticated, show admin dashboard
   return (
     <>
-      <Helmet>
-        <title>Admin Dashboard | Drew Creative Agency</title>
-        <meta name="description" content="Admin dashboard for Drew Creative Agency" />
-        <meta name="robots" content="noindex, nofollow" />
-      </Helmet>
-      
+      <SEO title="Admin Dashboard | DrewVerse Design" description="Admin dashboard for DrewVerse Design. Restricted access." keywords="admin, dashboard, DrewVerse Design" ogType="website" ogImage="/lovable-uploads/7ffe5de1-8359-47de-94b6-f05851a6e354.png" metadata={[{name: 'robots', content: 'noindex, nofollow'}]} />
       {!databaseConnected && (
         <div className="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 p-4 m-4">
           <div className="flex">
