@@ -1,69 +1,48 @@
-# Welcome to your Lovable project
+# DrewVerse Design Portfolio Website
 
-## Project info
+DrewVerse Design is a modern web design and development agency based in Uganda. This website showcases our services, portfolio, blog, and contact information, providing a seamless experience for potential clients and partners.
 
-**URL**: https://lovable.dev/projects/bffdfa7d-e790-41c5-832b-d04220d43ef4
+## Features
+- Responsive and modern UI/UX
+- Dynamic portfolio and blog sections
+- SEO-optimized with structured data and Open Graph support
+- Admin dashboard for content management
+- Contact and inquiry forms
+- Sitemap and robots.txt for search engines
+- Performance and accessibility best practices
 
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/bffdfa7d-e790-41c5-832b-d04220d43ef4) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with .
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
+## Technologies Used
+- React (with TypeScript)
+- React Router
+- Framer Motion (animations)
+- Supabase (backend/database)
 - Tailwind CSS
+- react-helmet-async (SEO)
 
-## How can I deploy this project?
+## Getting Started
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+2. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
+3. **Build for production:**
+   ```bash
+   npm run build
+   ```
 
-Simply open [Lovable](https://lovable.dev/projects/bffdfa7d-e790-41c5-832b-d04220d43ef4) and click on Share -> Publish.
+## Deployment
+You can deploy this website to Netlify, Vercel, or any static hosting provider. Make sure to configure environment variables for Supabase and other integrations as needed.
 
-## I want to use a custom domain - is that possible?
+## Customization
+- Update content in the `src/pages` and `src/data` directories.
+- Adjust SEO settings in `src/utils/seo/config.ts` and `src/components/SEO.tsx`.
+- Replace images in the `public/lovable-uploads` directory.
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+## License
+This project is licensed under the MIT License.
+
+---
+For inquiries, visit [drewversedesign.online](https://drewversedesign.online) or contact us via the website's contact form.
